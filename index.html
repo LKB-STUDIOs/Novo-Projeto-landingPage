@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LBK Studio — Sites e sistemas sob medida</title>
+  <meta name="description" content="LBK Studio cria sites, sistemas e microsites por nicho para empresas de micro a grande porte.">
+  <meta name="theme-color" content="#07080c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#topo" class="logo"><span class="logo-mark">LBK</span><span class="logo-text">studio</span></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#nichos">Nichos</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#contato" class="btn btn-sm">Fale com a gente</a>
+    </nav>
+  </header>
+
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="hero" id="topo">
+      <div class="hero-inner">
+        <p class="eyebrow hero-fade">Sites · Sistemas · Microsites por nicho</p>
+        <h1 class="hero-title">
+          <span class="line"><span>Construímos</span></span>
+          <span class="line"><span>o digital do</span></span>
+          <span class="line"><span class="accent">seu negócio.</span></span>
+        </h1>
+        <p class="hero-sub hero-fade">Do pequeno comércio à indústria: criamos sites que vendem e sistemas que organizam a operação.</p>
+        <div class="hero-cta hero-fade">
+          <a href="#projetos" class="btn">Ver projetos</a>
+          <a href="#contato" class="btn btn-ghost">Pedir orçamento</a>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span>role</span><i></i></div>
+    </section>
+
+    <!-- 2. MANIFESTO (texto revelado pelo scroll) -->
+    <section class="manifesto">
+      <p class="manifesto-text" data-reveal>
+        Cada empresa tem um jeito de trabalhar. Por isso não vendemos modelos prontos: estudamos o seu nicho, desenhamos a experiência e entregamos tecnologia que o seu time usa de verdade.
+      </p>
+    </section>
+
+    <!-- 3. PROCESSO (cena fixada, tipo vídeo) -->
+    <section class="process">
+      <div class="process-pin">
+        <div class="process-counter"><span class="pc-current">01</span><span class="pc-total">/ 03</span></div>
+        <div class="process-steps">
+          <article class="step">
+            <p class="eyebrow">Etapa 01</p>
+            <h2>Descoberta</h2>
+            <p>Entendemos o seu processo, seus clientes e onde o digital gera mais resultado.</p>
+          </article>
+          <article class="step">
+            <p class="eyebrow">Etapa 02</p>
+            <h2>Design</h2>
+            <p>Protótipos navegáveis antes de qualquer linha de código. Você aprova cada tela.</p>
+          </article>
+          <article class="step">
+            <p class="eyebrow">Etapa 03</p>
+            <h2>Código & entrega</h2>
+            <p>Desenvolvimento, publicação e suporte. Seu site ou sistema no ar e evoluindo.</p>
+          </article>
+        </div>
+        <div class="process-bar"><span></span></div>
+      </div>
+    </section>
+
+    <!-- 4. NICHOS (scroll horizontal) -->
+    <section class="niches" id="nichos">
+      <div class="niches-pin">
+        <div class="niches-head">
+          <p class="eyebrow">Microsites por nicho</p>
+          <h2>Uma vitrine para<br>cada tipo de negócio.</h2>
+        </div>
+        <div class="niches-track">
+          <a class="niche-card live" href="projetos/ferrus/" style="--c:#7cf2c4">
+            <span class="niche-num">01</span>
+            <span class="niche-tag">No ar</span>
+            <h3>Indústria</h3>
+            <p>Sistemas de produção, qualidade e indicadores para o chão de fábrica.</p>
+            <span class="niche-link">Ver Ferrus OS →</span>
+          </a>
+          <a class="niche-card live" href="projetos/brisa/" style="--c:#ffb86b">
+            <span class="niche-num">02</span>
+            <span class="niche-tag">No ar</span>
+            <h3>Imobiliário & temporada</h3>
+            <p>Vitrines de imóveis integradas ao Airbnb para aluguel por temporada.</p>
+            <span class="niche-link">Ver Brisa Temporadas →</span>
+          </a>
+          <div class="niche-card" style="--c:#8fb4ff">
+            <span class="niche-num">03</span>
+            <span class="niche-tag soon">Em breve</span>
+            <h3>Saúde & clínicas</h3>
+            <p>Agendamento online, páginas de especialidades e área do paciente.</p>
+          </div>
+          <div class="niche-card" style="--c:#ff8fab">
+            <span class="niche-num">04</span>
+            <span class="niche-tag soon">Em breve</span>
+            <h3>Restaurantes</h3>
+            <p>Cardápio digital, pedidos e reservas direto no seu site.</p>
+          </div>
+          <div class="niche-card" style="--c:#d6a8ff">
+            <span class="niche-num">05</span>
+            <span class="niche-tag soon">Em breve</span>
+            <h3>Varejo & e-commerce</h3>
+            <p>Lojas virtuais rápidas, catálogo e integração com WhatsApp.</p>
+          </div>
+          <div class="niche-card" style="--c:#f4f48a">
+            <span class="niche-num">06</span>
+            <span class="niche-tag soon">Em breve</span>
+            <h3>Serviços</h3>
+            <p>Escritórios, academias, oficinas: presença digital e captação de clientes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PROJETOS -->
+    <section class="projects" id="projetos">
+      <div class="section-head">
+        <p class="eyebrow">Projetos em destaque</p>
+        <h2>O que já construímos.</h2>
+      </div>
+
+      <article class="project" style="--c:#7cf2c4">
+        <div class="project-media">
+          <div class="mock mock-app">
+            <div class="mock-bar"><i></i><i></i><i></i><span>ferrus.app / painel</span></div>
+            <div class="mock-body">
+              <aside class="mock-side"><b></b><b></b><b></b><b></b><b></b></aside>
+              <div class="mock-main">
+                <div class="mock-kpis"><span></span><span></span><span></span><span></span></div>
+                <div class="mock-chart">
+                  <i style="--h:45%"></i><i style="--h:62%"></i><i style="--h:38%"></i><i style="--h:75%"></i><i style="--h:58%"></i><i style="--h:88%"></i><i style="--h:70%"></i><i style="--h:92%"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="eyebrow">Sistema · Indústria</p>
+          <h3>Ferrus OS</h3>
+          <p>Sistema de gestão industrial: apontamento de produção por setor e filial, qualidade, não conformidades, calibração de instrumentos, indicadores e controle de usuários.</p>
+          <ul class="chips"><li>Produção</li><li>Qualidade</li><li>KPIs</li><li>Multi-filial</li></ul>
+          <a href="projetos/ferrus/" class="btn">Abrir demonstração</a>
+        </div>
+      </article>
+
+      <article class="project reverse" style="--c:#ffb86b">
+        <div class="project-media">
+          <div class="mock mock-site">
+            <div class="mock-bar"><i></i><i></i><i></i><span>brisatemporadas.com.br</span></div>
+            <div class="mock-hero"><span></span><span></span><em></em></div>
+            <div class="mock-cards"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="eyebrow">Site · Imobiliário</p>
+          <h3>Brisa Temporadas</h3>
+          <p>Vitrine de imóveis para temporada com filtros, galeria e detalhes de cada casa. A reserva acontece no Airbnb, com a segurança e o pagamento da plataforma.</p>
+          <ul class="chips"><li>Vitrine</li><li>Filtros</li><li>Airbnb</li><li>Mobile</li></ul>
+          <a href="projetos/brisa/" class="btn">Abrir site</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- 6. NÚMEROS -->
+    <section class="numbers">
+      <div class="num"><strong data-count="6">0</strong><span>nichos atendidos</span></div>
+      <div class="num"><strong data-count="100" data-suffix="%">0</strong><span>responsivo</span></div>
+      <div class="num"><strong data-count="3">0</strong><span>sócios dedicados</span></div>
+      <div class="num"><strong data-count="24" data-suffix="h">0</strong><span>para responder</span></div>
+    </section>
+
+    <!-- 7. EQUIPE -->
+    <section class="team" id="equipe">
+      <div class="section-head">
+        <p class="eyebrow">Quem faz</p>
+        <h2>Três sócios, um time.</h2>
+      </div>
+      <div class="team-grid">
+        <article class="member"><div class="avatar">L</div><h3>Lahel</h3><p>Sistemas & back-end</p></article>
+        <article class="member"><div class="avatar">B</div><h3>Bruno</h3><p>Design & front-end</p></article>
+        <article class="member"><div class="avatar">K</div><h3>Kenni</h3><p>Negócios & atendimento</p></article>
+      </div>
+    </section>
+
+    <!-- 8. CONTATO -->
+    <section class="contact" id="contato">
+      <h2 class="contact-title">Vamos construir<br><span class="accent">o seu?</span></h2>
+      <p>Conte sobre o seu negócio. Respondemos em até 24 horas com uma proposta.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20quero%20um%20or%C3%A7amento" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:contato@lbkstudio.com.br">contato@lbkstudio.com.br</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="ano"></span> LBK Studio</span>
+    <span>Lahel · Bruno · Kenni</span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="assets/js/particles.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

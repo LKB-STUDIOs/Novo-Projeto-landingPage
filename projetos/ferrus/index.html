@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ferrus OS — Gestão industrial</title>
+  <meta name="description" content="Demonstração do Ferrus OS: produção, qualidade e indicadores para a indústria. Projeto LBK Studio.">
+  <meta name="theme-color" content="#0f1720">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <!-- ============ LOGIN ============ -->
+  <section class="login" id="login">
+    <div class="login-art" aria-hidden="true">
+      <div class="login-grid"></div>
+      <div class="login-quote">
+        <span class="brand-mark lg">Fe</span>
+        <h2>Toda a fábrica<br>em uma tela.</h2>
+        <p>Produção, qualidade e indicadores em tempo real, em todas as unidades.</p>
+      </div>
+    </div>
+    <form class="login-card" id="loginForm">
+      <div class="brand"><span class="brand-mark">Fe</span><b>Ferrus</b><small>OS</small></div>
+      <h1>Entrar</h1>
+      <p class="muted">Ambiente de demonstração. Use qualquer e-mail e senha.</p>
+      <label>E-mail<input type="email" name="email" value="demo@aurora.ind.br" required></label>
+      <label>Senha<input type="password" name="senha" value="demonstracao" required></label>
+      <button class="btn primary" type="submit">Acessar painel</button>
+      <a class="muted small" href="../../">← Voltar ao portfólio LBK Studio</a>
+    </form>
+  </section>
+
+  <!-- ============ APP ============ -->
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">Fe</span><b>Ferrus</b><small>OS</small></div>
+      <label class="unit-select">Unidade
+        <select id="unit">
+          <option value="todas">Todas as unidades</option>
+          <option>Unidade Norte</option>
+          <option>Unidade Sul</option>
+          <option>Unidade Vale</option>
+        </select>
+      </label>
+      <nav class="menu">
+        <button data-view="painel" class="active"><i>▦</i>Painel</button>
+        <button data-view="apontamento"><i>＋</i>Apontar produção</button>
+        <button data-view="registros"><i>☰</i>Registros</button>
+        <button data-view="qualidade"><i>◎</i>Qualidade</button>
+        <button data-view="calibracao"><i>⌖</i>Calibração</button>
+        <button data-view="usuarios"><i>☺</i>Usuários <span class="badge" id="pendBadge"></span></button>
+      </nav>
+      <div class="side-foot">
+        <div class="me"><span>MA</span><div><b>Marina Alves</b><small>Gestora de qualidade</small></div></div>
+        <button class="link" id="logout">Sair</button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+        <div>
+          <p class="crumb" id="crumb">Metalúrgica Aurora</p>
+          <h1 id="viewTitle">Painel</h1>
+        </div>
+        <div class="top-actions">
+          <span class="live"><i></i>Ao vivo</span>
+          <button class="btn" id="resetDemo" title="Restaurar os dados de exemplo">Restaurar demo</button>
+        </div>
+      </header>
+
+      <!-- PAINEL -->
+      <section class="view" data-view="painel">
+        <div class="kpis" id="kpis"></div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h3>Produção por setor</h3><span class="muted small">peças aprovadas · últimos 7 dias</span></div>
+            <div id="chartSetores" class="chart"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Índice de aprovação</h3><span class="muted small">% por dia</span></div>
+            <div id="chartAprov" class="chart"></div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head"><h3>Principais defeitos</h3><span class="muted small">ocorrências</span></div>
+            <ul class="defects" id="defects"></ul>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Últimos apontamentos</h3><button class="link" data-goto="registros">Ver todos →</button></div>
+            <div class="table-wrap"><table class="table compact" id="recent"></table></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APONTAMENTO -->
+      <section class="view" data-view="apontamento" hidden>
+        <form class="card form" id="prodForm">
+          <div class="card-head"><h3>Novo apontamento de produção</h3><span class="muted small">os campos com * são obrigatórios</span></div>
+          <div class="form-grid">
+            <label>Unidade *<select name="unidade" required><option>Unidade Norte</option><option>Unidade Sul</option><option>Unidade Vale</option></select></label>
+            <label>Setor *<select name="setor" required id="setorSelect"></select></label>
+            <label>Ordem de produção *<input name="op" required placeholder="Ex.: OP-24871"></label>
+            <label>Código da peça *<input name="codigo" required placeholder="Ex.: AUR-3320"></label>
+            <label>Data *<input type="date" name="data" required></label>
+            <label>Operador *<input name="operador" required placeholder="Nome do operador"></label>
+            <label>Quantidade inspecionada *<input type="number" min="1" name="inspecionada" required></label>
+            <label>Quantidade reprovada *<input type="number" min="0" name="reprovada" required value="0"></label>
+          </div>
+          <fieldset class="defect-pick">
+            <legend>Defeitos encontrados</legend>
+            <div id="defectPick" class="chips"></div>
+          </fieldset>
+          <label class="full">Observações<textarea name="obs" rows="3" placeholder="Algo que a qualidade precisa saber?"></textarea></label>
+          <div class="form-foot">
+            <p class="muted small" id="calcInfo">Aprovadas: —</p>
+            <button class="btn primary" type="submit">Salvar apontamento</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- REGISTROS -->
+      <section class="view" data-view="registros" hidden>
+        <div class="card">
+          <div class="filters">
+            <input type="search" id="search" placeholder="Buscar por OP, código ou operador">
+            <select id="filterSetor"><option value="">Todos os setores</option></select>
+            <button class="btn" id="exportCsv">Exportar CSV</button>
+          </div>
+          <div class="table-wrap"><table class="table" id="records"></table></div>
+        </div>
+      </section>
+
+      <!-- QUALIDADE -->
+      <section class="view" data-view="qualidade" hidden>
+        <div class="kpis small-kpis" id="ncKpis"></div>
+        <div class="card">
+          <div class="card-head"><h3>Não conformidades</h3><button class="btn primary" id="newNc">Abrir NC</button></div>
+          <div class="table-wrap"><table class="table" id="ncTable"></table></div>
+        </div>
+      </section>
+
+      <!-- CALIBRAÇÃO -->
+      <section class="view" data-view="calibracao" hidden>
+        <div class="card">
+          <div class="card-head"><h3>Instrumentos de medição</h3><span class="muted small">vencimento da calibração</span></div>
+          <div class="table-wrap"><table class="table" id="calTable"></table></div>
+        </div>
+      </section>
+
+      <!-- USUÁRIOS -->
+      <section class="view" data-view="usuarios" hidden>
+        <div class="card">
+          <div class="card-head"><h3>Aguardando liberação</h3></div>
+          <div id="pending" class="pending"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Usuários ativos</h3></div>
+          <div class="table-wrap"><table class="table" id="userTable"></table></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <dialog id="ncDialog">
+    <form method="dialog" class="form" id="ncForm">
+      <h3>Abrir não conformidade</h3>
+      <label>Setor<select name="setor" id="ncSetor"></select></label>
+      <label>Descrição<textarea name="desc" rows="3" required placeholder="O que aconteceu?"></textarea></label>
+      <label>Gravidade<select name="grav"><option>Baixa</option><option selected>Média</option><option>Alta</option></select></label>
+      <div class="form-foot">
+        <button class="btn" value="cancel" formnovalidate>Cancelar</button>
+        <button class="btn primary" value="ok">Abrir NC</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
