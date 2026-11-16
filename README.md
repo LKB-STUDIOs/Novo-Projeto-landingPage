@@ -8,7 +8,8 @@ Site da **LBK Studio** (Lahel, Bruno e Kenni): um portfólio principal com anima
 index.html                 → portfólio principal (GSAP + ScrollTrigger)
 assets/css/main.css        → estilos do portfólio
 assets/js/main.js          → animações de scroll (linha do tempo da página)
-assets/js/particles.js     → cena de partículas 3D que muda de forma com o scroll
+assets/js/scene3d.js       → cena 3D em WebGL (Three.js): partículas, câmera e formas flutuantes
+assets/js/particles.js     → versão 2D da cena, usada se o navegador não tiver WebGL
 
 projetos/ferrus/           → Ferrus OS — sistema de gestão industrial (demo)
 projetos/brisa/            → Brisa Temporadas — imóveis para temporada com reserva no Airbnb
@@ -18,7 +19,7 @@ projetos/brisa/imoveis.js  → lista de imóveis (edite aqui)
 ## Projetos
 
 ### Portfólio principal
-Página que funciona como um vídeo controlado pela rolagem. Uma nuvem de partículas se transforma em esfera, onda, gráfico de barras, casa e anel, enquanto as seções aparecem:
+Página 3D que funciona como um vídeo controlado pela rolagem. Uma cena em WebGL (Three.js) tem câmera que mergulha e voa pela cena, milhares de partículas que viram esfera, onda, gráfico de barras, casa e anel, formas geométricas flutuando em profundidade e reação ao mouse. Textos, cards e telas dos projetos também giram em 3D:
 hero → manifesto revelado palavra por palavra → processo em 3 etapas (cena fixada) → nichos em scroll horizontal → projetos → números → equipe → contato.
 
 Usuários com "reduzir movimento" ativado no sistema veem a página sem as cenas fixadas.

@@ -123,7 +123,8 @@
   // pequeno ruído individual para dar vida
   const jitter = Array.from({ length: N }, () => [rand(0, 6.28), rand(0.5, 1.5)]);
 
-  const Scene = { morph: 0, offsetX: 0.28, spin: 0, dim: 1 };
+  const Scene = window.Scene || {};
+  for (const [k, v] of Object.entries({ morph: 0, offsetX: 0.28, spin: 0, dim: 1 })) if (!(k in Scene)) Scene[k] = v;
   window.Scene = Scene;
 
   let w, h, dpr;

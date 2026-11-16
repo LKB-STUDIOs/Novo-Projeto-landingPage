@@ -225,3 +225,35 @@ main, .footer, .nav { position: relative; z-index: 2; }
   .scroll-hint i { animation: none; }
   .manifesto-text .w { opacity: 1; }
 }
+
+/* ---------- 3D ---------- */
+.hero { perspective: 1200px; }
+.hero-inner { transform-origin: 50% 100%; will-change: transform; }
+.hero-title { perspective: 800px; }
+.hero-title .line > span { transform-origin: 50% 100%; }
+.manifesto-text { perspective: 900px; }
+.manifesto-text .w { display: inline-block; transform-origin: 50% 100%; }
+.process-steps { perspective: 1000px; }
+.step { transform-origin: 50% 50% -120px; backface-visibility: hidden; }
+.niches-pin { perspective: 1400px; }
+.niches-track { transform-style: preserve-3d; }
+.niche-card { transform-style: preserve-3d; will-change: transform; }
+.niche-card h3, .niche-num { transform: translateZ(40px); }
+.niches-head { perspective: 800px; }
+.project-media { perspective: 1400px; }
+.mock-tilt { position: relative; transform-style: preserve-3d; will-change: transform; }
+.mock-tilt .mock { transform-style: preserve-3d; }
+.glare {
+  position: absolute; inset: 0; border-radius: 16px; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .16), transparent 45%);
+}
+.project-media:hover .glare { opacity: 1; }
+.team-grid { perspective: 1200px; }
+.member { transform-style: preserve-3d; position: relative; overflow: hidden; }
+.member::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(198, 255, 74, .12), transparent 50%);
+}
+.member:hover::after { opacity: 1; }
+.member .avatar { transform: translateZ(30px); }
+.contact { perspective: 1000px; }
