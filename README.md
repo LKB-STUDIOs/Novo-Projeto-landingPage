@@ -1,61 +1,61 @@
-# LBK Studio — Portfólio e microsites
+# LBK Studio: site e microsites
 
-Site da **LBK Studio** (Lahel, Bruno e Kenni): um portfólio principal com animação de scroll e, dentro dele, microsites separados por nicho para mostrar o que fazemos a clientes de micro a grande porte.
+Site da **LBK Studio** (Lahel, Bruno e Kenni) em **React 19 + Vite 8 + TypeScript**, com animações em **GSAP**, **Motion** e **Three.js** (React Three Fiber).
+
+## Rodar
+
+```bash
+npm ci           # instala exatamente as versões do package-lock
+npm run dev      # http://localhost:5173
+npm test         # testes
+npm run build    # gera a pasta dist/
+npm run preview  # testa o build localmente
+```
+
+Requer Node 20.19 ou mais recente.
+
+## Páginas
+
+| Rota | O que é |
+|---|---|
+| `/` | Portfólio: cena 3D guiada pela rolagem, serviços, processo, nichos, projetos, segurança, equipe e contato |
+| `/projetos/ferrus` | **Ferrus OS**: demonstração do sistema de gestão industrial (dados fictícios, salvos só no navegador) |
+| `/projetos/brisa` | **Brisa Temporadas**: vitrine de imóveis com reserva no Airbnb |
+
+Cada página é baixada só quando o visitante abre. O Three.js (a parte mais pesada) carrega depois que a página já apareceu.
 
 ## Estrutura
 
 ```
-index.html                 → portfólio principal (GSAP + ScrollTrigger)
-assets/css/main.css        → estilos do portfólio
-assets/js/main.js          → animações de scroll (linha do tempo da página)
-assets/js/scene3d.js       → cena 3D em WebGL (Three.js): partículas, câmera e formas flutuantes
-assets/js/particles.js     → versão 2D da cena, usada se o navegador não tiver WebGL
-
-projetos/ferrus/           → Ferrus OS — sistema de gestão industrial (demo)
-projetos/brisa/            → Brisa Temporadas — imóveis para temporada com reserva no Airbnb
-projetos/brisa/imoveis.js  → lista de imóveis (edite aqui)
+src/main.tsx              rotas
+src/pages/Home.tsx        página principal + coreografia de scroll (GSAP ScrollTrigger)
+src/pages/home.css        visual da página principal
+src/sections/             seções da página principal
+src/components/           nav, cursor, preloader, botões magnéticos, WhatsApp flutuante…
+src/three/                cena 3D (partículas que mudam de forma, formas flutuantes)
+src/lib/contato.ts        número do WhatsApp e montagem segura dos links
+src/pages/ferrus/         Ferrus OS
+src/pages/brisa/          Brisa Temporadas (imóveis em imoveis.ts)
 ```
 
-## Projetos
+**Trocar o WhatsApp:** edite `src/lib/contato.ts`. Todos os botões usam esse arquivo.
+**Trocar imóveis da Brisa:** edite `src/pages/brisa/imoveis.ts` e, no campo `airbnb`, cole o link do anúncio real.
 
-### Portfólio principal
-Página 3D que funciona como um vídeo controlado pela rolagem. Uma cena em WebGL (Three.js) tem câmera que mergulha e voa pela cena, milhares de partículas que viram esfera, onda, gráfico de barras, casa e anel, formas geométricas flutuando em profundidade e reação ao mouse. Textos, cards e telas dos projetos também giram em 3D:
-hero → manifesto revelado palavra por palavra → processo em 3 etapas (cena fixada) → nichos em scroll horizontal → projetos → números → equipe → contato.
+## Segurança
 
-Usuários com "reduzir movimento" ativado no sistema veem a página sem as cenas fixadas.
+O site não tem back-end, login real nem formulário que envie dados. O formulário de contato só monta a mensagem e abre o WhatsApp.
 
-### Ferrus OS (nicho: Indústria)
-Versão nova, com outro nome e outra identidade visual, do nosso sistema de controle de produção e qualidade. Cliente fictício: *Metalúrgica Aurora*.
-- Login de demonstração (aceita qualquer e-mail e senha)
-- Painel com indicadores, produção por setor, índice de aprovação e principais defeitos
-- Apontamento de produção por unidade e setor, com defeitos e cálculo de aprovação
-- Registros com busca, filtro e exportação em CSV
-- Não conformidades (abrir e avançar status)
-- Calibração de instrumentos com alerta de vencimento
-- Liberação de novos usuários
+- **Content-Security-Policy** restrita, injetada no build: só scripts, estilos e fontes do próprio site, sem `eval`, sem scripts inline, sem iframes.
+- **Cabeçalhos HTTP** prontos em `public/_headers` (Netlify e Cloudflare Pages) e `vercel.json`: HSTS, anti-clickjacking, `nosniff`, Permissions-Policy.
+- **Fontes hospedadas no próprio site**: nenhuma chamada ao Google Fonts, o que é melhor para a LGPD e para a velocidade.
+- **Links externos** com `rel="noopener noreferrer"`. A mensagem do WhatsApp passa por limpeza: remove caracteres invisíveis e limita o tamanho.
+- **Exportação CSV do Ferrus** protegida contra injeção de fórmulas no Excel.
+- **Dependências**: versões fixas no `package-lock.json`, instaladas só se publicadas há pelo menos uma semana (proteção contra pacotes comprometidos). `npm audit --omit=dev` roda no deploy.
+  - Aviso conhecido: o `picomatch`, usado só pelas ferramentas de build, tem um alerta de lentidão (ReDoS) ainda sem correção publicada. Ele não vai para o site.
 
-Os dados são fictícios e ficam salvos no navegador. Para virar produto, a camada de dados passa a chamar a API do back-end.
+O GitHub Pages não permite configurar cabeçalhos HTTP. Para ter HSTS e anti-clickjacking de verdade, publique na **Vercel**, **Netlify** ou **Cloudflare Pages**: os arquivos já estão prontos.
 
-### Brisa Temporadas (nicho: Imobiliário)
-Vitrine de imóveis para temporada no litoral de SC, com busca, filtros e página de detalhes de cada imóvel. O botão **Reservar no Airbnb** leva ao anúncio.
-- Para trocar ou adicionar imóveis, edite `projetos/brisa/imoveis.js`.
-- No campo `airbnb`, cole o link real do anúncio (`https://www.airbnb.com.br/rooms/...`). Enquanto estiver vazio, o botão abre a busca do Airbnb na cidade.
+## Publicação
 
-## O que trocar antes de publicar
-- Número de WhatsApp: procure por `5500000000000` nos arquivos HTML e JS.
-- E-mail de contato em `index.html`.
-- Nome da agência (LBK Studio), se quiserem outro.
-- Fotos dos imóveis: hoje vêm do Unsplash. O ideal é usar fotos reais na pasta `assets/img`.
-
-## Rodar localmente
-Não precisa instalar nada. Na pasta do projeto:
-
-```bash
-python3 -m http.server 8000
-```
-
-Depois abra http://localhost:8000.
-
-## Publicar grátis (GitHub Pages)
-No GitHub, vá em **Settings → Pages**, escolha **Deploy from a branch**, branch `main`, pasta `/ (root)` e salve. Em alguns minutos o site fica no ar em
-`https://lahelandim.github.io/Novo-Projeto-landingPage/`.
+- **GitHub Pages**: em Settings → Pages, escolha **Source: GitHub Actions**. A cada push na `main`, o workflow testa, gera e publica.
+- **Vercel, Netlify ou Cloudflare**: importe o repositório, use o comando `npm run build` e a pasta `dist`. Sem `BASE_PATH`, o site fica na raiz do domínio.
