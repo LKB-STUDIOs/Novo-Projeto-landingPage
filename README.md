@@ -58,4 +58,5 @@ O GitHub Pages não permite configurar cabeçalhos HTTP. Para ter HSTS e anti-cl
 ## Publicação
 
 - **GitHub Pages**: em Settings → Pages, escolha **Source: GitHub Actions**. A cada push na `main`, o workflow testa, gera e publica.
+- **Render** (recomendado): New → **Blueprint** → escolha este repositório → **Apply**. O `render.yaml` já configura o build, as rotas e os cabeçalhos de segurança.
 - **Vercel, Netlify ou Cloudflare**: importe o repositório, use o comando `npm run build` e a pasta `dist`. Sem `BASE_PATH`, o site fica na raiz do domínio.
