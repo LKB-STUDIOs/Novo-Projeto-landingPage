@@ -8,6 +8,12 @@ const Home = lazy(() => import("./pages/Home"));
 const Ferrus = lazy(() => import("./pages/ferrus/Ferrus"));
 const Brisa = lazy(() => import("./pages/brisa/Brisa"));
 const NaoEncontrada = lazy(() => import("./pages/NaoEncontrada"));
+const CursosLayout = lazy(() => import("./pages/cursos/CursosLayout"));
+const Catalogo = lazy(() => import("./pages/cursos/Catalogo"));
+const Entrar = lazy(() => import("./pages/cursos/Entrar"));
+const MinhaArea = lazy(() => import("./pages/cursos/MinhaArea"));
+const Curso = lazy(() => import("./pages/cursos/Curso"));
+const Aula = lazy(() => import("./pages/cursos/Aula"));
 
 function Layout() {
   return (
@@ -29,6 +35,17 @@ const router = createBrowserRouter(
         { index: true, element: <Home /> },
         { path: "projetos/ferrus", element: <Ferrus /> },
         { path: "projetos/brisa", element: <Brisa /> },
+        {
+          path: "cursos",
+          element: <CursosLayout />,
+          children: [
+            { index: true, element: <Catalogo /> },
+            { path: "entrar", element: <Entrar /> },
+            { path: "minha-area", element: <MinhaArea /> },
+            { path: ":slug", element: <Curso /> },
+            { path: ":slug/aula/:aulaId", element: <Aula /> },
+          ],
+        },
         { path: "*", element: <NaoEncontrada /> },
       ],
     },
