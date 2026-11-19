@@ -27,5 +27,5 @@ jobs:
             echo "::error::Segredo RENDER_DEPLOY_HOOK_URL não configurado"
             exit 1
           fi
-          curl -fsS --max-retries 0 --max-time 30 -X POST "${RENDER_DEPLOY_HOOK_URL}&ref=${GITHUB_SHA}" > /dev/null
+          curl -fsS --max-time 30 -X POST "${RENDER_DEPLOY_HOOK_URL}&ref=${GITHUB_SHA}" > /dev/null
           echo "Render avisado para publicar ${GITHUB_SHA::7}"
