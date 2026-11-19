@@ -1,6 +1,9 @@
 import { Link } from "react-router";
 import { SetaDiagonal } from "../components/Icones";
 
+/** Página estática (public/casa-beulah-park/): fica fora do app React, então é um link normal. */
+const CASA_BEULAH_PARK = `${import.meta.env.BASE_URL}casa-beulah-park/`;
+
 export function Projetos() {
   return (
     <section className="projetos" id="projetos">
@@ -57,6 +60,26 @@ export function Projetos() {
           </p>
           <ul className="chips"><li>Vitrine</li><li>Filtros</li><li>Airbnb</li><li>Mobile</li></ul>
           <Link to="/projetos/brisa" className="btn btn-cor">Abrir site <SetaDiagonal /></Link>
+        </div>
+      </article>
+
+      <article className="projeto" style={{ ["--c" as string]: "#e7c487" }}>
+        <a href={CASA_BEULAH_PARK} className="projeto-midia" data-cursor="ver" aria-label="Abrir o site Casa em Beulah Park">
+          <div className="mock mock-site">
+            <div className="mock-barra"><i /><i /><i /><span>casa-beulah-park</span></div>
+            <div className="mock-hero"><span /><span /><em /></div>
+            <div className="mock-cards"><span /><span /><span /></div>
+          </div>
+        </a>
+        <div className="projeto-info">
+          <p className="eyebrow">Site · Imobiliário</p>
+          <h3>Casa em Beulah Park</h3>
+          <p>
+            Página de um imóvel com tour em vídeo que acompanha a rolagem: a câmera entra em cada ambiente e, depois,
+            cada item da casa é detalhado com pontos numerados e cenas de perto.
+          </p>
+          <ul className="chips"><li>Tour em vídeo</li><li>Detalhes por ambiente</li><li>Rolagem</li><li>Mobile</li></ul>
+          <a href={CASA_BEULAH_PARK} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
         </div>
       </article>
     </section>
