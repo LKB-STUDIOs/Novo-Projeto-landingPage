@@ -212,16 +212,59 @@ gsap.registerPlugin(ScrollTrigger);
 $('#wa').href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.mensagem)}`;
 
 /* navegação */
-const NAVS=[['cozinha','Cozinha'],['jantar','Jantar'],['estar','Estar'],['suite','Suíte'],['banhoc','Banheiros'],['dorm2','Quarto'],['alf','Área externa']];
+const NAVS=[['cozinha','Cozinha'],['jantar','Jantar'],['estar','Estar'],['suite','Suíte'],['banhoc','Banheiros'],['dorm2','Quarto'],['alf','Área externa'],['reservar','Reservar']];
 NAVS.forEach(([id,n])=>$('#navLinks').insertAdjacentHTML('beforeend',`<li><a href="#${id}">${n}</a></li>`));
 ScrollTrigger.create({trigger:'.facts',start:'top 70px',end:'max',toggleClass:{targets:'#nav',className:'solid'}});
 
-/* =====================  cômodos  ===================== */
+/* =====================  cômodos (setas com o nome de cada item)  ===================== */
 const IMG_AR=16/9, TILE_AR=4/3, W=TILE_AR/IMG_AR;   // fração visível da largura numa tile 4:3
 const roomsEl = $('#rooms');
+const LH=96, GAP=8, NS='http://www.w3.org/2000/svg';
+const svgEl=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+/* Posiciona os rótulos nas laterais e desenha as setas até cada ponto da foto. */
+function layoutAnnot(a){
+  const {A,pic,svg,cols,labs,spots}=a;
+  const flat=innerWidth<900;
+  A.classList.toggle('flat',flat);
+  svg.replaceChildren(); a.lines=[];
+  if(flat){ labs.forEach(l=>l.remove()); cols.L.style.height=cols.R.style.height=''; return; }
+  const order=spots.map((s,i)=>i).sort((i,j)=>spots[i].x-spots[j].x);
+  const half=Math.ceil(order.length/2), left=order.slice(0,half), right=order.slice(half);
+  cols.L.append(...left.map(i=>labs[i])); cols.R.append(...right.map(i=>labs[i]));
+  const figH=A.querySelector('.figwrap').offsetHeight;
+  const need=Math.max(left.length,right.length)*(LH+GAP)-GAP;
+  const H=Math.max(figH,need);
+  cols.L.style.height=cols.R.style.height=H+'px';
+  const ar=A.getBoundingClientRect(), pr=pic.getBoundingClientRect();
+  svg.setAttribute('width',ar.width); svg.setAttribute('height',ar.height); svg.setAttribute('viewBox',`0 0 ${ar.width} ${ar.height}`);
+  const place=(ids,col,side)=>{
+    const cr=col.getBoundingClientRect(), colTop=cr.top-ar.top;
+    const its=ids.map(i=>({i,px:pr.left-ar.left+spots[i].x/100*pr.width,py:pr.top-ar.top+spots[i].y/100*pr.height})).sort((p,q)=>p.py-q.py);
+    let tops=its.map(o=>Math.min(Math.max(o.py-colTop-LH/2,0),H-LH));
+    for(let k=1;k<tops.length;k++) tops[k]=Math.max(tops[k],tops[k-1]+LH+GAP);
+    tops[tops.length-1]=Math.min(tops[tops.length-1],H-LH);          // o último não passa do fim da coluna
+    for(let k=tops.length-2;k>=0;k--) tops[k]=Math.min(tops[k],tops[k+1]-LH-GAP);
+    its.forEach((o,k)=>{
+      const l=labs[o.i]; l.style.top=tops[k]+'px'; l.style.height=LH+'px';
+      const ax=side==='L'?cr.right-ar.left:cr.left-ar.left, ay=colTop+tops[k]+LH/2;
+      const dx=o.px-ax, dy=o.py-ay, len=Math.hypot(dx,dy)||1, ux=dx/len, uy=dy/len;
+      const ex=o.px-ux*15, ey=o.py-uy*15, nx=-uy, ny=ux;           // a seta termina na borda do ponto
+      const g=svgEl('g',{class:'ln-g','data-i':o.i});
+      g.append(svgEl('line',{class:'ln-halo',x1:ax,y1:ay,x2:ex,y2:ey}),
+               svgEl('line',{class:'ln',x1:ax,y1:ay,x2:ex,y2:ey}),
+               svgEl('circle',{class:'ln-dot',cx:ax,cy:ay,r:3.5}),
+               svgEl('path',{class:'ah',d:`M${ex},${ey} L${ex-ux*11+nx*5},${ey-uy*11+ny*5} L${ex-ux*11-nx*5},${ey-uy*11-ny*5} Z`}));
+      svg.append(g); a.lines[o.i]=g;
+    });
+  };
+  place(left,cols.L,'L'); place(right,cols.R,'R');
+}
+
+const annots=[];
 ROOMS.forEach((r,ri)=>{
   const sec=document.createElement('section'); sec.className='room'; sec.id=r.id;
-  const pins=r.spots.map((s,i)=>`<button class="pin ${s.x>66?'l':(s.x<30?'r':'')} ${s.y<14?'d':''}" style="left:${s.x}%;top:${s.y}%" data-i="${i}" aria-label="${esc(s.t)}">${i+1}<span class="tip">${esc(s.t)}</span></button>`).join('');
+  const pins=r.spots.map((s,i)=>`<button class="pin" style="left:${s.x}%;top:${s.y}%" data-i="${i}" aria-label="${esc(s.t)}">${i+1}</button>`).join('');
   const items=r.spots.map((s,i)=>`<li data-i="${i}" tabindex="0"><b>${esc(s.t)}</b><span>${esc(s.d)}</span></li>`).join('');
   const macros=r.macros.map((m,i)=>{
     // posição do recorte: centraliza o ponto (x,y) numa tile 4:3
@@ -231,28 +274,45 @@ ROOMS.forEach((r,ri)=>{
   }).join('');
   sec.innerHTML=`<div class="in">
     <header class="rhead rv"><span class="num">${String(ri+1).padStart(2,'0')}</span><h2>${esc(r.nome)}</h2><p>${esc(r.lead)}</p></header>
-    <div class="stage">
-      <div class="figwrap rv"><figure class="pic"><img src="${img(r.hero)}" width="1920" height="1080" alt="${esc(r.nome)}" loading="${ri<2?'eager':'lazy'}" decoding="async">${pins}</figure></div>
-      <ol class="items rv">${items}</ol>
+    <div class="annot">
+      <div class="col L"></div>
+      <div class="figwrap"><figure class="pic"><img src="${img(r.hero)}" width="1920" height="1080" alt="${esc(r.nome)}" loading="${ri<2?'eager':'lazy'}" decoding="async">${pins}</figure></div>
+      <div class="col R"></div>
+      <svg class="lines" aria-hidden="true"></svg>
     </div>
+    <ol class="items">${items}</ol>
     <div class="macros">${macros}</div>
   </div>`;
   roomsEl.appendChild(sec);
 
-  const P=[...sec.querySelectorAll('.pin')], L=[...sec.querySelectorAll('.items li')];
-  const set=i=>{P.forEach((p,k)=>p.classList.toggle('on',k===i));L.forEach((l,k)=>l.classList.toggle('on',k===i));};
-  const clear=()=>{P.forEach(p=>p.classList.remove('on'));L.forEach(l=>l.classList.remove('on'));};
-  P.forEach((p,i)=>{p.addEventListener('mouseenter',()=>set(i));p.addEventListener('focus',()=>set(i));p.addEventListener('click',e=>{e.stopPropagation();set(i);L[i].scrollIntoView({block:'nearest',behavior:'smooth'});});p.addEventListener('mouseleave',clear);});
-  L.forEach((l,i)=>{l.addEventListener('mouseenter',()=>set(i));l.addEventListener('focus',()=>set(i));l.addEventListener('mouseleave',clear);l.addEventListener('click',()=>set(i));});
-  sec.addEventListener('click',e=>{ if(!e.target.closest('.pin,.items li')) clear(); });
+  const A=sec.querySelector('.annot');
+  const labs=r.spots.map((s,i)=>{const b=document.createElement('button');b.type='button';b.className='lab';b.dataset.i=i;
+    b.innerHTML=`<b>${i+1}</b><span><strong>${esc(s.t)}</strong><em>${esc(s.d)}</em></span>`;return b;});
+  const a={sec,A,pic:sec.querySelector('.pic'),svg:sec.querySelector('.lines'),cols:{L:A.querySelector('.col.L'),R:A.querySelector('.col.R')},labs,spots:r.spots,lines:[],w:0};
+  annots.push(a);
 
-  gsap.to(sec.querySelectorAll('.rv'),{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.12,scrollTrigger:{trigger:sec,start:'top 78%',once:true}});
-  gsap.from(P,{scale:0,opacity:0,duration:.5,ease:'back.out(2)',stagger:.08,scrollTrigger:{trigger:sec.querySelector('.pic'),start:'top 70%',once:true}});
+  const P=[...sec.querySelectorAll('.pin')], L=[...sec.querySelectorAll('.items li')];
+  const set=i=>{[P,L,labs,a.lines].forEach(arr=>{for(let k=0;k<P.length;k++) arr[k]&&arr[k].classList.toggle('on',k===i);});};
+  const clear=()=>set(-1);
+  [P,L,labs].forEach(arr=>arr.forEach((el,i)=>{el.addEventListener('mouseenter',()=>set(i));el.addEventListener('focus',()=>set(i));el.addEventListener('mouseleave',clear);el.addEventListener('blur',clear);el.addEventListener('click',e=>{e.stopPropagation();set(i);});}));
+  sec.addEventListener('click',e=>{ if(!e.target.closest('.pin,.items li,.lab')) clear(); });
+
+  layoutAnnot(a);
+  new ResizeObserver(()=>{ const w=A.clientWidth; if(w!==a.w){a.w=w;layoutAnnot(a);} }).observe(A);
+
+  gsap.to(sec.querySelectorAll('.rhead,.macro'),{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.12,scrollTrigger:{trigger:sec,start:'top 82%',once:true}});
+  ScrollTrigger.create({trigger:A,start:'top 78%',once:true,onEnter:()=>{
+    gsap.from(a.labs,{opacity:0,y:14,duration:.5,stagger:.07,ease:'power2.out'});
+    gsap.from(A.querySelectorAll('.ln-g'),{opacity:0,duration:.6,stagger:.07,delay:.15,ease:'power1.out'});
+    gsap.from(P,{scale:0,duration:.45,ease:'back.out(2)',stagger:.06});
+  }});
   sec.querySelectorAll('.crop img').forEach(im=>{
     const z=+im.dataset.z;
     gsap.fromTo(im,{scale:z*.9},{scale:z,ease:'none',scrollTrigger:{trigger:im.parentNode,start:'top 95%',end:'center 55%',scrub:true}});
   });
 });
+document.fonts&&document.fonts.ready.then(()=>annots.forEach(layoutAnnot));
+addEventListener('load',()=>{annots.forEach(layoutAnnot);ScrollTrigger.refresh();});
 
 /* =====================  TOUR em vídeo  ===================== */
 (function(){
@@ -274,10 +334,10 @@ ROOMS.forEach((r,ri)=>{
   function build(){
     const dur=v.duration;
     st=ScrollTrigger.create({
-      trigger:tour,start:'top top',end:()=>'+='+Math.round(innerHeight*(innerWidth<820?10:14)),pin:true,scrub:true,
+      trigger:tour,start:'top top',end:()=>'+='+Math.round(innerHeight*(innerWidth<820?20:32)),pin:true,scrub:true,
       onUpdate:s=>{
         const p=s.progress;
-        gsap.to(proxy,{t:p*(dur-.04),duration:.35,ease:'power2.out',overwrite:true});
+        gsap.to(proxy,{t:p*(dur-.04),duration:.9,ease:'power2.out',overwrite:true});
         $('#bar').style.transform=`scaleX(${p})`;
         const fade=(el,a,b)=>{const w=.012,o=Math.max(0,Math.min(1,(p-a)/w,(b-p)/w));el.style.opacity=o;el.style.transform=`translateY(${(1-o)*22}px)`;el.style.pointerEvents=o>.5?'auto':'none';return o};
         fade(intro,-1,.03); hint.style.opacity=p<.025?1:0;
@@ -300,4 +360,160 @@ ROOMS.forEach((r,ri)=>{
     }catch(e){ v.src=url; }
     v.addEventListener('loadeddata',build,{once:true}); v.load();
   })();
+})();
+
+/* =====================  RESERVA E VISITA (demonstração: dados fictícios)  ===================== */
+(function(){
+  const root=$('#booking'); if(!root) return;
+  const MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  const SEM=['D','S','T','Q','Q','S','S'];
+  const brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const today=new Date(); today.setHours(0,0,0,0);
+  const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
+  const pad=n=>String(n).padStart(2,'0');
+  const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const parse=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d);};
+  const fmt=d=>d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const fmtLong=d=>d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+  const nightsBetween=(a,b)=>Math.round((b-a)/86400000);
+  const limpar=s=>String(s).replace(/[\u0000-\u001f\u007f​-‏‪-‮⁦-⁩]/g,' ').replace(/\s+/g,' ').trim().slice(0,200);
+
+  /* valores e disponibilidade FICTÍCIOS */
+  const CFG={min:2,max:60,clean:280,weekday:890,weekend:1190,extraFrom:6,extraFee:60};
+  const BOOKED=[[5,8],[19,24],[33,36],[47,52],[63,66],[80,86]].map(([a,b])=>[addDays(today,a),addDays(today,b)]);
+  const bookedNight=d=>BOOKED.some(([a,b])=>d>=a&&d<=b);
+  const freeNights=(a,b)=>{for(let d=new Date(a);d<b;d=addDays(d,1)) if(bookedNight(d)) return false;return true;};
+  const SLOTS=['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+  const slotTaken=(d,s)=>((d.getDate()*5+d.getMonth()*3+SLOTS.indexOf(s)*7)%4)===0;
+  const visitOk=d=>d>=today&&d<=addDays(today,90)&&d.getDay()!==0&&d.getDate()%9!==0;
+
+  const cal=$('#cal'), slotsEl=$('#slots'), msgEl=$('#bk-msg'), sum=$('#summary'), form=$('#bkForm'), done=$('#done'), guestsSel=$('#guests'), guestsBox=$('#guestsBox');
+  const prev=$('#calPrev'), next=$('#calNext'), tabs=[...root.querySelectorAll('[role=tab]')];
+  let mode='stay', view=new Date(today.getFullYear(),today.getMonth(),1), msg='';
+  const S={start:null,end:null}, V={day:null,slot:null};
+  for(let i=1;i<=8;i++) guestsSel.insertAdjacentHTML('beforeend',`<option value="${i}">${i} ${i===1?'hóspede':'hóspedes'}</option>`);
+  guestsSel.value='2';
+  const months=()=>innerWidth>=900?2:1;
+
+  function monthHTML(first){
+    const y=first.getFullYear(), m=first.getMonth(), days=new Date(y,m+1,0).getDate();
+    let h=`<div class="month"><h3>${MESES[m]} ${y}</h3><div class="grid">`+SEM.map(s=>`<span class="dow">${s}</span>`).join('');
+    for(let i=0;i<first.getDay();i++) h+='<span></span>';
+    for(let n=1;n<=days;n++){
+      const d=new Date(y,m,n), k=key(d); let cls='day', dis=false, label=fmtLong(d), sel=false;
+      if(mode==='stay'){
+        const past=d<today, bk=bookedNight(d);
+        const asEnd=!!(S.start&&!S.end&&d>S.start&&nightsBetween(S.start,d)<=CFG.max&&freeNights(S.start,d));
+        dis=past||(bk&&!asEnd);
+        if(dis&&!past){cls+=' booked';label+=' (ocupado)';}
+        if(past) cls+=' past';
+        if(S.start&&k===key(S.start)){cls+=' start';sel=true;}
+        if(S.end&&k===key(S.end)){cls+=' end';sel=true;}
+        if(S.start&&S.end&&d>S.start&&d<S.end) cls+=' mid';
+      }else{
+        dis=!visitOk(d);
+        if(d<today) cls+=' past'; else if(dis){cls+=' booked';label+=' (indisponível)';}
+        if(V.day&&k===key(V.day)){cls+=' start';sel=true;}
+      }
+      if(k===key(today)) cls+=' today';
+      h+=`<button type="button" class="${cls}" data-k="${k}"${dis?' disabled':''} aria-label="${label}"${sel?' aria-pressed="true"':''}>${n}</button>`;
+    }
+    return h+'</div></div>';
+  }
+  function renderCal(){
+    let h=''; for(let i=0;i<months();i++) h+=monthHTML(new Date(view.getFullYear(),view.getMonth()+i,1));
+    cal.innerHTML=h;
+    prev.disabled=view<=new Date(today.getFullYear(),today.getMonth(),1);
+    next.disabled=view>=new Date(today.getFullYear(),today.getMonth()+12,1);
+  }
+  function calc(){
+    const n=nightsBetween(S.start,S.end); let weekend=0;
+    for(let d=new Date(S.start);d<S.end;d=addDays(d,1)) if(d.getDay()===5||d.getDay()===6) weekend++;
+    const g=+guestsSel.value, extra=Math.max(0,g-CFG.extraFrom)*CFG.extraFee*n;
+    const nightly=(n-weekend)*CFG.weekday+weekend*CFG.weekend;
+    return {n,weekend,week:n-weekend,g,extra,nightly,total:nightly+extra+CFG.clean};
+  }
+  function renderSummary(){
+    if(mode==='stay'){
+      if(S.start&&S.end){
+        const c=calc();
+        sum.innerHTML=`<h3>Sua estadia</h3><p class="dates"><b>${fmt(S.start)}</b> → <b>${fmt(S.end)}</b> · ${c.n} ${c.n===1?'noite':'noites'}</p>
+        <dl class="price">${c.week?`<div><dt>${c.week} × seg–qui</dt><dd>${brl(c.week*CFG.weekday)}</dd></div>`:''}${c.weekend?`<div><dt>${c.weekend} × sex–sáb</dt><dd>${brl(c.weekend*CFG.weekend)}</dd></div>`:''}${c.extra?`<div><dt>Hóspedes extras</dt><dd>${brl(c.extra)}</dd></div>`:''}<div><dt>Taxa de limpeza</dt><dd>${brl(CFG.clean)}</dd></div><div class="total"><dt>Total</dt><dd>${brl(c.total)}</dd></div></dl>`;
+      }else sum.innerHTML=`<h3>Sua estadia</h3><p class="hint">${S.start?`Entrada em <b>${fmt(S.start)}</b>. Escolha a saída no calendário.`:'Escolha a entrada e a saída no calendário.'}</p><p class="hint">A partir de <b>${brl(CFG.weekday)}</b> por noite · mínimo de ${CFG.min} noites.</p>`;
+    }else{
+      sum.innerHTML=`<h3>Sua visita</h3><p class="hint">${V.day?(V.slot?`<b>${fmtLong(V.day)}</b> às <b>${V.slot}</b> · duração de cerca de 1 hora.`:`<b>${fmtLong(V.day)}</b>. Agora escolha um horário.`):'Escolha o dia e o horário no calendário. Atendemos de segunda a sábado.'}</p>`;
+    }
+  }
+  function renderSlots(){
+    slotsEl.hidden=!(mode==='visit'&&V.day);
+    if(slotsEl.hidden) return;
+    slotsEl.innerHTML=`<h4>Horários em ${fmtLong(V.day)}</h4><div>`+SLOTS.map(s=>{const t=slotTaken(V.day,s);return `<button type="button" class="slot${V.slot===s?' on':''}" data-s="${s}"${t?' disabled':''}>${s}${t?' <small>ocupado</small>':''}</button>`;}).join('')+'</div>';
+  }
+  function update(){
+    renderCal(); renderSlots(); renderSummary();
+    msgEl.textContent=msg; guestsBox.hidden=mode!=='stay';
+    $('#bkSubmit').textContent=mode==='stay'?'Solicitar reserva':'Confirmar visita';
+  }
+  function pick(d){
+    msg='';
+    if(mode==='stay'){
+      if(!S.start||S.end||d<=S.start){S.start=d;S.end=null;msg='Agora escolha a data de saída.';}
+      else{
+        const n=nightsBetween(S.start,d);
+        if(n<CFG.min) msg=`A estadia mínima é de ${CFG.min} noites.`;
+        else if(n>CFG.max) msg=`A estadia máxima é de ${CFG.max} noites.`;
+        else if(!freeNights(S.start,d)) msg='Há noites ocupadas nesse período. Escolha outra saída.';
+        else S.end=d;
+      }
+    }else{V.day=d;V.slot=null;}
+    update();
+  }
+  cal.addEventListener('click',e=>{const b=e.target.closest('button.day'); if(b&&!b.disabled) pick(parse(b.dataset.k));});
+  slotsEl.addEventListener('click',e=>{const b=e.target.closest('button.slot'); if(b&&!b.disabled){V.slot=b.dataset.s;msg='';update();}});
+  prev.addEventListener('click',()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);update();});
+  next.addEventListener('click',()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);update();});
+  guestsSel.addEventListener('change',update);
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    mode=t.dataset.mode; tabs.forEach(x=>x.setAttribute('aria-selected',String(x===t))); msg='';
+    done.hidden=true; form.hidden=false; update();
+  }));
+  let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCal,150);});
+
+  /* formulário: valida e mostra a confirmação (nada é enviado nem salvo) */
+  const err=(f,t)=>{const p=form.querySelector(`[data-for="${f}"]`);p.textContent=t||'';return !!t;};
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const nome=limpar(form.nome.value), email=form.email.value.trim(), tel=form.tel.value.replace(/\D/g,'');
+    let bad=false;
+    bad=err('nome',nome.length<2?'Informe seu nome.':'')||bad;
+    bad=err('email',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?'Informe um e-mail válido.':'')||bad;
+    bad=err('tel',tel.length<10||tel.length>13?'Informe um WhatsApp com DDD.':'')||bad;
+    if(mode==='stay'&&!(S.start&&S.end)){msg='Escolha a entrada e a saída no calendário.';bad=true;}
+    if(mode==='visit'&&!(V.day&&V.slot)){msg='Escolha o dia e o horário da visita.';bad=true;}
+    if(bad){msgEl.textContent=msg;return;}
+    const obs=limpar(form.obs.value), prot='LR-'+Math.random().toString(36).slice(2,8).toUpperCase();
+    let titulo,linhas,txt,ics;
+    if(mode==='stay'){
+      const c=calc(); titulo='Pedido de reserva enviado (demonstração)';
+      linhas=[['Entrada',fmt(S.start)],['Saída',fmt(S.end)],['Noites',c.n],['Hóspedes',c.g],['Total estimado',brl(c.total)]];
+      txt=`Olá! Gostaria de reservar a Lume Residence de ${fmt(S.start)} a ${fmt(S.end)} (${c.n} noites, ${c.g} hóspedes), total estimado ${brl(c.total)}. Protocolo ${prot}. Nome: ${nome}.${obs?' '+obs:''}`;
+      ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Lume Residence//PT','BEGIN:VEVENT',`UID:${prot}@lume`,`DTSTAMP:${key(today).replace(/-/g,'')}T000000Z`,`DTSTART;VALUE=DATE:${key(S.start).replace(/-/g,'')}`,`DTEND;VALUE=DATE:${key(S.end).replace(/-/g,'')}`,'SUMMARY:Estadia na Lume Residence','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    }else{
+      titulo='Visita agendada (demonstração)';
+      linhas=[['Dia',fmtLong(V.day)],['Horário',V.slot],['Local','Beulah Park · SA']];
+      txt=`Olá! Gostaria de confirmar uma visita à Lume Residence em ${fmtLong(V.day)} às ${V.slot}. Protocolo ${prot}. Nome: ${nome}.${obs?' '+obs:''}`;
+      const [h,mi]=V.slot.split(':').map(Number), d0=key(V.day).replace(/-/g,''), h1=pad(h+1)+pad(mi);
+      ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Lume Residence//PT','BEGIN:VEVENT',`UID:${prot}@lume`,`DTSTAMP:${d0}T000000Z`,`DTSTART:${d0}T${pad(h)}${pad(mi)}00`,`DTEND:${d0}T${h1}00`,'SUMMARY:Visita à Lume Residence','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    }
+    const blob=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+    const wa=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(txt)}`;
+    done.innerHTML=`<div class="ok"><span class="check">✓</span><h3>${titulo}</h3><p class="proto">Protocolo <b>${prot}</b></p>
+      <dl>${linhas.map(([a,b])=>`<div><dt>${a}</dt><dd>${esc(String(b))}</dd></div>`).join('')}</dl>
+      <p class="hint">Isto é só uma demonstração: nenhuma informação foi enviada nem salva. Para falar de verdade, use o botão abaixo.</p>
+      <div class="row"><a class="btn" href="${wa}" target="_blank" rel="noopener noreferrer">Enviar pelo WhatsApp</a><a class="btn alt" href="${blob}" download="lume-residence.ics">Adicionar ao calendário</a><button type="button" class="btn alt" id="again">Nova solicitação</button></div></div>`;
+    form.hidden=true; done.hidden=false; msgEl.textContent='';
+    done.querySelector('#again').addEventListener('click',()=>{done.hidden=true;form.hidden=false;form.reset();guestsSel.value='2';S.start=S.end=null;V.day=V.slot=null;update();});
+    done.scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+  update();
 })();
