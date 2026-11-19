@@ -64,16 +64,16 @@ export function Projetos() {
       </article>
 
       <article className="projeto" style={{ ["--c" as string]: "#e7c487" }}>
-        <a href={CASA_BEULAH_PARK} className="projeto-midia" data-cursor="ver" aria-label="Abrir o site Casa em Beulah Park">
+        <a href={CASA_BEULAH_PARK} className="projeto-midia" data-cursor="ver" aria-label="Abrir o site Lume Residence">
           <div className="mock mock-site">
-            <div className="mock-barra"><i /><i /><i /><span>casa-beulah-park</span></div>
+            <div className="mock-barra"><i /><i /><i /><span>lumeresidence.com.br</span></div>
             <div className="mock-hero"><span /><span /><em /></div>
             <div className="mock-cards"><span /><span /><span /></div>
           </div>
         </a>
         <div className="projeto-info">
           <p className="eyebrow">Site · Imobiliário</p>
-          <h3>Casa em Beulah Park</h3>
+          <h3>Lume Residence</h3>
           <p>
             Página de um imóvel com tour em vídeo que acompanha a rolagem: a câmera entra em cada ambiente e, depois,
             cada item da casa é detalhado com pontos numerados e cenas de perto.
