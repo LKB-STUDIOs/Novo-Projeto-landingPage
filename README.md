@@ -21,6 +21,7 @@ Requer Node 20.19 ou mais recente.
 | `/` | Portfólio: cena 3D guiada pela rolagem, serviços, processo, nichos, projetos, segurança, equipe e contato |
 | `/projetos/ferrus` | **Ferrus OS**: demonstração do sistema de gestão industrial (dados fictícios, salvos só no navegador) |
 | `/projetos/brisa` | **Brisa Temporadas**: vitrine de imóveis com reserva no Airbnb |
+| `/casa-beulah-park/` | **Casa em Beulah Park**: página estática de um imóvel, com tour em vídeo que acompanha a rolagem e detalhes de cada ambiente (arquivos em `public/casa-beulah-park/`) |
 
 Cada página é baixada só quando o visitante abre. O Three.js (a parte mais pesada) carrega depois que a página já apareceu.
 
@@ -40,6 +41,11 @@ src/pages/brisa/          Brisa Temporadas (imóveis em imoveis.ts)
 
 **Trocar o WhatsApp:** edite `src/lib/contato.ts`. Todos os botões usam esse arquivo.
 **Trocar imóveis da Brisa:** edite `src/pages/brisa/imoveis.ts` e, no campo `airbnb`, cole o link do anúncio real.
+
+### Casa em Beulah Park (`public/casa-beulah-park/`)
+
+Página estática (HTML, CSS e JS próprios, fora do app React). GSAP e fontes ficam no próprio site, sem CDN. O tour é o vídeo `tour-ai.mp4` (1920×1080, 30 fps; `tour-ai-720.mp4` para celular) controlado pela rolagem. Tem `noindex` enquanto estiver em rascunho.
+**Antes de publicar:** troque o WhatsApp (`CONFIG.whatsapp` em `casa.js`) e confira os textos dos itens em `ROOMS`.
 
 ## Segurança
 

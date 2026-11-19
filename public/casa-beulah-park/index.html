@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa em Beulah Park · Conheça cada detalhe</title>
+<meta name="description" content="Tour em vídeo pela casa em Beulah Park, SA. Role a página e entre em cada ambiente, depois veja cada detalhe de perto.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0d0b09">
+<link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="casa.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="logo" href="#topo">Casa em Beulah Park</a>
+  <ul id="navLinks"></ul>
+  <a class="btn ghost" href="#visita">Agendar visita</a>
+</header>
+
+<section class="tour" id="topo" aria-label="Tour em vídeo da casa">
+  <video id="tv" muted playsinline preload="auto" aria-hidden="true"></video>
+  <div class="status" id="status"><span>Carregando o tour</span><i><b id="sbar"></b></i></div>
+
+  <div class="layer" id="intro">
+    <div class="label">Beulah Park · SA</div>
+    <h1>Entre e sinta cada ambiente</h1>
+    <p>Luz natural, madeira clara e ambientes integrados. Role a página e caminhe pela casa, cômodo por cômodo.</p>
+    <div class="row"><a class="btn" href="#visita">Agendar visita</a><a class="btn ghost" href="#detalhes">Ver cada detalhe</a></div>
+  </div>
+  <div id="chapters"></div>
+
+  <nav class="dots" id="dots" aria-label="Ambientes do tour"></nav>
+  <div class="scrollhint" id="hint">Role</div>
+  <div class="bar"><b id="bar"></b></div>
+</section>
+
+<section class="facts" aria-label="Destaques">
+  <div><strong>Dois pavimentos</strong><span>Escada de madeira com guarda-corpo de vidro</span></div>
+  <div><strong>Cozinha com ilha</strong><span>Bancada de pedra branca e banquetas</span></div>
+  <div><strong>Piso de madeira clara</strong><span>Nos ambientes sociais</span></div>
+  <div><strong>Área externa gourmet</strong><span>Churrasqueira, adega e jardim</span></div>
+</section>
+
+<section class="details-intro" id="detalhes">
+  <div class="label">Cada detalhe da casa</div>
+  <h2>Passe o mouse nos pontos e descubra cada item</h2>
+  <p>Em cada ambiente, os números marcam o que faz a diferença: materiais, acabamentos e peças. Logo abaixo, cenas de perto.</p>
+</section>
+
+<main id="rooms"></main>
+
+<section class="book" id="visita">
+  <div class="label" style="color:#ecc98a">Visita</div>
+  <h2>Conheça a casa pessoalmente</h2>
+  <p>Fale com a gente para agendar uma visita e tirar todas as dúvidas.</p>
+  <div class="row"><a class="btn" id="wa" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a></div>
+  <small>Edite o telefone, valores e endereço no começo do script (CONFIG) em index.html.</small>
+</section>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="casa.js"></script>
+</body>
+</html>
