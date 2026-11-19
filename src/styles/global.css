@@ -73,3 +73,18 @@ img, svg, canvas { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
+
+/* tela de erro (sem depender do CSS das páginas) */
+.erro-app {
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 18px;
+  padding: 0 var(--pad); max-width: 720px;
+}
+.erro-marca { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 0; }
+.erro-marca span { font-family: var(--font); font-weight: 400; color: var(--muted); font-size: 0.85rem; margin-left: 6px; }
+.erro-app h1 { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.05; letter-spacing: -0.03em; margin: 0; }
+.erro-app p { color: var(--muted); margin: 0; }
+.erro-acoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.erro-acoes button, .erro-acoes a {
+  padding: 14px 24px; border-radius: 999px; font-weight: 600; border: 1px solid var(--line-2); background: transparent;
+}
+.erro-acoes button { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }

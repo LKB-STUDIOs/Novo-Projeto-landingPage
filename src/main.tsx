@@ -1,7 +1,40 @@
 import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider, ScrollRestoration } from "react-router";
+import { createBrowserRouter, isRouteErrorResponse, Outlet, RouterProvider, ScrollRestoration, useRouteError } from "react-router";
 import "./styles/global.css";
+
+/*
+ * Depois de uma atualização do site, quem estava com a página aberta pode pedir um arquivo
+ * que mudou de nome. Nesse caso recarregamos uma vez (nunca em loop) para pegar a versão nova.
+ */
+const CHAVE_RECARGA = "lbk-recarregou";
+window.addEventListener("vite:preloadError", (e) => {
+  let ja = false;
+  try { ja = sessionStorage.getItem(CHAVE_RECARGA) === "1"; sessionStorage.setItem(CHAVE_RECARGA, "1"); } catch { /* sem storage */ }
+  if (!ja) {
+    e.preventDefault();
+    window.location.reload();
+  }
+});
+window.addEventListener("load", () => {
+  setTimeout(() => { try { sessionStorage.removeItem(CHAVE_RECARGA); } catch { /* ok */ } }, 10000);
+});
+
+function Erro() {
+  const erro = useRouteError();
+  const pagina = isRouteErrorResponse(erro) && erro.status === 404;
+  return (
+    <main className="erro-app">
+      <p className="erro-marca">LBK<span>studio</span></p>
+      <h1>{pagina ? "Página não encontrada." : "Algo não carregou direito."}</h1>
+      <p>{pagina ? "Confira o endereço ou volte ao início." : "Pode ter sido a conexão. Tente recarregar a página."}</p>
+      <div className="erro-acoes">
+        {!pagina && <button onClick={() => window.location.reload()}>Recarregar</button>}
+        <a href={import.meta.env.BASE_URL}>Voltar ao início</a>
+      </div>
+    </main>
+  );
+}
 
 // cada página vira um arquivo separado: o visitante só baixa o que abre
 const Home = lazy(() => import("./pages/Home"));
@@ -25,6 +58,7 @@ const router = createBrowserRouter(
     {
       path: "/",
       element: <Layout />,
+      errorElement: <Erro />,
       children: [
         { index: true, element: <Home /> },
         { path: "projetos/ferrus", element: <Ferrus /> },

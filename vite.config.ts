@@ -42,9 +42,13 @@ export default defineConfig({
   base: process.env.BASE_PATH ?? "/",
   plugins: [react(), securityHeaders()],
   build: {
-    target: "es2022",
+    // Safari 15+ (iPads antigos incluídos)
+    target: ["es2022", "safari15"],
+    cssTarget: ["safari15"],
     sourcemap: false,
-    cssCodeSplit: true,
+    // todo o CSS num arquivo só, carregado no <head>: nenhuma página depende de baixar
+    // CSS depois (o Safari do iPad falhava nesse passo e derrubava o site)
+    cssCodeSplit: false,
     // nada de fontes ou imagens embutidas como data: — mantém a CSP restrita
     assetsInlineLimit: 0,
     // a cena 3D (three.js) é importada sob demanda e sai num arquivo próprio
