@@ -15,7 +15,7 @@
 <header class="nav" id="nav">
   <a class="logo" href="#topo">Lume Residence</a>
   <ul id="navLinks"></ul>
-  <a class="btn ghost" href="#visita">Agendar visita</a>
+  <a class="btn ghost" href="#reservar">Reservar</a>
 </header>
 
 <section class="tour" id="topo" aria-label="Tour em vídeo da casa">
@@ -26,7 +26,7 @@
     <div class="label">Beulah Park · SA</div>
     <h1>Entre e sinta cada ambiente</h1>
     <p>Luz natural, madeira clara e ambientes integrados. Role a página e caminhe pela casa, cômodo por cômodo.</p>
-    <div class="row"><a class="btn" href="#visita">Agendar visita</a><a class="btn ghost" href="#detalhes">Ver cada detalhe</a></div>
+    <div class="row"><a class="btn" href="#reservar">Reservar ou agendar</a><a class="btn ghost" href="#detalhes">Ver cada detalhe</a></div>
   </div>
   <div id="chapters"></div>
 
@@ -50,12 +50,73 @@
 
 <main id="rooms"></main>
 
-<section class="book" id="visita">
-  <div class="label" style="color:#ecc98a">Visita</div>
-  <h2>Conheça a casa pessoalmente</h2>
-  <p>Fale com a gente para agendar uma visita e tirar todas as dúvidas.</p>
-  <div class="row"><a class="btn" id="wa" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a></div>
-  <small>Edite o telefone, valores e endereço no começo do script (CONFIG) em index.html.</small>
+<section class="book" id="reservar" aria-labelledby="bk-t">
+  <div class="in">
+    <div class="label">Reservas e visitas</div>
+    <h2 id="bk-t">Reserve sua temporada ou agende uma visita</h2>
+    <p class="sub">Escolha as datas no calendário e veja o valor na hora. <b>Demonstração:</b> valores e disponibilidade são fictícios e nada é enviado nem salvo.</p>
+
+    <div class="bk" id="booking">
+      <div class="tabs" role="tablist" aria-label="O que você quer fazer">
+        <button type="button" role="tab" data-mode="stay" aria-selected="true">Reservar temporada</button>
+        <button type="button" role="tab" data-mode="visit" aria-selected="false">Agendar visita</button>
+      </div>
+
+      <div class="bk-grid">
+        <div class="bk-left">
+          <div class="cal-nav">
+            <button type="button" id="calPrev" aria-label="Mês anterior">‹</button>
+            <button type="button" id="calNext" aria-label="Próximo mês">›</button>
+          </div>
+          <div id="cal" class="cal"></div>
+          <ul class="legend" aria-hidden="true">
+            <li><i class="lg sel"></i>Selecionado</li>
+            <li><i class="lg mid"></i>Período</li>
+            <li><i class="lg busy"></i>Indisponível</li>
+          </ul>
+          <div id="slots" class="slots" hidden></div>
+          <p id="bk-msg" class="msg" role="status" aria-live="polite"></p>
+        </div>
+
+        <aside class="bk-right">
+          <div id="summary" class="summary"></div>
+
+          <form id="bkForm" novalidate>
+            <label id="guestsBox">Hóspedes
+              <select id="guests" name="guests"></select>
+            </label>
+            <label>Nome
+              <input name="nome" type="text" autocomplete="name" maxlength="80" placeholder="Seu nome completo">
+              <span class="err" data-for="nome"></span>
+            </label>
+            <label>E-mail
+              <input name="email" type="email" autocomplete="email" maxlength="120" placeholder="voce@exemplo.com">
+              <span class="err" data-for="email"></span>
+            </label>
+            <label>WhatsApp
+              <input name="tel" type="tel" autocomplete="tel" maxlength="20" placeholder="(11) 90000-0000">
+              <span class="err" data-for="tel"></span>
+            </label>
+            <label>Observações <small>(opcional)</small>
+              <textarea name="obs" rows="2" maxlength="200" placeholder="Algum pedido especial?"></textarea>
+            </label>
+            <button type="submit" class="btn" id="bkSubmit">Solicitar reserva</button>
+          </form>
+          <div id="done" hidden></div>
+
+          <ul class="rules">
+            <li><b>Entrada</b> a partir das 15h · <b>saída</b> até as 11h</li>
+            <li>Até <b>8 hóspedes</b> · mínimo de 2 noites</li>
+            <li>Não é permitido fumar dentro da casa</li>
+            <li>Animais de estimação: sob consulta</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <div class="row"><a class="btn alt" id="wa" href="#" target="_blank" rel="noopener">Prefere falar direto? WhatsApp</a></div>
+  </div>
+  <footer class="foot">Lume Residence · Beulah Park, SA · página de demonstração</footer>
 </section>
 
 <script src="vendor/gsap.min.js"></script>
