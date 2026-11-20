@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Proposta Comercial — Site M Cell Smart</title>
+<style>
+  :root{
+    --ink:#1e0a0d; --muted:#7d6467; --line:#ead9da; --bg:#f7f2f1; --panel:#ffffff;
+    --red:#d72638; --red-dark:#7a0c17; --blush:#fbeeee;
+  }
+  @page{ size:A4; margin:0 }
+  *{ box-sizing:border-box; margin:0; padding:0 }
+  html,body{ background:var(--bg) }
+  body{ font-family:'Inter',sans-serif; color:var(--ink); font-size:10.5pt; line-height:1.5; -webkit-print-color-adjust:exact; print-color-adjust:exact }
+  .page{ width:210mm; height:297mm; padding:18mm 17mm 16mm; position:relative; overflow:hidden; page-break-after:always; background:var(--bg) }
+  .page:last-child{ page-break-after:auto }
+  h1,h2,h3,.display{ font-family:'Inter Display','Inter',sans-serif; letter-spacing:-0.02em }
+  h2{ font-size:22pt; line-height:1.1; font-weight:700; margin-bottom:4mm }
+  h3{ font-size:12pt; font-weight:700 }
+  .eyebrow{ font-size:8pt; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--red) }
+  .lead{ font-size:11pt; color:var(--muted); max-width:150mm }
+  a{ color:var(--red); text-decoration:none }
+  .foot{ position:absolute; left:17mm; right:17mm; bottom:9mm; display:flex; justify-content:space-between; font-size:7.5pt; color:var(--muted); border-top:1px solid var(--line); padding-top:2.5mm }
+
+  /* capa */
+  .cover{ background:var(--red-dark); color:#fff; display:flex; flex-direction:column }
+  .cover .glow{ position:absolute; width:180mm; height:180mm; right:-60mm; top:-40mm; border-radius:50%; background:radial-gradient(circle, #ff3936 0%, rgba(215,38,56,.55) 35%, rgba(122,12,23,0) 70%) }
+  .cover .glow2{ position:absolute; width:120mm; height:120mm; left:-50mm; bottom:-40mm; border-radius:50%; background:radial-gradient(circle, rgba(255,118,115,.35), rgba(122,12,23,0) 70%) }
+  .cover > *{ position:relative }
+  .brand{ display:flex; align-items:center; gap:3mm; font-weight:700; font-size:11pt; letter-spacing:.02em }
+  .brand .dot{ width:8mm; height:8mm; border-radius:2.2mm; background:#fff; color:var(--red-dark); display:grid; place-items:center; font-size:9pt; font-weight:800 }
+  .cover .eyebrow{ color:#ffb3b1 }
+  .cover h1{ font-size:44pt; line-height:1; font-weight:800; margin:6mm 0 6mm }
+  .cover .sub{ font-size:13pt; color:#f6d6d6; max-width:140mm }
+  .cover .meta{ margin-top:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:6mm; border-top:1px solid rgba(255,255,255,.2); padding-top:6mm }
+  .cover .meta small{ display:block; font-size:7.5pt; letter-spacing:.12em; text-transform:uppercase; color:#ffb3b1; margin-bottom:1mm }
+  .cover .meta b{ font-size:11pt; font-weight:600 }
+  .cta{ display:inline-flex; align-items:center; gap:3mm; background:#fff; color:var(--red-dark); font-weight:700; padding:4mm 7mm; border-radius:50mm; font-size:11pt; margin-top:12mm }
+  .cta.red{ background:var(--red); color:#fff }
+  .cta .arr{ font-size:13pt }
+  .cover .url{ margin-top:3mm; font-size:8.5pt; color:#f6d6d6 }
+
+  /* cards */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:5mm }
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:4mm }
+  .card{ background:var(--panel); border:1px solid var(--line); border-radius:4mm; padding:5mm }
+  .card p{ color:var(--muted); font-size:9.5pt; margin-top:1.5mm }
+  .num{ font-family:'Inter Display'; font-weight:800; color:var(--red); font-size:9pt; letter-spacing:.08em }
+  .demo{ background:var(--ink); color:#fff; border-radius:5mm; padding:8mm; display:grid; grid-template-columns:1.3fr 1fr; gap:8mm; align-items:center }
+  .demo p{ color:#d8c6c8; font-size:10pt; margin-top:2mm }
+  .demo .eyebrow{ color:#ff7673 }
+  .demo h3{ font-size:16pt; margin-top:2mm }
+  .demo .cta{ margin-top:0 }
+  .note{ font-size:8.5pt; color:var(--muted); margin-top:3mm }
+  ul.check{ list-style:none }
+  ul.check li{ position:relative; padding-left:5.5mm; margin:1.6mm 0; font-size:9.3pt; line-height:1.4 }
+  ul.check li::before{ content:""; position:absolute; left:0; top:1.4mm; width:2.6mm; height:2.6mm; border-radius:50%; background:var(--red) }
+  ul.check li.plus::before{ background:var(--red-dark) }
+  ul.check li b{ font-weight:600 }
+
+  /* planos */
+  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:4mm; margin-top:6mm; align-items:stretch }
+  .plan{ background:var(--panel); border:1px solid var(--line); border-radius:5mm; padding:6mm 5mm; display:flex; flex-direction:column; position:relative }
+  .plan.featured{ background:var(--red-dark); color:#fff; border-color:var(--red-dark); box-shadow:0 6mm 14mm rgba(122,12,23,.25) }
+  .plan .tag{ position:absolute; top:-3mm; left:5mm; background:var(--red); color:#fff; font-size:7pt; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:1.2mm 3mm; border-radius:20mm }
+  .plan h3{ font-size:14pt }
+  .plan .for{ font-size:8.5pt; color:var(--muted); margin-top:1mm; min-height:11mm }
+  .plan.featured .for{ color:#f0c9cb }
+  .price{ margin:4mm 0 1mm; font-family:'Inter Display'; font-weight:800; font-size:24pt; letter-spacing:-0.03em; line-height:1 }
+  .price small{ font-size:10pt; font-weight:600; letter-spacing:0 }
+  .pix{ font-size:8.3pt; color:var(--muted); margin-bottom:4mm; padding-bottom:4mm; border-bottom:1px solid var(--line) }
+  .plan.featured .pix{ color:#f0c9cb; border-color:rgba(255,255,255,.18) }
+  .plan.featured ul.check li::before{ background:#ff7673 }
+  .plan.featured ul.check li.plus::before{ background:#fff }
+
+  /* tabela */
+  table{ width:100%; border-collapse:collapse; background:var(--panel); border-radius:4mm; overflow:hidden; border:1px solid var(--line); font-size:9pt }
+  th,td{ padding:2.3mm 3.5mm; text-align:left; border-bottom:1px solid var(--line) }
+  th{ background:var(--ink); color:#fff; font-weight:600; font-size:8.5pt }
+  th.c,td.c{ text-align:center; width:22mm }
+  td.c{ font-weight:700; color:var(--red) }
+  td.no{ color:#c8b7b8; font-weight:400 }
+  tr.hl td.c:nth-child(3), th.hl{ background:var(--blush) }
+  th.hl{ background:var(--red); }
+  tr:last-child td{ border-bottom:0 }
+
+  .infra{ display:grid; grid-template-columns:repeat(3,1fr); gap:4mm }
+  .kv{ display:flex; justify-content:space-between; gap:3mm; font-size:9.3pt; padding:1.6mm 0; border-bottom:1px dashed var(--line) }
+  .kv:last-child{ border:0 }
+  .kv b{ white-space:nowrap }
+
+  .timeline{ display:grid; grid-template-columns:repeat(5,1fr); gap:3mm }
+  .step{ background:var(--panel); border:1px solid var(--line); border-radius:4mm; padding:4mm }
+  .step .d{ font-family:'Inter Display'; font-weight:800; color:var(--red); font-size:11pt }
+  .step p{ font-size:8.5pt; color:var(--muted); margin-top:1mm; line-height:1.4 }
+  .sign{ display:grid; grid-template-columns:1fr 1fr; gap:12mm; margin-top:10mm }
+  .sign div{ border-top:1px solid var(--ink); padding-top:2mm; font-size:9pt; color:var(--muted) }
+  .sign b{ color:var(--ink); display:block; font-size:10pt }
+  .sp{ height:7mm }
+</style>
+</head>
+<body>
+
+<!-- 1. CAPA -->
+<section class="page cover">
+  <div class="glow"></div><div class="glow2"></div>
+  <div class="brand"><span class="dot">LBK</span> LBK Studio</div>
+  <div style="margin-top:42mm">
+    <div class="eyebrow">Proposta comercial · Criação de site</div>
+    <h1>Site M Cell Smart</h1>
+    <p class="sub">Um site com a cara da M Cell Smart, onde o cliente vê o preço do conserto e já chama a loja no WhatsApp. Feito para trazer mais clientes de Belém para o balcão.</p>
+    <a class="cta" href="https://portelbk-studio.onrender.com/support-cell-lab">Ver a demonstração do site <span class="arr">→</span></a>
+    <div class="url">portelbk-studio.onrender.com/support-cell-lab</div>
+  </div>
+  <div class="meta">
+    <div><small>Para</small><b>Marco Pereira<br>M Cell Smart · Belém/PA</b></div>
+    <div><small>Emitida em</small><b>20/11/2026</b></div>
+    <div><small>Válida até</small><b>27/11/2026</b></div>
+  </div>
+</section>
+
+<!-- 2. O PROJETO -->
+<section class="page">
+  <div class="eyebrow">O projeto</div>
+  <h2>O que o site vai fazer pela loja</h2>
+  <p class="lead">Hoje, quem precisa consertar o celular procura no Google e chama no WhatsApp quem responder primeiro com preço. O site da M Cell Smart dá esse preço antes da conversa e manda o cliente direto para o WhatsApp da loja, já dizendo o aparelho e o defeito.</p>
+
+  <div class="sp"></div>
+  <div class="grid2">
+    <div class="card"><div class="num">01</div><h3>Orçamento em poucos cliques</h3><p>O cliente escolhe o modelo (iPhone ou Samsung) e o defeito: tela, bateria, câmera, conector, placa e outros.</p></div>
+    <div class="card"><div class="num">02</div><h3>Direto para o WhatsApp</h3><p>A mensagem chega pronta: “Olá, tenho um iPhone 13 com a tela quebrada…”. O atendimento já começa com a informação certa.</p></div>
+    <div class="card"><div class="num">03</div><h3>Aparecer no Google</h3><p>SEO básico para buscas como “conserto de iPhone em Belém”, mais o perfil da loja no Google com mapa e horário.</p></div>
+    <div class="card"><div class="num">04</div><h3>Marca profissional</h3><p>Domínio próprio (ex.: mcellsmart.com.br) e e-mail profissional (ex.: contato@mcellsmart.com.br) passam mais confiança que um número solto.</p></div>
+  </div>
+
+  <div class="sp"></div>
+  <div class="demo">
+    <div>
+      <div class="eyebrow">Demonstração</div>
+      <h3>Veja como o site pode ficar</h3>
+      <p>Fiz um modelo funcionando para você testar no celular: o laboratório 3D de reparos, o orçamento instantâneo e o showroom de aparelhos. No projeto final, ele vai sair com o <b style="color:#fff">nome, as cores, as fotos e os preços reais da M Cell Smart</b>.</p>
+    </div>
+    <div style="text-align:center">
+      <a class="cta red" href="https://portelbk-studio.onrender.com/support-cell-lab">Abrir demonstração <span class="arr">→</span></a>
+      <p style="font-size:8pt;margin-top:3mm">Os preços e o nome “Support Cell Lab” da demo são só ilustrativos.</p>
+    </div>
+  </div>
+
+  <div class="sp"></div>
+  <h3 style="margin-bottom:2mm">Incluso em todos os planos</h3>
+  <div class="grid2" style="gap:0 8mm">
+    <ul class="check">
+      <li><b>Domínio .com.br</b> registrado em nome da M Cell Smart</li>
+      <li><b>Hospedagem</b> na Hostinger (1º ano incluso)</li>
+      <li><b>E-mail profissional</b> com o domínio da loja</li>
+      <li><b>Preços reais</b> dos reparos cadastrados por nós</li>
+    </ul>
+    <ul class="check">
+      <li><b>Fotos da loja</b>, endereço, horário e mapa</li>
+      <li><b>SEO básico</b> e site indexado no Google</li>
+      <li>Funciona bem no <b>celular</b>, onde está a maioria dos clientes</li>
+      <li>Botão de <b>WhatsApp</b> sempre visível</li>
+    </ul>
+  </div>
+
+  <div class="foot"><span>LBK Studio · Proposta M Cell Smart</span><span>2 / 5</span></div>
+</section>
+
+<!-- 3. PLANOS -->
+<section class="page">
+  <div class="eyebrow">Investimento</div>
+  <h2>Três formas de fazer</h2>
+  <p class="lead">Todos entregam o que o Marco pediu: orçamento no site e cliente no WhatsApp. A diferença está em quanto o site impressiona e quanto trabalho ele tira do balcão.</p>
+
+  <div class="plans">
+    <div class="plan">
+      <h3>Essencial</h3>
+      <div class="for">O básico bem feito: a loja no Google com orçamento pelo WhatsApp.</div>
+      <div class="price"><small>R$</small> 1.290</div>
+      <div class="pix">ou R$ 1.190 no Pix à vista</div>
+      <ul class="check">
+        <li>Site de página única com a marca M Cell Smart</li>
+        <li><b>Orçamento rápido:</b> o cliente escolhe aparelho e defeito e envia pelo WhatsApp</li>
+        <li>Tabela de serviços com preços reais</li>
+        <li>Fotos da loja, mapa e horário</li>
+        <li>Perguntas frequentes e garantia</li>
+        <li>Domínio, hospedagem e e-mail (1º ano)</li>
+        <li>SEO básico</li>
+        <li>30 dias de ajustes grátis</li>
+      </ul>
+    </div>
+
+    <div class="plan featured">
+      <span class="tag">Recomendado</span>
+      <h3>Profissional</h3>
+      <div class="for">O site da demonstração: o cliente vê o preço na hora e chega decidido.</div>
+      <div class="price"><small>R$</small> 1.990</div>
+      <div class="pix">ou R$ 1.850 no Pix à vista</div>
+      <ul class="check">
+        <li class="plus"><b>Tudo do Essencial</b></li>
+        <li><b>Orçamento instantâneo:</b> o preço aparece na hora para cada modelo (iPhone X ao 17, Galaxy S)</li>
+        <li><b>Laboratório 3D de reparos:</b> o cliente clica na peça e vê o serviço, o tempo e o preço</li>
+        <li>Visual animado e moderno, igual à demo</li>
+        <li>Perfil da loja no Google (Meu Negócio) configurado</li>
+        <li>60 dias de ajustes grátis</li>
+      </ul>
+    </div>
+
+    <div class="plan">
+      <h3>Premium</h3>
+      <div class="for">Conserto e venda: o site também vende aparelhos novos e seminovos.</div>
+      <div class="price"><small>R$</small> 2.990</div>
+      <div class="pix">ou R$ 2.790 no Pix à vista</div>
+      <ul class="check">
+        <li class="plus"><b>Tudo do Profissional</b></li>
+        <li><b>Showroom 360°:</b> o cliente gira o aparelho, troca cor e armazenamento e pede pelo WhatsApp</li>
+        <li>Vitrine de novos e seminovos com até 15 aparelhos</li>
+        <li>Contador de cliques no WhatsApp para saber de onde vêm os clientes</li>
+        <li><b>3 meses de manutenção</b> inclusos</li>
+        <li>90 dias de ajustes grátis</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="note" style="margin-top:6mm">Todos os planos têm entrega em <b>7 dias corridos</b> e incluem o 1º ano de domínio, hospedagem e e-mail. Os valores levam em conta a média de mercado para sites de pequenas empresas: de R$ 800 a R$ 3.000 para página única e de R$ 2.500 a R$ 10.000 para sites completos com freelancer. Por isso estão bem abaixo do que se cobra por recursos 3D sob medida.</p>
+
+  <div class="foot"><span>LBK Studio · Proposta M Cell Smart</span><span>3 / 5</span></div>
+</section>
+
+<!-- 4. COMPARATIVO + CUSTOS -->
+<section class="page">
+  <div class="eyebrow">Comparativo</div>
+  <h2>Lado a lado</h2>
+  <table>
+    <tr><th>Recurso</th><th class="c">Essencial</th><th class="c hl">Profissional</th><th class="c">Premium</th></tr>
+    <tr class="hl"><td>Site com nome, logo e cores da M Cell Smart</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Orçamento enviado pelo WhatsApp</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Preços reais, fotos da loja, mapa e horário</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Domínio .com.br, hospedagem e e-mail profissional (1º ano)</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>SEO básico</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Preço aparece na hora para cada modelo</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Laboratório 3D de reparos</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Perfil da loja no Google configurado</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Showroom 360° de aparelhos à venda</td><td class="c no">—</td><td class="c no">—</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Contador de cliques no WhatsApp</td><td class="c no">—</td><td class="c no">—</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Manutenção inclusa</td><td class="c no">—</td><td class="c no">—</td><td class="c">3 meses</td></tr>
+    <tr class="hl"><td>Ajustes grátis após a entrega</td><td class="c">30 dias</td><td class="c">60 dias</td><td class="c">90 dias</td></tr>
+    <tr class="hl"><td><b>Investimento</b></td><td class="c">R$ 1.290</td><td class="c">R$ 1.990</td><td class="c">R$ 2.990</td></tr>
+  </table>
+
+  <div class="sp"></div>
+  <div class="eyebrow">Depois da entrega</div>
+  <h2 style="font-size:17pt">Custos para manter o site no ar</h2>
+  <div class="infra">
+    <div class="card">
+      <h3>1º ano</h3>
+      <div class="kv"><span>Domínio .com.br</span><b>Incluso</b></div>
+      <div class="kv"><span>Hospedagem Hostinger</span><b>Incluso</b></div>
+      <div class="kv"><span>E-mail profissional</span><b>Incluso</b></div>
+      <p>Tudo fica registrado no nome da M Cell Smart. O site é da loja.</p>
+    </div>
+    <div class="card">
+      <h3>A partir do 2º ano</h3>
+      <div class="kv"><span>Hospedagem + e-mail</span><b>~R$ 40/mês</b></div>
+      <div class="kv"><span>Domínio .com.br</span><b>~R$ 40/ano</b></div>
+      <p>Valores da Hostinger, pagos direto a eles. Podem mudar conforme as promoções deles.</p>
+    </div>
+    <div class="card" style="border-color:var(--red)">
+      <h3>Manutenção (opcional)</h3>
+      <div class="price" style="font-size:18pt;margin:2mm 0"><small>R$</small> 99<small>/mês</small></div>
+      <ul class="check">
+        <li>Atualização de preços e fotos</li>
+        <li>Backup e site sempre no ar</li>
+        <li>Suporte pelo WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>LBK Studio · Proposta M Cell Smart</span><span>4 / 5</span></div>
+</section>
+
+<!-- 5. PAGAMENTO, PRAZO, PRÓXIMOS PASSOS -->
+<section class="page">
+  <div class="eyebrow">Condições</div>
+  <h2>Pagamento e prazo</h2>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Formas de pagamento</h3>
+      <ul class="check" style="margin-top:2mm">
+        <li><b>Pix à vista</b> com desconto (veja em cada plano)</li>
+        <li><b>50% na aprovação + 50% na entrega</b></li>
+        <li>Pix, débito, transferência, boleto ou dinheiro</li>
+        <li>Parcelamento flexível, a combinar</li>
+      </ul>
+      <p style="margin-top:3mm">Não aceitamos cartão de crédito.</p>
+    </div>
+    <div class="card">
+      <h3>Prazo</h3>
+      <div class="price" style="font-size:26pt;margin:2mm 0">7 dias<small> corridos</small></div>
+      <p>Contados a partir da aprovação e do recebimento do material da loja: logo, fotos, tabela de preços e dados de contato.</p>
+      <p style="margin-top:2mm">Proposta válida por <b style="color:var(--ink)">7 dias</b>, até 27/11/2026.</p>
+    </div>
+  </div>
+
+  <div class="sp"></div>
+  <h3 style="margin-bottom:3mm">Como funcionam os 7 dias</h3>
+  <div class="timeline">
+    <div class="step"><div class="d">Dia 1</div><p>Aprovação, compra do domínio e recebimento de fotos, logo e preços</p></div>
+    <div class="step"><div class="d">Dias 2–4</div><p>Site adaptado à M Cell Smart e preços cadastrados</p></div>
+    <div class="step"><div class="d">Dia 5</div><p>E-mail profissional, SEO e Google</p></div>
+    <div class="step"><div class="d">Dia 6</div><p>Revisão com o Marco e ajustes finais</p></div>
+    <div class="step"><div class="d">Dia 7</div><p>Site publicado no endereço da loja</p></div>
+  </div>
+
+  <div class="sp"></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>O que precisamos da loja</h3>
+      <ul class="check" style="margin-top:2mm">
+        <li>Logo (se não tiver, a gente monta uma versão simples)</li>
+        <li>Fotos da fachada, do balcão e da bancada</li>
+        <li>Tabela de preços dos reparos por modelo</li>
+        <li>Endereço, horário, WhatsApp e Instagram</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Para aprovar</h3>
+      <p style="color:var(--ink);font-size:10pt">É só responder no WhatsApp com o plano escolhido. A gente confirma o domínio disponível e começa no mesmo dia.</p>
+      <a class="cta red" style="margin-top:4mm;font-size:10pt;padding:3mm 6mm" href="https://wa.me/5547999687738?text=Ol%C3%A1%21%20Vi%20a%20proposta%20do%20site%20da%20M%20Cell%20Smart%20e%20quero%20aprovar%20o%20plano%3A%20">Aprovar pelo WhatsApp <span class="arr">→</span></a>
+    </div>
+  </div>
+
+  <div class="sign">
+    <div><b>LBK Studio</b>Lahel, Bruno e Kenni</div>
+    <div><b>Marco Pereira</b>M Cell Smart · Belém/PA</div>
+  </div>
+
+  <div class="foot"><span>LBK Studio · Proposta M Cell Smart</span><span>5 / 5</span></div>
+</section>
+
+</body>
+</html>
