@@ -2,6 +2,7 @@
   "name": "lbk-studio-site",
   "private": true,
   "version": "2.0.0",
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "dev": "vite",

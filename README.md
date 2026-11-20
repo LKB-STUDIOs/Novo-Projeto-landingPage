@@ -19,7 +19,7 @@ Requer Node 20.19 ou mais recente.
 | Rota | O que é |
 |---|---|
 | `/` | Portfólio: cena 3D guiada pela rolagem, serviços, processo, nichos, projetos, segurança, equipe e contato |
-| `/projetos/ferrus` | **Ferrus OS**: demonstração do sistema de gestão industrial (dados fictícios, salvos só no navegador) |
+| `/projetos/ferrus` | **Ferrus OS**: demonstração do sistema de gestão industrial com 13 módulos (dados fictícios, salvos só no navegador) |
 | `/projetos/brisa` | **Brisa Temporadas**: vitrine de imóveis com reserva no Airbnb |
 | `/casa-beulah-park/` | **Lume Residence**: página estática de um imóvel, com tour em vídeo que acompanha a rolagem e detalhes de cada ambiente (arquivos em `public/casa-beulah-park/`) |
 
@@ -32,15 +32,47 @@ src/main.tsx              rotas
 src/pages/Home.tsx        página principal + coreografia de scroll (GSAP ScrollTrigger)
 src/pages/home.css        visual da página principal
 src/sections/             seções da página principal
-src/components/           nav, cursor, preloader, botões magnéticos, WhatsApp flutuante…
+src/components/           nav, preloader, botões magnéticos, WhatsApp flutuante…
 src/three/                cena 3D (partículas que mudam de forma, formas flutuantes)
 src/lib/contato.ts        número do WhatsApp e montagem segura dos links
-src/pages/ferrus/         Ferrus OS
+src/pages/ferrus/         Ferrus OS (veja abaixo)
 src/pages/brisa/          Brisa Temporadas (imóveis em imoveis.ts)
 ```
 
 **Trocar o WhatsApp:** edite `src/lib/contato.ts`. Todos os botões usam esse arquivo.
 **Trocar imóveis da Brisa:** edite `src/pages/brisa/imoveis.ts` e, no campo `airbnb`, cole o link do anúncio real.
+
+### Ferrus OS (`src/pages/ferrus/`)
+
+Painel de gestão industrial de uma empresa fictícia (Metalúrgica Aurora, 3 unidades). Cada módulo tem endereço próprio: `/projetos/ferrus/<módulo>`.
+
+| Módulo | O que mostra |
+|---|---|
+| Visão geral | Faturamento x meta, OEE por unidade, eventos ao vivo, saúde das áreas, alertas, plano de ação |
+| Produção | OEE, status das 28 máquinas, apontamento de produção, registros com busca e exportação CSV |
+| Qualidade | Carta de controle (CEP) com Cp/Cpk, Pareto, quadro de NCs, reclamações de clientes pelo 8D |
+| Engenharia | Projetos PPAP (fases APQP e 18 elementos), mudanças de engenharia, estrutura de produto com custo |
+| Manutenção | MTBF/MTTR, ordens de serviço, mapa de calor de paradas, preventiva de moldes |
+| Compras | Gasto x orçamento, aprovação de requisições, pedidos, avaliação de fornecedores (IQF) |
+| Logística | Expedição por etapas, OTD, posição de estoque com mínimo e máximo |
+| Metrologia e Laboratório | Calibração de instrumentos, estudos de MSA, ensaios comparados com a especificação |
+| Ambiental | Água, energia, emissões, resíduos, licenças |
+| Segurança do trabalho | Dias sem acidente, pirâmide de Bird, ocorrências, treinamentos NR |
+| TI | Chamados com SLA, inventário, conformidade ISO 27001, disponibilidade dos serviços |
+| Usuários e acesso | Liberação de cadastros, matriz de permissões por perfil, auditoria |
+
+Também tem busca rápida (Ctrl+K ou ⌘K), filtro por unidade, notificações, tema claro e escuro, e funciona no celular.
+
+| Arquivo | Para quê |
+|---|---|
+| `dados.ts` | gera os dados fictícios (semente fixa: todo visitante vê os mesmos números) |
+| `nucleo.ts` | datas, formatação, CSV |
+| `graficos.tsx` | gráficos em SVG puro, sem biblioteca |
+| `ui.tsx` | componentes (indicador, tabela, quadro kanban, abas, janela) |
+| `modulos/` | uma tela por área |
+| `ferrus.css` | visual, com as cores do tema em variáveis no começo do arquivo |
+
+As alterações feitas na demonstração ficam só no navegador de quem abre e voltam ao padrão no dia seguinte, ou pelo botão "Restaurar dados" no rodapé.
 
 ### Lume Residence (Beulah Park) (`public/casa-beulah-park/`)
 
@@ -66,3 +98,7 @@ O GitHub Pages não permite configurar cabeçalhos HTTP. Para ter HSTS e anti-cl
 - **GitHub Pages**: em Settings → Pages, escolha **Source: GitHub Actions**. A cada push na `main`, o workflow testa, gera e publica.
 - **Render** (recomendado): New → **Blueprint** → escolha este repositório → **Apply**. O `render.yaml` já configura o build, as rotas e os cabeçalhos de segurança.
 - **Vercel, Netlify ou Cloudflare**: importe o repositório, use o comando `npm run build` e a pasta `dist`. Sem `BASE_PATH`, o site fica na raiz do domínio.
+
+## Direitos autorais
+
+© LBK Studio. Todos os direitos reservados. O código está público para consulta e portfólio; copiar, modificar, redistribuir ou usar comercialmente exige autorização por escrito. Veja `LICENSE`.

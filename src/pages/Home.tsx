@@ -2,7 +2,6 @@ import { useGSAP } from "@gsap/react";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import "@fontsource-variable/unbounded";
 import "@fontsource-variable/inter-tight";
-import { Cursor } from "../components/Cursor";
 import { Letreiro } from "../components/Letreiro";
 import { Nav } from "../components/Nav";
 import { Preloader } from "../components/Preloader";
@@ -184,7 +183,6 @@ export default function Home() {
     <div ref={raiz} className="home">
       <a className="skip" href="#conteudo">Pular para o conteúdo</a>
       <Preloader aoTerminar={() => setPronto(true)} />
-      <Cursor />
       <Progresso />
       {webgl ? (
         <Suspense fallback={null}>

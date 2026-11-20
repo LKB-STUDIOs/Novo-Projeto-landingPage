@@ -51,17 +51,6 @@
 .home .btn-zap { background: var(--zap); color: #04210f; border: 0; width: 100%; padding: 18px; font-size: 1.05rem; }
 .home .btn-zap::before { background: #fff; }
 .home .magnetico { will-change: transform; }
-:root.cursor-custom, :root.cursor-custom * { cursor: none !important; }
-.home .cursor-ponto, .home .cursor-anel { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; border-radius: 50%; }
-.home .cursor-ponto { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--accent); }
-.home .cursor-anel {
-  width: 38px; height: 38px; margin: -19px 0 0 -19px; border: 1px solid rgb(255 255 255 / 0.35);
-  display: grid; place-items: center; transition: width 0.35s var(--ease-out), height 0.35s var(--ease-out), margin 0.35s var(--ease-out), background 0.3s, border-color 0.3s;
-  mix-blend-mode: difference;
-}
-.home .cursor-anel.link { width: 64px; height: 64px; margin: -32px 0 0 -32px; border-color: var(--accent); background: rgb(198 255 74 / 0.1); }
-.home .cursor-anel.ver { width: 92px; height: 92px; margin: -46px 0 0 -46px; background: var(--accent); border-color: var(--accent); mix-blend-mode: normal; }
-.home .cursor-anel span { color: var(--accent-ink); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
 .home .preloader {
   position: fixed; inset: 0; z-index: 10000; background: var(--bg);
   display: grid; place-items: center; clip-path: inset(0 0 0 0);

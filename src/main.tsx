@@ -61,7 +61,7 @@ const router = createBrowserRouter(
       errorElement: <Erro />,
       children: [
         { index: true, element: <Home /> },
-        { path: "projetos/ferrus", element: <Ferrus /> },
+        { path: "projetos/ferrus/:modulo?/:aba?", element: <Ferrus /> },
         { path: "projetos/brisa", element: <Brisa /> },
         { path: "*", element: <NaoEncontrada /> },
       ],
