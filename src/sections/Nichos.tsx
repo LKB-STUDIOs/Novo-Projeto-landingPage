@@ -37,13 +37,13 @@ export function Nichos() {
             );
             if (n.href) {
               return (
-                <a key={n.n} className="nicho ativo" href={n.href} style={{ ["--c" as string]: n.c }} data-cursor="ver">
+                <a key={n.n} className="nicho ativo" href={n.href} style={{ ["--c" as string]: n.c }}>
                   {conteudo}
                 </a>
               );
             }
             return n.link ? (
-              <Link key={n.n} className="nicho ativo" to={n.link} style={{ ["--c" as string]: n.c }} data-cursor="ver">
+              <Link key={n.n} className="nicho ativo" to={n.link} style={{ ["--c" as string]: n.c }}>
                 {conteudo}
               </Link>
             ) : (

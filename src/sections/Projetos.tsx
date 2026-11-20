@@ -15,7 +15,7 @@ export function Projetos() {
       </div>
 
       <article className="projeto" style={{ ["--c" as string]: "#7cf2c4" }}>
-        <Link to="/projetos/ferrus" className="projeto-midia" data-cursor="ver" aria-label="Abrir demonstração do Ferrus OS">
+        <Link to="/projetos/ferrus" className="projeto-midia" aria-label="Abrir demonstração do Ferrus OS">
           <div className="mock mock-app">
             <div className="mock-barra"><i /><i /><i /><span>ferrus.app / painel</span></div>
             <div className="mock-corpo">
@@ -44,7 +44,7 @@ export function Projetos() {
       </article>
 
       <article className="projeto reverso" style={{ ["--c" as string]: "#ffb86b" }}>
-        <Link to="/projetos/brisa" className="projeto-midia" data-cursor="ver" aria-label="Abrir o site Brisa Temporadas">
+        <Link to="/projetos/brisa" className="projeto-midia" aria-label="Abrir o site Brisa Temporadas">
           <div className="mock mock-site">
             <div className="mock-barra"><i /><i /><i /><span>brisatemporadas.com.br</span></div>
             <div className="mock-hero"><span /><span /><em /></div>
@@ -64,7 +64,7 @@ export function Projetos() {
       </article>
 
       <article className="projeto" style={{ ["--c" as string]: "#e7c487" }}>
-        <a href={CASA_BEULAH_PARK} className="projeto-midia" data-cursor="ver" aria-label="Abrir o site Lume Residence">
+        <a href={CASA_BEULAH_PARK} className="projeto-midia" aria-label="Abrir o site Lume Residence">
           <div className="mock mock-site">
             <div className="mock-barra"><i /><i /><i /><span>lumeresidence.com.br</span></div>
             <div className="mock-hero"><span /><span /><em /></div>

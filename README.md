@@ -32,7 +32,7 @@ src/main.tsx              rotas
 src/pages/Home.tsx        página principal + coreografia de scroll (GSAP ScrollTrigger)
 src/pages/home.css        visual da página principal
 src/sections/             seções da página principal
-src/components/           nav, cursor, preloader, botões magnéticos, WhatsApp flutuante…
+src/components/           nav, preloader, botões magnéticos, WhatsApp flutuante…
 src/three/                cena 3D (partículas que mudam de forma, formas flutuantes)
 src/lib/contato.ts        número do WhatsApp e montagem segura dos links
 src/pages/ferrus/         Ferrus OS (veja abaixo)

@@ -179,7 +179,7 @@
   font-family: var(--display); font-weight: 500; font-size: clamp(2.1rem, 4.4vw, 3.6rem); line-height: 1.02;
   letter-spacing: -0.045em; margin: 28px 0 16px;
 }
-.fx .fx-login-frase h2 span {
+.fx .fx-login-frase h2 .fx-quente .fx-letra {
   background: linear-gradient(95deg, #ffd29a, #ff8a4c 45%, #ff5a1f); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .fx .fx-login-frase p { color: #a5abbb; font-size: 1.02rem; max-width: 470px; }
@@ -798,4 +798,33 @@
 @media (prefers-reduced-motion: reduce) {
   .fx *, .fx *::before, .fx *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .fx .fx-traco { stroke-dashoffset: 0; }
+}
+
+/* ============================================================ efeitos */
+/* luz que segue o cursor */
+.fx .fx-card, .fx .fx-saude-item, .fx .fx-kanban-card, .fx .fx-acao { position: relative; }
+.fx .fx-card::after, .fx .fx-kpi::after, .fx .fx-maquina::after, .fx .fx-saude-item::after, .fx .fx-kanban-card::after, .fx .fx-acao::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.35s;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 11%, transparent), transparent 45%);
+}
+.fx .fx-card:hover::after, .fx .fx-kpi:hover::after, .fx .fx-maquina:hover::after, .fx .fx-saude-item:hover::after, .fx .fx-kanban-card:hover::after, .fx .fx-acao:hover::after { opacity: 1; }
+.fx .fx-card:hover { border-color: color-mix(in srgb, var(--accent) 22%, var(--line)); }
+
+/* feixe de luz correndo pela borda do destaque */
+@property --fx-giro { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.fx .fx-hero::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: 2; pointer-events: none;
+  background: conic-gradient(from var(--fx-giro), transparent 0 70%, var(--accent-2) 82%, var(--accent) 88%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: fx-giro 6s linear infinite;
+}
+@keyframes fx-giro { to { --fx-giro: 360deg; } }
+
+/* login: letras, luz do mouse */
+.fx .fx-palavra { display: inline-block; white-space: nowrap; }
+.fx .fx-letra { display: inline-block; }
+.fx .fx-quente .fx-letra { background: linear-gradient(95deg, #ffd29a, #ff8a4c 45%, #ff5a1f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fx .fx-login-luz {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(420px circle at var(--lx, 70%) var(--ly, 30%), rgb(255 140 70 / 0.16), transparent 60%);
 }

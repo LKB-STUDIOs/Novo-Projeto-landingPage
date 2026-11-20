@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "motion/react";
-import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import "@fontsource-variable/inter-tight";
 import "@fontsource-variable/unbounded";
@@ -97,6 +97,19 @@ export default function Ferrus() {
     };
     window.addEventListener("keydown", tecla);
     return () => window.removeEventListener("keydown", tecla);
+  }, []);
+
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    const mover = (e: PointerEvent) => {
+      const el = (e.target as HTMLElement).closest?.<HTMLElement>(".fx-card, .fx-kpi, .fx-maquina, .fx-saude-item, .fx-kanban-card, .fx-acao");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    window.addEventListener("pointermove", mover, { passive: true });
+    return () => window.removeEventListener("pointermove", mover);
   }, []);
 
   const avisar = useCallback((txt: string) => {
@@ -287,7 +300,30 @@ function Marca({ grande = false }: { grande?: boolean }) {
   );
 }
 
+function Letras({ txt }: { txt: string }) {
+  return <>{txt.split(" ").map((p, i) => <Fragment key={i}>{i > 0 && " "}<span className="fx-palavra">{[...p].map((l, j) => <span key={j} className="fx-letra">{l}</span>)}</span></Fragment>)}</>;
+}
+
 function Login({ entrar }: { entrar: (e: FormEvent) => void }) {
+  const arte = useRef<HTMLDivElement>(null);
+  useGSAP(() => {
+    gsap.from(".fx-letra", { yPercent: 110, opacity: 0, rotate: 6, duration: 0.8, stagger: 0.025, ease: "power4.out", delay: 0.25 });
+    const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduzir || !window.matchMedia("(pointer: fine)").matches) return;
+    const cx = gsap.quickTo(".fx-login-cards", "x", { duration: 0.8, ease: "power3" });
+    const cy = gsap.quickTo(".fx-login-cards", "y", { duration: 0.8, ease: "power3" });
+    const gx = gsap.quickTo(".fx-login-grade", "x", { duration: 1.2, ease: "power3" });
+    const gy = gsap.quickTo(".fx-login-grade", "y", { duration: 1.2, ease: "power3" });
+    const mover = (e: PointerEvent) => {
+      const r = arte.current!.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      cx(x * -36); cy(y * -26); gx(x * 18); gy(y * 18);
+      arte.current!.style.setProperty("--lx", `${(x + 0.5) * 100}%`);
+      arte.current!.style.setProperty("--ly", `${(y + 0.5) * 100}%`);
+    };
+    arte.current!.addEventListener("pointermove", mover);
+    return () => arte.current?.removeEventListener("pointermove", mover);
+  }, { scope: arte });
   const cards = [
     { r: "OEE global", v: "78,4%", d: "+1,8 p.p.", c: "c1" },
     { r: "Aprovação", v: "97,2%", d: "+0,4 p.p.", c: "ok" },
@@ -295,10 +331,11 @@ function Login({ entrar }: { entrar: (e: FormEvent) => void }) {
   ];
   return (
     <motion.section className="fx-login" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.99 }}>
-      <div className="fx-login-arte" aria-hidden="true">
-        <div className="fx-login-brasa" />
-        <div className="fx-login-grade" />
-        <div className="fx-login-cards">
+      <div className="fx-login-arte" ref={arte}>
+        <div className="fx-login-brasa" aria-hidden="true" />
+        <div className="fx-login-luz" aria-hidden="true" />
+        <div className="fx-login-grade" aria-hidden="true" />
+        <div className="fx-login-cards" aria-hidden="true">
           {cards.map((c, i) => (
             <motion.div key={c.r} className="fx-login-card" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: [0, -8, 0] }}
               transition={{ opacity: { delay: 0.3 + i * 0.15 }, y: { delay: 0.3 + i * 0.15, duration: 5 + i, repeat: Infinity, ease: "easeInOut" } }}>
@@ -308,7 +345,7 @@ function Login({ entrar }: { entrar: (e: FormEvent) => void }) {
         </div>
         <motion.div className="fx-login-frase" initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
           <Marca grande />
-          <h2>A fábrica inteira,<br /><span>em uma tela.</span></h2>
+          <h2 aria-label="A fábrica inteira, em uma tela."><span aria-hidden="true"><Letras txt="A fábrica inteira," /></span><br /><span className="fx-quente" aria-hidden="true"><Letras txt="em uma tela." /></span></h2>
           <p>Produção, qualidade, engenharia, compras, logística, manutenção, laboratório, meio ambiente, segurança e TI conectados em tempo real.</p>
           <ul><li>13 módulos</li><li>3 unidades</li><li>Multiusuário</li></ul>
         </motion.div>

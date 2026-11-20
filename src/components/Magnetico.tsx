@@ -29,7 +29,6 @@ export function Magnetico({ forca = 0.35, children, className = "", ...rest }: P
       onPointerMove={mover}
       onPointerLeave={soltar}
       whileTap={{ scale: 0.96 }}
-      data-cursor="link"
       {...rest}
     >
       {children}
