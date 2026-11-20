@@ -102,3 +102,13 @@ O GitHub Pages não permite configurar cabeçalhos HTTP. Para ter HSTS e anti-cl
 ## Direitos autorais
 
 © LBK Studio. Todos os direitos reservados. O código está público para consulta e portfólio; copiar, modificar, redistribuir ou usar comercialmente exige autorização por escrito. Veja `LICENSE`.
+
+## Microsites com build próprio
+
+Projetos completos que têm o próprio `package.json` ficam em `apps/` e são gerados dentro do `dist/` pelo `scripts/postbuild.mjs`:
+
+| Pasta | Publicado em |
+| --- | --- |
+| `apps/support-cell-lab` | `/support-cell-lab/` |
+
+Para trabalhar em um deles: `cd apps/support-cell-lab && npm install && npm run dev`.

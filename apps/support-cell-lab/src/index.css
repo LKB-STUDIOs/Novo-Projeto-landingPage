@@ -1,0 +1,208 @@
+@import 'tailwindcss';
+
+/* Astra SemiBold: coloque o arquivo em public/fonts/ (woff2, otf ou ttf).
+   Se já estiver instalada no computador, local() usa a cópia do sistema. */
+@font-face {
+  font-family: 'Astra';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('Astra SemiBold'),
+    local('Astra-SemiBold'),
+    url('/fonts/Astra-SemiBold.woff2') format('woff2'),
+    url('/fonts/Astra-SemiBold.otf') format('opentype'),
+    url('/fonts/Astra-SemiBold.ttf') format('truetype');
+}
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Astra', 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  /* paleta vermelha */
+  --color-ink: #f5f1ef;
+  --color-panel: #ffffff;
+  --color-panel-2: #f3ecec;
+  --color-line: rgb(122 12 23 / 0.1);
+  --color-fg: #1e0a0d;
+  --color-muted: #8a6f72;
+  --color-accent: #d72638;
+  --color-accent-2: #7a0c17;
+  --color-red-bright: #ff0400;
+  --color-red-mid: #ff3936;
+  --color-red-soft: #ff7673;
+  --color-blush: #ebe5e5;
+  --color-sand: #d9c7c2;
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  background: var(--color-ink);
+  overflow-x: hidden;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+/* Astra SemiBold em títulos e elementos de interface */
+h1, h2, h3, .font-display, .btn, nav a {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+@utility glass {
+  background: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--color-line);
+}
+@utility text-gradient {
+  background: linear-gradient(100deg, #ff7673 0%, #ff0400 40%, #d72638 70%, #7a0c17 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition duration-300 active:scale-[0.97];
+}
+@utility btn-primary {
+  @apply btn bg-accent text-white hover:shadow-[0_0_40px_-6px_var(--color-accent)];
+}
+@utility btn-ghost {
+  @apply btn border border-line bg-fg/[0.03] text-fg hover:bg-fg/[0.08];
+}
+@utility chip {
+  @apply rounded-full border border-line px-4 py-2 text-sm text-fg/70 transition hover:border-fg/25 hover:text-fg;
+}
+@utility chip-on {
+  @apply border-accent/60 bg-accent/10 text-fg;
+}
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full border border-line bg-fg/[0.03] px-3 py-1 text-xs font-medium tracking-wide text-fg/70 uppercase;
+}
+@utility section-title {
+  @apply font-display text-4xl font-semibold tracking-tight text-fg md:text-6xl;
+}
+@utility field {
+  @apply w-full rounded-xl border border-line bg-fg/[0.03] px-4 py-3 text-sm text-fg placeholder:text-fg/30 outline-none transition focus:border-accent/60 focus:bg-fg/[0.05];
+}
+
+/* hotspots 3D */
+.hotspot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.hotspot-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 0 4px rgb(215 38 56 / 0.2);
+  transition: all 0.25s;
+}
+.hotspot-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid var(--color-accent);
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.hotspot-label {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+  white-space: nowrap;
+  font: 600 12px/1 var(--font-sans);
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgb(30 10 13 / 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s;
+}
+.hotspot:hover .hotspot-label,
+.hotspot.is-active .hotspot-label {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+.hotspot.is-active .hotspot-dot,
+.hotspot:hover .hotspot-dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 5px rgb(215 38 56 / 0.3);
+}
+.hotspot.is-active .hotspot-dot::after {
+  border-color: var(--color-accent);
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+input[type='range'].slider {
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent) var(--v, 0%), rgb(122 12 23 / 0.12) var(--v, 0%));
+}
+input[type='range'].slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgb(215 38 56 / 0.35);
+  cursor: grab;
+}
+input[type='range'].slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  cursor: grab;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .hotspot-dot::after {
+    animation: none;
+  }
+}

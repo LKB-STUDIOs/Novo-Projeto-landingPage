@@ -3,6 +3,7 @@ import { SetaDiagonal } from "../components/Icones";
 
 /** Página estática (public/casa-beulah-park/): fica fora do app React, então é um link normal. */
 const CASA_BEULAH_PARK = `${import.meta.env.BASE_URL}casa-beulah-park/`;
+const SUPPORT_CELL_LAB = `${import.meta.env.BASE_URL}support-cell-lab/`;
 
 export function Projetos() {
   return (
@@ -80,6 +81,28 @@ export function Projetos() {
           </p>
           <ul className="chips"><li>Tour em vídeo</li><li>Detalhes por ambiente</li><li>Rolagem</li><li>Mobile</li></ul>
           <a href={CASA_BEULAH_PARK} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
+        </div>
+      </article>
+      <article className="projeto reverso" style={{ ["--c" as string]: "#9be8ff" }}>
+        <a href={SUPPORT_CELL_LAB} className="projeto-midia" aria-label="Abrir o site Support Cell Lab">
+          <div className="mock mock-cell">
+            <div className="mock-barra"><i /><i /><i /><span>supportcelllab.com.br</span></div>
+            <div className="mock-cell-palco">
+              <span className="mock-cell-aparelho"><b /><em /></span>
+              <span className="mock-cell-aparelho atras"><b /></span>
+              <div className="mock-cell-pecas"><i /><i /><i /><i /></div>
+            </div>
+          </div>
+        </a>
+        <div className="projeto-info">
+          <p className="eyebrow">Site · Assistência técnica</p>
+          <h3>Support Cell Lab</h3>
+          <p>
+            Assistência premium para iPhone e Galaxy com showroom 360° dos aparelhos, laboratório 3D em que o cliente
+            clica em cada peça para ver o reparo, o tempo e o preço, e orçamento em 3 passos direto no WhatsApp.
+          </p>
+          <ul className="chips"><li>Modelos 3D</li><li>Vista explodida</li><li>Orçamento</li><li>WhatsApp</li></ul>
+          <a href={SUPPORT_CELL_LAB} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
         </div>
       </article>
     </section>
