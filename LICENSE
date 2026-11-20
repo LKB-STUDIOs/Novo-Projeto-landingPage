@@ -1,0 +1,18 @@
+Copyright (c) 2026 LBK Studio (Lahel, Bruno e Kenni). Todos os direitos reservados.
+
+Este repositório e todo o seu conteúdo (código-fonte, design, textos, imagens e
+demais arquivos) são de propriedade exclusiva da LBK Studio.
+
+O código está disponível publicamente apenas para visualização, como portfólio.
+Nenhuma licença é concedida. Sem autorização prévia e por escrito da LBK Studio,
+é proibido:
+
+- copiar, reproduzir ou redistribuir este código, no todo ou em parte;
+- modificar ou criar obras derivadas;
+- usar este código, ou partes dele, em projetos pessoais ou comerciais;
+- sublicenciar ou vender cópias.
+
+As dependências de terceiros listadas em package.json seguem as licenças
+de seus respectivos autores.
+
+Para pedidos de autorização, entre em contato com a LBK Studio.

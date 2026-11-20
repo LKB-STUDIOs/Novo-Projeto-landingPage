@@ -35,10 +35,10 @@ export function Projetos() {
           <p className="eyebrow">Sistema · Indústria</p>
           <h3>Ferrus OS</h3>
           <p>
-            Gestão industrial completa: apontamento de produção por setor e filial, qualidade, não conformidades,
-            calibração de instrumentos, indicadores e controle de usuários.
+            Gestão industrial completa em 13 módulos: produção e OEE, qualidade com CEP e 8D, engenharia e PPAP,
+            manutenção, compras, logística, laboratório, meio ambiente, segurança do trabalho e TI, em várias unidades.
           </p>
-          <ul className="chips"><li>Produção</li><li>Qualidade</li><li>Indicadores</li><li>Multifilial</li></ul>
+          <ul className="chips"><li>13 módulos</li><li>Dashboards</li><li>Tempo real</li><li>Multiunidade</li></ul>
           <Link to="/projetos/ferrus" className="btn btn-cor">Abrir demonstração <SetaDiagonal /></Link>
         </div>
       </article>
