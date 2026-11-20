@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { Component, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { Phone } from './Phone'
-import { SPECS, asset, modelUrl, type PhoneColor, type Product } from '../data'
+import { SPECS, modelUrl, type PhoneColor, type Product } from '../data'
 
 /** Verifica se o arquivo do modelo existe em public/models (o dev server devolve HTML para arquivos ausentes). */
 const cache = new Map<string, Promise<boolean>>()
@@ -59,7 +59,7 @@ const tmpB = { h: 0, s: 0, l: 0 }
 function GLBPhone({ product, color }: { product: Product; color: PhoneColor }) {
   const spec = SPECS[product.spec]
   const cfg = product.model ?? {}
-  const { scene } = useGLTF(modelUrl(product), asset('/draco/'))
+  const { scene } = useGLTF(modelUrl(product), `${import.meta.env.BASE_URL}draco/`)
 
   const { root, scale, center } = useMemo(() => {
     const root = scene.clone(true)

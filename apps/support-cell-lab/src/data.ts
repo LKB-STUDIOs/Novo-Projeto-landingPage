@@ -52,7 +52,7 @@ export type Product = {
 }
 
 export type ModelConfig = {
-  /** arquivo diferente do padrão `/models/<id>.glb` */
+  /** arquivo dentro de public/models diferente do padrão `<id>.glb` */
   file?: string
   /** corrige a orientação do arquivo (radianos) para o aparelho ficar em pé, tela para +Z */
   rotation?: [number, number, number]
@@ -64,9 +64,8 @@ export type ModelConfig = {
   hide?: string[]
 }
 
-/** Caminhos relativos à base do site: funciona na raiz ou publicado em uma subpasta (ex.: /support-cell-lab/). */
-export const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
-export const modelUrl = (p: Product) => asset(p.model?.file ?? `/models/${p.id}.glb`)
+/** caminho relativo à base do site: funciona na raiz do domínio e em subpastas (ex.: GitHub Pages) */
+export const modelUrl = (p: Product) => `${import.meta.env.BASE_URL}models/${p.model?.file ?? `${p.id}.glb`}`
 
 const c = (name: string, frame: string, back = frame): PhoneColor => ({ name, frame, back })
 
@@ -121,7 +120,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'ip17',
-    model: { file: '/models/ip16.glb', tint: { auto: true } },
+    model: { file: 'ip16.glb', tint: { auto: true } },
     brand: 'apple',
     name: 'iPhone 17',
     spec: 'iphone',
@@ -182,7 +181,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 's25edge',
-    model: { file: '/models/s25.glb', hide: ['s25.001'] },
+    model: { file: 's25.glb', hide: ['s25.001'] },
     brand: 'samsung',
     name: 'Galaxy S25 Edge',
     spec: 'galaxyEdge',
@@ -197,7 +196,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 's25plus',
-    model: { file: '/models/s25.glb', hide: ['s25.001'] },
+    model: { file: 's25.glb', hide: ['s25.001'] },
     brand: 'samsung',
     name: 'Galaxy S25+',
     spec: 'galaxyPlus',
@@ -227,7 +226,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 's24ultra',
-    model: { file: '/models/s25ultra.glb', tint: { back: ['backcover_glass'], frame: ['rearcase'] } },
+    model: { file: 's25ultra.glb', tint: { back: ['backcover_glass'], frame: ['rearcase'] } },
     brand: 'samsung',
     name: 'Galaxy S24 Ultra',
     spec: 'galaxyUltra',
@@ -242,7 +241,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 's24',
-    model: { file: '/models/s25.glb', hide: ['s25.001'] },
+    model: { file: 's25.glb', hide: ['s25.001'] },
     brand: 'samsung',
     name: 'Galaxy S24',
     spec: 'galaxy',
