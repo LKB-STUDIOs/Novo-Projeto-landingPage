@@ -96,6 +96,15 @@
   .sign{ display:grid; grid-template-columns:1fr 1fr; gap:12mm; margin-top:10mm }
   .sign div{ border-top:1px solid var(--ink); padding-top:2mm; font-size:9pt; color:var(--muted) }
   .sign b{ color:var(--ink); display:block; font-size:10pt }
+  .flow{ display:grid; grid-template-columns:1fr 5mm 1fr 5mm 1fr 5mm 1fr; align-items:stretch; gap:1.5mm }
+  .fstep{ background:var(--panel); border:1px solid var(--line); border-radius:4mm; padding:4mm }
+  .fstep h3{ font-size:10.5pt; margin-top:1mm }
+  .fstep p{ font-size:8.5pt; color:var(--muted); margin-top:1mm; line-height:1.35 }
+  .fstep.hot{ background:var(--red); border-color:var(--red); color:#fff }
+  .fstep.hot p, .fstep.hot .num{ color:#ffe3e3 }
+  .farr{ display:grid; place-items:center; color:var(--red); font-weight:700 }
+  ul.check.light li{ color:#fff }
+  ul.check.light li::before{ background:#ff7673 }
   .sp{ height:7mm }
 </style>
 </head>
@@ -108,58 +117,68 @@
   <div style="margin-top:42mm">
     <div class="eyebrow">Proposta comercial · Criação de site</div>
     <h1>Site M Cell Smart</h1>
-    <p class="sub">Um site com a cara da M Cell Smart, onde o cliente vê o preço do conserto e já chama a loja no WhatsApp. Feito para trazer mais clientes de Belém para o balcão.</p>
+    <p class="sub">Um site simples e direto: o cliente do Instagram vê o preço do conserto e já chama a loja no WhatsApp. E um painel para o Marco mudar os preços sozinho.</p>
     <a class="cta" href="https://lbk-studio.onrender.com/support-cell-lab/">Ver a demonstração do site <span class="arr">→</span></a>
     <div class="url">lbk-studio.onrender.com/support-cell-lab</div>
   </div>
   <div class="meta">
     <div><small>Para</small><b>Marco Pereira<br>M Cell Smart · Belém/PA</b></div>
-    <div><small>Emitida em</small><b>20/11/2026</b></div>
-    <div><small>Válida até</small><b>27/11/2026</b></div>
+    <div><small>Emitida em</small><b>21/11/2026</b></div>
+    <div><small>Válida até</small><b>28/11/2026</b></div>
   </div>
 </section>
 
 <!-- 2. O PROJETO -->
 <section class="page">
   <div class="eyebrow">O projeto</div>
-  <h2>O que o site vai fazer pela loja</h2>
-  <p class="lead">Os clientes da M Cell Smart chegam pelo Instagram e perguntam “quanto fica?” no direct. O site responde essa pergunta antes da conversa e manda o cliente direto para o WhatsApp da loja, já dizendo o aparelho e o defeito.</p>
+  <h2>Simples e direto, do jeito que o cliente quer</h2>
+  <p class="lead">O cliente da M Cell Smart quer resolver o problema rápido. Ele vem do Instagram, quer saber quanto custa e falar com a loja. O site faz só isso, e faz bem: em poucos toques o cliente vê o preço e já está no WhatsApp.</p>
 
   <div style="height:5mm"></div>
-  <div class="grid2">
-    <div class="card"><div class="num">01</div><h3>Link na bio do Instagram</h3><p>O link do site vai na bio e nos destaques. O seguidor clica, vê o preço e chama a loja, sem ficar esperando resposta no direct.</p></div>
-    <div class="card"><div class="num">02</div><h3>Orçamento em poucos cliques</h3><p>O cliente escolhe o modelo (iPhone ou Samsung) e o defeito: tela, bateria, câmera, conector, placa e outros.</p></div>
-    <div class="card"><div class="num">03</div><h3>Direto para o WhatsApp</h3><p>A mensagem chega pronta: “Olá, tenho um iPhone 13 com a tela quebrada…”. O atendimento já começa com a informação certa.</p></div>
-    <div class="card"><div class="num">04</div><h3>Marca profissional</h3><p>Endereço próprio (ex.: mcellsmart.com.br) e e-mail com o nome da loja passam mais confiança.</p></div>
+  <div class="flow">
+    <div class="fstep"><div class="num">1</div><h3>Clica no link</h3><p>Na bio ou nos destaques do Instagram</p></div>
+    <div class="farr">→</div>
+    <div class="fstep"><div class="num">2</div><h3>Escolhe o aparelho</h3><p>iPhone ou Samsung, pelo modelo</p></div>
+    <div class="farr">→</div>
+    <div class="fstep"><div class="num">3</div><h3>Vê o preço</h3><p>Escolhe o defeito e o valor aparece na hora</p></div>
+    <div class="farr">→</div>
+    <div class="fstep hot"><div class="num">4</div><h3>Chama no WhatsApp</h3><p>Com a mensagem pronta: aparelho e defeito</p></div>
   </div>
 
   <div style="height:5mm"></div>
-  <div class="demo">
+  <div class="demo" style="grid-template-columns:1.25fr 1fr">
     <div>
-      <div class="eyebrow">Demonstração</div>
-      <h3>Veja como o site pode ficar</h3>
-      <p>Fiz um modelo funcionando para você testar no celular: o laboratório 3D de reparos, o orçamento instantâneo e o showroom de aparelhos. No projeto final, ele vai sair com o <b style="color:#fff">nome, as cores, as fotos e os preços reais da M Cell Smart</b>.</p>
+      <div class="eyebrow">Painel da loja</div>
+      <h3>O Marco muda os preços sozinho, pelo celular</h3>
+      <p>Mudou o preço da tela do iPhone 13? Entra no painel, troca o valor e o site já atualiza na hora. Sem depender de ninguém.</p>
     </div>
-    <div style="text-align:center">
-      <a class="cta red" href="https://lbk-studio.onrender.com/support-cell-lab/">Abrir demonstração <span class="arr">→</span></a>
-      <p style="font-size:8pt;margin-top:3mm">Os preços e o nome “Support Cell Lab” da demo são só ilustrativos.</p>
-    </div>
+    <ul class="check light">
+      <li>Acesso com login e senha</li>
+      <li>Mudar o preço de cada conserto, por modelo</li>
+      <li>Incluir modelos novos quando lançarem</li>
+      <li>Ligar e desligar serviços</li>
+      <li>Trocar horário, WhatsApp e fotos</li>
+    </ul>
+  </div>
+
+  <div style="height:5mm"></div>
+  <div class="card" style="display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center;padding:4mm 5mm">
+    <p style="margin:0;color:var(--ink);font-size:9.3pt"><b>Demonstração:</b> o modelo que montei mostra o orçamento funcionando e o estilo do site. A versão da M Cell Smart vai ser <b>mais enxuta</b>: sem efeitos 3D, só o que o cliente precisa, abrindo rápido até no 4G.</p>
+    <a class="cta red" style="margin:0;font-size:9.5pt;padding:3mm 5mm;white-space:nowrap" href="https://lbk-studio.onrender.com/support-cell-lab/">Ver demo <span class="arr">→</span></a>
   </div>
 
   <div style="height:5mm"></div>
   <h3 style="margin-bottom:1mm">Incluso em todos os planos</h3>
   <div class="grid2" style="gap:0 8mm">
     <ul class="check">
-      <li><b>Domínio .com.br</b> registrado em nome da M Cell Smart</li>
-      <li><b>Hospedagem</b> na Hostinger (1º ano incluso)</li>
-      <li><b>E-mail profissional</b> com o domínio da loja (1º ano)</li>
-      <li><b>Preços reais</b> dos reparos cadastrados por mim</li>
+      <li><b>Domínio .com.br</b> no nome da M Cell Smart</li>
+      <li><b>Hospedagem</b> na Hostinger (1º ano)</li>
+      <li><b>E-mail profissional</b> da loja (1º ano)</li>
     </ul>
     <ul class="check">
-      <li><b>Fotos da loja</b>, endereço, horário e mapa</li>
+      <li><b>Preços reais</b>, fotos da loja, endereço e mapa</li>
       <li><b>SEO básico</b> (explicado abaixo)</li>
-      <li>Feito para o <b>celular</b>, de onde vem quem clica no Instagram</li>
-      <li>Botão de <b>WhatsApp</b> sempre visível</li>
+      <li>Feito para o <b>celular</b> e pronto para a bio do Instagram</li>
     </ul>
   </div>
   <div class="card" style="margin-top:3mm;padding:3.5mm 5mm;background:var(--blush);border-color:transparent">
@@ -173,59 +192,59 @@
 <section class="page">
   <div class="eyebrow">Investimento</div>
   <h2>Três formas de fazer</h2>
-  <p class="lead">Todos entregam o que o Marco pediu: orçamento no site e cliente no WhatsApp. A diferença está em quanto o site impressiona e quanto trabalho ele tira do balcão.</p>
+  <p class="lead">Os três são simples e diretos: o cliente vê o preço e chama no WhatsApp. A diferença é quem muda os preços e o que vem a mais.</p>
 
   <div class="plans">
     <div class="plan">
-      <h3>Essencial</h3>
-      <div class="for">O básico bem feito: link na bio do Instagram com orçamento pelo WhatsApp.</div>
-      <div class="price"><small>R$</small> 1.300</div>
-      <div class="pix">ou R$ 1.200 no Pix à vista</div>
+      <h3>Simples</h3>
+      <div class="for">O site pronto. Quando precisar mudar preço, eu mudo para você.</div>
+      <div class="price"><small>R$</small> 1.000</div>
+      <div class="pix">ou R$ 900 no Pix à vista</div>
       <ul class="check">
-        <li>Site de página única com a marca M Cell Smart, pronto para a bio do Instagram</li>
-        <li><b>Orçamento rápido:</b> o cliente escolhe aparelho e defeito e envia pelo WhatsApp</li>
-        <li>Tabela de serviços com preços reais</li>
-        <li>Fotos da loja, mapa e horário</li>
-        <li>Perguntas frequentes e garantia</li>
+        <li>Site de uma página, leve e rápido</li>
+        <li><b>Orçamento:</b> aparelho, defeito, preço na hora e WhatsApp</li>
+        <li>Pronto para a bio do Instagram</li>
+        <li>Fotos da loja, endereço, horário e mapa</li>
         <li>Domínio, hospedagem e e-mail (1º ano)</li>
         <li>SEO básico</li>
+        <li>Preços mudados por mim, pela manutenção</li>
         <li>30 dias de ajustes grátis</li>
       </ul>
     </div>
 
     <div class="plan featured">
       <span class="tag">Recomendado</span>
-      <h3>Profissional</h3>
-      <div class="for">O site da demonstração: o cliente vê o preço na hora e chega decidido.</div>
-      <div class="price"><small>R$</small> 2.000</div>
-      <div class="pix">ou R$ 1.900 no Pix à vista</div>
+      <h3>Simples + Painel</h3>
+      <div class="for">O que o Marco pediu: site direto e um painel para mudar os preços sozinho.</div>
+      <div class="price"><small>R$</small> 1.500</div>
+      <div class="pix">ou R$ 1.400 no Pix à vista</div>
       <ul class="check">
-        <li class="plus"><b>Tudo do Essencial</b></li>
-        <li><b>Orçamento instantâneo:</b> o preço aparece na hora para cada modelo (iPhone X ao 17, Galaxy S)</li>
-        <li><b>Laboratório 3D de reparos:</b> o cliente clica na peça e vê o serviço, o tempo e o preço</li>
-        <li>Visual animado e moderno, igual à demo</li>
-        <li>Perfil da loja no Google (Meu Negócio) configurado</li>
+        <li class="plus"><b>Tudo do Simples</b></li>
+        <li><b>Painel da loja</b> com login e senha</li>
+        <li>Muda preços, serviços e modelos pelo celular</li>
+        <li>Troca horário, WhatsApp e fotos sem depender de ninguém</li>
+        <li>Explicação de como usar o painel na entrega</li>
         <li>60 dias de ajustes grátis</li>
       </ul>
     </div>
 
     <div class="plan">
-      <h3>Premium</h3>
-      <div class="for">Conserto e venda: o site também vende aparelhos novos e seminovos.</div>
-      <div class="price"><small>R$</small> 3.000</div>
-      <div class="pix">ou R$ 2.800 no Pix à vista</div>
+      <h3>Completo</h3>
+      <div class="for">Para também vender aparelhos e saber de onde vêm os clientes.</div>
+      <div class="price"><small>R$</small> 2.300</div>
+      <div class="pix">ou R$ 2.100 no Pix à vista</div>
       <ul class="check">
-        <li class="plus"><b>Tudo do Profissional</b></li>
-        <li><b>Showroom 360°:</b> o cliente gira o aparelho, troca cor e armazenamento e pede pelo WhatsApp</li>
-        <li>Vitrine de novos e seminovos com até 15 aparelhos</li>
-        <li>Contador de cliques: mostra quantos clientes vieram do Instagram e quantos do Google</li>
+        <li class="plus"><b>Tudo do Simples + Painel</b></li>
+        <li><b>Vitrine de aparelhos</b> à venda (novos e seminovos), editada pelo painel</li>
+        <li>Contador de cliques: quantos vieram do Instagram e quantos do Google</li>
+        <li>Perfil da loja no Google configurado</li>
         <li><b>3 meses de manutenção</b> inclusos</li>
         <li>90 dias de ajustes grátis</li>
       </ul>
     </div>
   </div>
 
-  <p class="note" style="margin-top:6mm">Todos os planos têm entrega em <b>7 dias corridos</b> e incluem o 1º ano de domínio, hospedagem e e-mail. Os valores levam em conta a média de mercado para sites de pequenas empresas: de R$ 800 a R$ 3.000 para página única e de R$ 2.500 a R$ 10.000 para sites completos com freelancer. Por isso estão bem abaixo do que se cobra por recursos 3D sob medida.</p>
+  <p class="note" style="margin-top:6mm">Todos os planos têm entrega em <b>7 dias corridos</b> e incluem o 1º ano de domínio, hospedagem e e-mail. Como referência, um site de uma página feito por freelancer costuma custar de R$ 800 a R$ 3.000 no mercado.</p>
 
   <div class="foot"><span>Lahel Landim · Proposta M Cell Smart</span><span>3 / 5</span></div>
 </section>
@@ -235,21 +254,21 @@
   <div class="eyebrow">Comparativo</div>
   <h2>Lado a lado</h2>
   <table>
-    <tr><th>Recurso</th><th class="c">Essencial</th><th class="c hl">Profissional</th><th class="c">Premium</th></tr>
-    <tr class="hl"><td>Site com nome, logo e cores da M Cell Smart</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Orçamento enviado pelo WhatsApp</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Preços reais, fotos da loja, mapa e horário</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Domínio .com.br, hospedagem e e-mail profissional (1º ano)</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr><th>Recurso</th><th class="c">Simples</th><th class="c hl">+ Painel</th><th class="c">Completo</th></tr>
+    <tr class="hl"><td>Site simples e rápido, com a marca M Cell Smart</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Orçamento com preço na hora e envio pelo WhatsApp</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
     <tr class="hl"><td>Link pronto para a bio e os destaques do Instagram</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Fotos da loja, endereço, horário e mapa</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Domínio, hospedagem e e-mail profissional (1º ano)</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
     <tr class="hl"><td>SEO básico (aparecer no Google)</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Preço aparece na hora para cada modelo</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Laboratório 3D de reparos</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Perfil da loja no Google configurado</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
-    <tr class="hl"><td>Showroom 360° de aparelhos à venda</td><td class="c no">—</td><td class="c no">—</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Painel para mudar preços, serviços e modelos</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Explicação de uso do painel</td><td class="c no">—</td><td class="c">✓</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Vitrine de aparelhos à venda</td><td class="c no">—</td><td class="c no">—</td><td class="c">✓</td></tr>
     <tr class="hl"><td>Contador de cliques (Instagram x Google)</td><td class="c no">—</td><td class="c no">—</td><td class="c">✓</td></tr>
+    <tr class="hl"><td>Perfil da loja no Google configurado</td><td class="c no">—</td><td class="c no">—</td><td class="c">✓</td></tr>
     <tr class="hl"><td>Manutenção inclusa</td><td class="c no">—</td><td class="c no">—</td><td class="c">3 meses</td></tr>
     <tr class="hl"><td>Ajustes grátis após a entrega</td><td class="c">30 dias</td><td class="c">60 dias</td><td class="c">90 dias</td></tr>
-    <tr class="hl"><td><b>Investimento</b></td><td class="c">R$ 1.300</td><td class="c">R$ 2.000</td><td class="c">R$ 3.000</td></tr>
+    <tr class="hl"><td><b>Investimento</b></td><td class="c">R$ 1.000</td><td class="c">R$ 1.500</td><td class="c">R$ 2.300</td></tr>
   </table>
 
   <div style="height:6mm"></div>
@@ -270,7 +289,7 @@
       <p>Pagos direto à Hostinger. Sem o e-mail, o site continua normal.</p>
     </div>
   </div>
-  <div class="card" style="border-color:var(--red);margin-top:4mm;display:grid;grid-template-columns:36mm 1.35fr 1fr;gap:5mm;padding:4mm 5mm;align-items:start">
+  <div class="card" style="border-color:var(--red);margin-top:4mm;display:grid;grid-template-columns:36mm 1.35fr 1fr;gap:5mm;align-items:start;padding:4mm 5mm">
     <div>
       <h3>Manutenção</h3>
       <div class="price" style="font-size:20pt;margin:2mm 0"><small>R$</small> 100<small>/mês</small></div>
@@ -279,15 +298,15 @@
     <div>
       <b style="font-size:9.5pt">O que inclui</b>
       <ul class="check">
-        <li>Mexer no site sempre que precisar: preços, fotos, textos, serviços e aparelhos</li>
+        <li>Mexer no site quando precisar: preços (no plano Simples), fotos, textos e serviços</li>
         <li>Backup e site sempre no ar</li>
-        <li>Cuidar da renovação do domínio e da hospedagem</li>
+        <li>Renovação do domínio e da hospedagem e ajuda com o painel</li>
       </ul>
     </div>
     <div>
       <b style="font-size:9.5pt">O que não inclui</b>
       <ul class="check">
-        <li class="plus">Funções novas ou páginas novas (orçadas à parte)</li>
+        <li class="plus">Funções ou páginas novas (orçadas à parte)</li>
         <li class="plus">Valores da Hostinger (domínio e hospedagem)</li>
       </ul>
     </div>
@@ -314,7 +333,7 @@
       <h3>Prazo</h3>
       <div class="price" style="font-size:26pt;margin:2mm 0">7 dias<small> corridos</small></div>
       <p>Contados a partir da aprovação e do recebimento do material da loja: logo, fotos, tabela de preços e dados de contato.</p>
-      <p style="margin-top:2mm">Proposta válida por <b style="color:var(--ink)">7 dias</b>, até 27/11/2026.</p>
+      <p style="margin-top:2mm">Proposta válida por <b style="color:var(--ink)">7 dias</b>, até 28/11/2026.</p>
     </div>
   </div>
 
@@ -322,9 +341,9 @@
   <h3 style="margin-bottom:3mm">Como funcionam os 7 dias</h3>
   <div class="timeline">
     <div class="step"><div class="d">Dia 1</div><p>Aprovação, compra do domínio e recebimento de fotos, logo e preços</p></div>
-    <div class="step"><div class="d">Dias 2–4</div><p>Site adaptado à M Cell Smart e preços cadastrados</p></div>
+    <div class="step"><div class="d">Dias 2–4</div><p>Site e painel montados, preços cadastrados</p></div>
     <div class="step"><div class="d">Dia 5</div><p>E-mail profissional, SEO e Google</p></div>
-    <div class="step"><div class="d">Dia 6</div><p>Revisão com o Marco e ajustes finais</p></div>
+    <div class="step"><div class="d">Dia 6</div><p>Revisão com o Marco e explicação do painel</p></div>
     <div class="step"><div class="d">Dia 7</div><p>Site publicado no endereço da loja</p></div>
   </div>
 
