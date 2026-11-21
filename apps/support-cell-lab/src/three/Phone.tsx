@@ -117,7 +117,20 @@ type V3 = [number, number, number]
 const SHOWN = { visibility: 'visible' } as const
 const HIDDEN = { visibility: 'hidden' } as const
 
-function Part({ id, offset, anchor, children }: { id: PartId; offset: V3; anchor?: V3; children: ReactNode }) {
+/** Celular montado: abaixo disso as peças internas ficam escondidas. */
+const MONTADO = 0.03
+
+/** Conteúdo que só existe por dentro do aparelho: aparece apenas quando a vista explodida abre. */
+function Interno({ children }: { children: ReactNode }) {
+  const { explode } = useContext(PhoneCtx)
+  const ref = useRef<THREE.Group>(null!)
+  useFrame(() => {
+    ref.current.visible = explode.current > MONTADO
+  })
+  return <group ref={ref}>{children}</group>
+}
+
+function Part({ id, offset, anchor, interno = false, children }: { id: PartId; offset: V3; anchor?: V3; interno?: boolean; children: ReactNode }) {
   const { explode, activeRef, active, hotspots, onSelect, labels } = useContext(PhoneCtx)
   const ref = useRef<THREE.Group>(null!)
   const [hover, setHover] = useState(false)
@@ -125,6 +138,7 @@ function Part({ id, offset, anchor, children }: { id: PartId; offset: V3; anchor
   useFrame((state) => {
     const e = explode.current
     ref.current.position.set(offset[0] * e, offset[1] * e, offset[2] * e)
+    if (interno) ref.current.visible = e > MONTADO
     const cur = activeRef.current
     const isActive = cur === id
     const dim = cur !== null && !isActive
@@ -134,12 +148,18 @@ function Part({ id, offset, anchor, children }: { id: PartId; offset: V3; anchor
       if (!mesh.isMesh) return
       const m = mesh.material as THREE.MeshStandardMaterial
       if (!m.userData.base) {
-        m.userData.base = { emissive: m.emissive ? m.emissive.clone() : null, opacity: m.opacity }
-        m.transparent = true
+        m.userData.base = { emissive: m.emissive ? m.emissive.clone() : null, opacity: m.opacity, transparent: m.transparent }
+      }
+      const b = m.userData.base as { emissive: THREE.Color | null; opacity: number; transparent: boolean }
+      const alvo = dim ? 0.1 : b.opacity
+      m.opacity = Math.abs(m.opacity - alvo) < 0.005 ? alvo : THREE.MathUtils.lerp(m.opacity, alvo, 0.12)
+      // transparência só enquanto a peça está esmaecida: material transparente perde a ordem de
+      // profundidade e faz peças internas aparecerem por cima da tela com o celular montado
+      const transparente = b.transparent || m.opacity < b.opacity - 0.001
+      if (m.transparent !== transparente) {
+        m.transparent = transparente
         m.needsUpdate = true
       }
-      const b = m.userData.base as { emissive: THREE.Color | null; opacity: number }
-      m.opacity = THREE.MathUtils.lerp(m.opacity, dim ? 0.1 : b.opacity, 0.12)
       m.depthWrite = m.opacity > 0.9
       if (b.emissive) m.emissive.copy(b.emissive).lerp(ACCENT, glow)
     })
@@ -332,11 +352,11 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
           <mesh geometry={geo.island} position={[0, h / 2 - (brand === 'apple' ? 0.38 : 0.3), frontZ + 0.002]}>
             <meshStandardMaterial color="#000000" roughness={0.3} />
           </mesh>
-          {internals && <DisplayStack w={w} h={h} d={d} />}
+          {internals && <Interno><DisplayStack w={w} h={h} d={d} /></Interno>}
         </Part>
 
         {/* Módulo frontal / Face ID */}
-        <Part id="frontal" offset={[0, 0.35, 1.5]} anchor={[0.65, h / 2 - 0.38, 0.12]}>
+        <Part id="frontal" interno offset={[0, 0.35, 1.5]} anchor={[0.65, h / 2 - 0.38, 0.12]}>
           {internals ? (
             <FrontSensors h={h} brand={brand} />
           ) : (
@@ -347,7 +367,7 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
         </Part>
 
         {/* Placa lógica */}
-        <Part id="placa" offset={[0, 0.45, 0.85]} anchor={[-0.6, h / 2 - 1.6, 0.12]}>
+        <Part id="placa" interno offset={[0, 0.45, 0.85]} anchor={[-0.6, h / 2 - 1.6, 0.12]}>
           {internals ? (
             <LogicBoard w={w} h={h} brand={brand} />
           ) : (
@@ -358,7 +378,7 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
         </Part>
 
         {/* Conector de carga + flex */}
-        <Part id="conector" offset={[0, -0.7, 0.85]} anchor={[0.45, -h / 2 + 0.2, 0.12]}>
+        <Part id="conector" interno offset={[0, -0.7, 0.85]} anchor={[0.45, -h / 2 + 0.2, 0.12]}>
           {internals ? (
             <ChargePort w={w} h={h} />
           ) : (
@@ -369,7 +389,7 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
         </Part>
 
         {/* Alto-falante */}
-        <Part id="altofalante" offset={[-0.3, -0.5, 0.85]} anchor={[-w / 2 + 0.55, -h / 2 + 0.45, 0.12]}>
+        <Part id="altofalante" interno offset={[-0.3, -0.5, 0.85]} anchor={[-w / 2 + 0.55, -h / 2 + 0.45, 0.12]}>
           {internals ? (
             <SpeakerTaptic w={w} h={h} />
           ) : (
@@ -389,11 +409,11 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
               <meshPhysicalMaterial color={b.color ?? color.frame} metalness={b.color ? 0.2 : 1} roughness={0.25} />
             </RoundedBox>
           ))}
-          {internals && <MidFrame w={w} h={h} d={d} brand={brand} />}
+          {internals && <Interno><MidFrame w={w} h={h} d={d} brand={brand} /></Interno>}
         </Part>
 
         {/* Bateria */}
-        <Part id="bateria" offset={[0, 0, -1.0]} anchor={[0, -0.7, -0.12]}>
+        <Part id="bateria" interno offset={[0, 0, -1.0]} anchor={[0, -0.7, -0.12]}>
           {internals ? (
             <BatteryPack w={w} h={h} />
           ) : (
@@ -416,7 +436,7 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
           <Dot x={flash.x} y={flash.y} z={lensZ + 0.02} r={0.1} color="#f3efe6" emissive="#fff3d6" />
           {spec.camera === 'pro' && <Dot x={cx + 0.38 - 0.76} y={cy - 0.5} z={lensZ + 0.02} r={0.09} color="#08090b" />}
           {spec.camera === 'bar' && <Dot x={-w / 2 + 0.62} y={cy - 0.3} z={lensZ + 0.02} r={0.09} color="#08090b" />}
-          {internals && <CameraModules lenses={lenses} />}
+          {internals && <Interno><CameraModules lenses={lenses} /></Interno>}
         </Part>
 
         {/* Vidro traseiro */}
@@ -424,7 +444,7 @@ export function Phone({ spec, color, explode = 0, active = null, hotspots = fals
           <mesh geometry={geo.glass} position-z={-(d / 2 - 0.01)}>
             <meshPhysicalMaterial color={color.back} roughness={0.38} clearcoat={0.7} clearcoatRoughness={0.3} metalness={0.1} />
           </mesh>
-          {internals && <WirelessCoil d={d} brand={brand} />}
+          {internals && <Interno><WirelessCoil d={d} brand={brand} /></Interno>}
         </Part>
       </group>
     </PhoneCtx.Provider>
