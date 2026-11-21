@@ -28,12 +28,12 @@ export function Hero() {
     <section ref={raiz} id="topo" className="relative h-[108svh] min-h-[640px] overflow-hidden bg-kraft">
       <div ref={video} className="absolute inset-0 will-change-transform">
         <video className="h-full w-full object-cover" autoPlay muted loop playsInline preload="auto" poster="media/hero-poster.jpg" aria-hidden>
-          <source src="media/hero.webm" type="video/webm" />
           <source src="media/hero.mp4" type="video/mp4" />
         </video>
       </div>
       {/* véu de papel para o texto respirar + fusão com a próxima seção */}
-      <div className="absolute inset-0 bg-gradient-to-b from-papel/55 via-papel/20 to-papel" />
+      <div className="absolute inset-0 bg-gradient-to-b from-papel/45 via-papel/10 to-papel" />
+      <div className="absolute inset-0 bg-gradient-to-r from-papel/80 via-papel/30 to-transparent" />
       <div className="hero-veu absolute inset-0 bg-papel opacity-0" />
 
       <div className="hero-texto relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-5 pb-28 pt-32 md:px-8 md:pb-24">

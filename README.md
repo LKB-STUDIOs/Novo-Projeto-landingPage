@@ -118,6 +118,6 @@ Para trabalhar em um deles: `cd apps/support-cell-lab && npm install && npm run 
 
 Portfólio de uma consultoria de licenciamento ambiental (empresa, clientes e números **fictícios**). React 19 + Vite + Tailwind 4, GSAP (ScrollTrigger e SplitText), Motion e Lenis. Fontes: Work Sans, Fraunces e IBM Plex Mono.
 
-- **Vídeo de fundo do hero:** `public/media/hero.mp4` / `hero.webm` (loop de curvas de nível gerado por código). Para usar um vídeo real, substitua os dois arquivos e o `hero-poster.jpg` mantendo os nomes.
+- **Vídeo de fundo do hero:** `public/media/hero.mp4` (18 s, 1280×720, sem áudio, ~4 MB) e `hero-poster.jpg`. Imagem de mata em vale do Pixabay (Pixabay Content License, uso livre), cortada com *crossfade* de 2 s para o loop não dar salto. Para trocar, substitua os dois arquivos mantendo os nomes.
 - **Textos, clientes e cases:** `src/lib/data.ts`.
 - **WhatsApp do formulário:** constante `WHATSAPP` em `src/components/Contato.tsx` (hoje é um número fictício).
