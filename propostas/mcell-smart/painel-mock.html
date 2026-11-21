@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Painel M Cell Smart — mock</title>
+<style>
+  :root{ --ink:#1e0a0d; --muted:#7d6467; --line:#ecdfe0; --bg:#f6f1f0; --panel:#fff; --red:#d72638; --red-dark:#7a0c17; --blush:#fbeeee; --green:#1f9d55 }
+  *{ box-sizing:border-box; margin:0; padding:0 }
+  body{ font-family:'Inter',sans-serif; background:#e9e1df; color:var(--ink); font-size:14px }
+  h1,h2,h3{ font-family:'Inter Display','Inter',sans-serif; letter-spacing:-.01em }
+  .stage{ display:flex; gap:36px; padding:36px; align-items:flex-start }
+
+  /* desktop */
+  .desk{ width:1180px; height:760px; background:var(--bg); border-radius:14px; overflow:hidden; display:grid; grid-template-columns:230px 1fr; box-shadow:0 20px 50px rgba(60,10,15,.18) }
+  .side{ background:var(--red-dark); color:#fff; padding:22px 16px; display:flex; flex-direction:column; gap:4px }
+  .logo{ display:flex; align-items:center; gap:10px; font-weight:800; font-size:16px; margin:0 6px 22px }
+  .logo i{ width:32px; height:32px; border-radius:9px; background:#fff; color:var(--red-dark); display:grid; place-items:center; font-style:normal; font-size:13px }
+  .nav{ padding:10px 12px; border-radius:9px; color:#f3cfd1; display:flex; align-items:center; gap:10px; font-weight:500 }
+  .nav.on{ background:rgba(255,255,255,.14); color:#fff; font-weight:600 }
+  .nav .ic{ width:18px; text-align:center }
+  .side .bottom{ margin-top:auto; font-size:12px; color:#f0b9bc; padding:12px; border-top:1px solid rgba(255,255,255,.15) }
+  .side .bottom b{ display:block; color:#fff; font-size:13px }
+  .main{ padding:26px 30px; display:flex; flex-direction:column; gap:18px; overflow:hidden }
+  .top{ display:flex; justify-content:space-between; align-items:center }
+  .top h1{ font-size:24px }
+  .top p{ color:var(--muted); margin-top:2px }
+  .btn{ background:var(--red); color:#fff; border:0; border-radius:10px; padding:11px 18px; font-weight:700; font-size:14px; display:inline-flex; gap:8px; align-items:center }
+  .btn.ghost{ background:#fff; color:var(--ink); border:1px solid var(--line) }
+  .row{ display:flex; gap:12px; align-items:center }
+  .chips{ display:flex; gap:8px; flex-wrap:wrap }
+  .chip{ padding:8px 14px; border-radius:30px; background:#fff; border:1px solid var(--line); font-weight:500; font-size:13px }
+  .chip.on{ background:var(--ink); color:#fff; border-color:var(--ink) }
+  .select{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; min-width:240px; display:flex; justify-content:space-between; font-weight:600 }
+  .search{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; color:var(--muted); flex:1 }
+  .card{ background:var(--panel); border:1px solid var(--line); border-radius:14px }
+  table{ width:100%; border-collapse:collapse }
+  th{ text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:600; padding:12px 18px; border-bottom:1px solid var(--line) }
+  td{ padding:11px 18px; border-bottom:1px solid var(--line); vertical-align:middle }
+  tr:last-child td{ border-bottom:0 }
+  td.svc b{ display:block; font-weight:600 }
+  td.svc span{ color:var(--muted); font-size:12px }
+  .price{ display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:9px; overflow:hidden; background:#fff }
+  .price span{ padding:8px 10px; background:var(--bg); color:var(--muted); font-size:13px; border-right:1px solid var(--line) }
+  .price b{ padding:8px 12px; min-width:90px; font-weight:700 }
+  .price.edit{ border-color:var(--red); box-shadow:0 0 0 3px rgba(215,38,56,.15) }
+  .tg{ width:40px; height:23px; border-radius:20px; background:var(--green); position:relative; display:inline-block }
+  .tg::after{ content:""; position:absolute; right:3px; top:3px; width:17px; height:17px; border-radius:50%; background:#fff }
+  .tg.off{ background:#d8cccd }
+  .tg.off::after{ right:auto; left:3px }
+  .muted{ color:var(--muted) }
+  .pill{ font-size:12px; font-weight:600; padding:3px 9px; border-radius:20px; background:var(--blush); color:var(--red-dark) }
+  .pill.off{ background:#eee; color:#888 }
+  .toast{ position:absolute; right:60px; bottom:56px; background:var(--ink); color:#fff; padding:13px 18px; border-radius:12px; display:flex; gap:10px; align-items:center; box-shadow:0 12px 30px rgba(0,0,0,.25); font-weight:500 }
+  .toast i{ width:22px; height:22px; border-radius:50%; background:var(--green); display:grid; place-items:center; font-style:normal; font-size:12px }
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px }
+  .stat{ padding:14px 18px }
+  .stat small{ color:var(--muted); font-size:12px }
+  .stat b{ display:block; font-size:22px; font-family:'Inter Display'; margin-top:2px }
+
+  /* phone */
+  .phone{ width:340px; height:700px; border-radius:42px; background:#1b1b1d; padding:12px; box-shadow:0 20px 50px rgba(60,10,15,.25) }
+  .screen{ width:100%; height:100%; border-radius:32px; background:var(--bg); overflow:hidden; display:flex; flex-direction:column }
+  .ptop{ background:var(--red-dark); color:#fff; padding:40px 18px 16px }
+  .ptop small{ color:#f0b9bc; font-size:12px }
+  .ptop h2{ font-size:20px; margin-top:2px }
+  .pbody{ padding:14px; display:flex; flex-direction:column; gap:10px; overflow:hidden }
+  .pitem{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px 14px; display:flex; justify-content:space-between; align-items:center }
+  .pitem b{ font-weight:600; display:block }
+  .pitem small{ color:var(--muted); font-size:12px }
+  .pitem .v{ font-weight:800; font-size:16px; font-family:'Inter Display' }
+  .pitem.edit{ border-color:var(--red); box-shadow:0 0 0 3px rgba(215,38,56,.15); flex-direction:column; align-items:stretch; gap:10px }
+  .bigin{ border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:20px; font-weight:800; font-family:'Inter Display'; display:flex; gap:6px; align-items:center }
+  .bigin span{ color:var(--muted); font-size:14px; font-weight:600 }
+  .pnav{ margin-top:auto; display:grid; grid-template-columns:repeat(4,1fr); background:#fff; border-top:1px solid var(--line); padding:10px 6px 18px; text-align:center; font-size:11px; color:var(--muted) }
+  .pnav div b{ display:block; font-size:17px; margin-bottom:2px }
+  .pnav .on{ color:var(--red); font-weight:700 }
+  .caption{ font-size:13px; color:var(--muted); margin-top:12px; text-align:center }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- DESKTOP -->
+  <div>
+  <div class="desk" style="position:relative">
+    <aside class="side">
+      <div class="logo"><i>MC</i> M Cell Smart</div>
+      <div class="nav on"><span class="ic">💲</span> Preços</div>
+      <div class="nav"><span class="ic">📱</span> Modelos</div>
+      <div class="nav"><span class="ic">🔧</span> Serviços</div>
+      <div class="nav"><span class="ic">🏪</span> Dados da loja</div>
+      <div class="nav"><span class="ic">🖼️</span> Fotos</div>
+      <div class="nav"><span class="ic">🔗</span> Ver site</div>
+      <div class="bottom"><b>Marco Pereira</b>Administrador · Sair</div>
+    </aside>
+
+    <main class="main">
+      <div class="top">
+        <div><h1>Preços dos consertos</h1><p>Mudou aqui, o site atualiza na hora.</p></div>
+        <div class="row"><button class="btn ghost">Ver como o cliente vê</button><button class="btn">✓ Salvar alterações</button></div>
+      </div>
+
+      <div class="stats">
+        <div class="card stat"><small>Orçamentos enviados hoje</small><b>14</b></div>
+        <div class="card stat"><small>Modelos cadastrados</small><b>38</b></div>
+        <div class="card stat"><small>Última alteração</small><b>Hoje, 10:42</b></div>
+      </div>
+
+      <div class="row">
+        <div class="chips"><span class="chip on">iPhone</span><span class="chip">Samsung</span></div>
+        <div class="select">iPhone 13 <span class="muted">▾</span></div>
+        <div class="search">🔍  Buscar modelo…</div>
+      </div>
+
+      <div class="card">
+        <table>
+          <tr><th>Serviço</th><th>Prazo</th><th>Preço</th><th>No site</th></tr>
+          <tr><td class="svc"><b>Troca de tela</b><span>Display OLED com garantia de 90 dias</span></td><td>40 min</td><td><div class="price edit"><span>R$</span><b>580|</b></div></td><td><span class="tg"></span></td></tr>
+          <tr><td class="svc"><b>Troca de bateria</b><span>Bateria nova, saúde 100%</span></td><td>30 min</td><td><div class="price"><span>R$</span><b>250</b></div></td><td><span class="tg"></span></td></tr>
+          <tr><td class="svc"><b>Conector de carga</b><span>Porta Lightning e microfone</span></td><td>50 min</td><td><div class="price"><span>R$</span><b>220</b></div></td><td><span class="tg"></span></td></tr>
+          <tr><td class="svc"><b>Câmera traseira</b><span>Módulo completo</span></td><td>45 min</td><td><div class="price"><span>R$</span><b>390</b></div></td><td><span class="tg"></span></td></tr>
+          <tr><td class="svc"><b>Vidro traseiro</b><span>Remoção a laser</span></td><td>1h30</td><td><div class="price"><span>R$</span><b>320</b></div></td><td><span class="tg"></span></td></tr>
+          <tr><td class="svc"><b>Reparo de placa</b><span>Diagnóstico grátis</span></td><td>24–72h</td><td><div class="price"><span>R$</span><b>A partir de 450</b></div></td><td><span class="tg off"></span> <span class="pill off">oculto</span></td></tr>
+        </table>
+      </div>
+    </main>
+    <div class="toast"><i>✓</i> Preço da tela do iPhone 13 atualizado no site</div>
+  </div>
+  <div class="caption">Computador: o Marco escolhe o modelo, muda o valor e salva.</div>
+  </div>
+
+  <!-- CELULAR -->
+  <div>
+  <div class="phone"><div class="screen">
+    <div class="ptop"><small>Painel · M Cell Smart</small><h2>iPhone 13 ▾</h2></div>
+    <div class="pbody">
+      <div class="pitem edit">
+        <div><b>Troca de tela</b><small>40 min</small></div>
+        <div class="bigin"><span>R$</span>580</div>
+        <button class="btn" style="justify-content:center">✓ Salvar</button>
+      </div>
+      <div class="pitem"><div><b>Troca de bateria</b><small>30 min</small></div><div class="v">R$ 250</div></div>
+      <div class="pitem"><div><b>Conector de carga</b><small>50 min</small></div><div class="v">R$ 220</div></div>
+      <div class="pitem"><div><b>Câmera traseira</b><small>45 min</small></div><div class="v">R$ 390</div></div>
+      <div class="pitem"><div><b>Vidro traseiro</b><small>1h30</small></div><div class="v">R$ 320</div></div>
+    </div>
+    <div class="pnav"><div class="on"><b>💲</b>Preços</div><div><b>📱</b>Modelos</div><div><b>🏪</b>Loja</div><div><b>🔗</b>Site</div></div>
+  </div></div>
+  <div class="caption">Celular: dá para mudar no balcão, em segundos.</div>
+  </div>
+
+</div>
+</body>
+</html>
