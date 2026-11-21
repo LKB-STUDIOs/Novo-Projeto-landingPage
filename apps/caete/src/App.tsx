@@ -6,6 +6,7 @@ import { Clientes } from './components/Clientes'
 import { Servicos } from './components/Servicos'
 import { Processo } from './components/Processo'
 import { Cases } from './components/Cases'
+import { Panorama } from './components/Panorama'
 import { Numeros } from './components/Numeros'
 import { Simulador } from './components/Simulador'
 import { Contato } from './components/Contato'
@@ -27,6 +28,7 @@ export default function App() {
         <Servicos />
         <Processo />
         <Cases />
+        <Panorama />
         <Numeros />
         <Simulador />
       </main>
