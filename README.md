@@ -37,6 +37,7 @@ src/three/                cena 3D (partículas que mudam de forma, formas flutua
 src/lib/contato.ts        número do WhatsApp e montagem segura dos links
 src/pages/ferrus/         Ferrus OS (veja abaixo)
 src/pages/brisa/          Brisa Temporadas (imóveis em imoveis.ts)
+public/equipe/            fotos da equipe: lahel.jpg, bruno.jpg, kenni.jpg (veja LEIA-ME.txt)
 ```
 
 **Trocar o WhatsApp:** edite `src/lib/contato.ts`. Todos os botões usam esse arquivo.

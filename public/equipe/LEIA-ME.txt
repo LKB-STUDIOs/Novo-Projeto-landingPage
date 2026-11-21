@@ -1,0 +1,9 @@
+Fotos da equipe (aparecem nos cartões holográficos da seção "Quem faz").
+
+Nomes exatos dos arquivos:
+  lahel.jpg
+  bruno.jpg
+  kenni.jpg
+
+Dicas: foto vertical (proporção 4:5), rosto no terço de cima, mínimo 800x1000 px, até ~300 KB cada.
+Sem a foto, o cartão mostra a inicial do nome.
