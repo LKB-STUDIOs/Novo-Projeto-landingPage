@@ -301,6 +301,61 @@ export const DEVICE_FAMILIES: DeviceFamily[] = [
 
 export const priceFor = (tier: number, base: number) => Math.round((base * (0.6 + tier * 0.09)) / 10) * 10 - 1
 
+/* ───────── Painel da loja (demonstração) ─────────
+   Os preços editados no painel ficam salvos no navegador (localStorage).
+   Na versão do cliente isso vira um banco de dados com login de verdade. */
+
+export type PainelStore = {
+  /** preço por `modelo|reparo`, sobrescreve o cálculo padrão */
+  prices: Record<string, number>
+  /** reparos escondidos do site */
+  hidden: PartId[]
+  updatedAt?: string
+}
+
+const STORE_KEY = 'supportcell:painel:v1'
+export const PAINEL_EVENT = 'supportcell:painel-updated'
+
+export const priceKey = (model: string, part: PartId) => `${model}|${part}`
+
+export function loadPainel(): PainelStore {
+  try {
+    const raw = localStorage.getItem(STORE_KEY)
+    if (raw) {
+      const s = JSON.parse(raw) as Partial<PainelStore>
+      return { prices: s.prices ?? {}, hidden: s.hidden ?? [], updatedAt: s.updatedAt }
+    }
+  } catch {
+    /* sem storage: usa os preços padrão */
+  }
+  return { prices: {}, hidden: [] }
+}
+
+export function savePainel(s: PainelStore) {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(s))
+  } catch {
+    /* navegador sem storage: a alteração vale só nesta aba */
+  }
+  window.dispatchEvent(new Event(PAINEL_EVENT))
+}
+
+export function resetPainel() {
+  try {
+    localStorage.removeItem(STORE_KEY)
+  } catch {
+    /* ignora */
+  }
+  window.dispatchEvent(new Event(PAINEL_EVENT))
+}
+
+/** preço padrão (calculado) de um reparo para um modelo */
+export const defaultPrice = (tier: number, part: PartId) => priceFor(tier, REPAIRS.find((r) => r.id === part)!.base)
+
+/** preço final: o do painel, se houver, senão o padrão */
+export const repairPrice = (store: PainelStore, model: string, tier: number, part: PartId) =>
+  store.prices[priceKey(model, part)] ?? defaultPrice(tier, part)
+
 export const brl = (v: number, cents = false) =>
   new Intl.NumberFormat('pt-BR', {
     style: 'currency',

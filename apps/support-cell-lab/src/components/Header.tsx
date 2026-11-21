@@ -24,6 +24,7 @@ const NAV = [
   ['Orçamento', '#orcamento'],
   ['Como funciona', '#processo'],
   ['Dúvidas', '#faq'],
+  ['Painel da loja', `${import.meta.env.BASE_URL}painel/`],
 ]
 
 export function Header() {

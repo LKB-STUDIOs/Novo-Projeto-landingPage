@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowLeft, ArrowRight, Check, Info, MessageCircle, Receipt, Store, Truck } from 'lucide-react'
-import { DEVICE_FAMILIES, REPAIRS, brl, priceFor, waLink, type Brand, type PartId } from '../data'
+import { DEVICE_FAMILIES, REPAIRS, brl, repairPrice, waLink, type Brand, type PartId } from '../data'
+import { usePainel } from '../usePainel'
 import { REPAIR_ICONS } from './repairUi'
 
 type Device = { name: string; tier: number; brand: Brand }
@@ -14,6 +15,8 @@ export function Quote() {
   const [repairs, setRepairs] = useState<PartId[]>([])
   const [mode, setMode] = useState<'delivery' | 'loja'>('delivery')
   const [form, setForm] = useState({ nome: '', bairro: '', obs: '' })
+  const painel = usePainel()
+  const visibleRepairs = REPAIRS.filter((r) => !painel.hidden.includes(r.id))
 
   // reparos enviados pelo Laboratório 3D
   useEffect(() => {
@@ -27,8 +30,13 @@ export function Quote() {
   }, [device])
 
   const items = useMemo(
-    () => (device ? repairs.map((id) => ({ id, name: REPAIRS.find((r) => r.id === id)!.name, price: priceFor(device.tier, REPAIRS.find((r) => r.id === id)!.base) })) : []),
-    [device, repairs],
+    () =>
+      device
+        ? repairs
+            .filter((id) => !painel.hidden.includes(id))
+            .map((id) => ({ id, name: REPAIRS.find((r) => r.id === id)!.name, price: repairPrice(painel, device.name, device.tier, id) }))
+        : [],
+    [device, repairs, painel],
   )
   const subtotal = items.reduce((a, b) => a + b.price, 0)
   const pix = Math.round(subtotal * 0.05)
@@ -135,7 +143,7 @@ export function Quote() {
                   <h3 className="font-display text-2xl font-semibold text-fg">O que precisa de reparo?</h3>
                   <p className="mt-1 text-sm text-fg/50">{device.name} · selecione um ou mais serviços</p>
                   <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                    {REPAIRS.map((r) => {
+                    {visibleRepairs.map((r) => {
                       const I = REPAIR_ICONS[r.id]
                       const on = repairs.includes(r.id)
                       return (
@@ -150,7 +158,7 @@ export function Quote() {
                           <span className="flex-1">
                             <span className="flex justify-between gap-2">
                               <span className="text-sm font-semibold text-fg">{r.name}</span>
-                              <span className="text-sm font-semibold text-fg">{brl(priceFor(device.tier, r.base))}</span>
+                              <span className="text-sm font-semibold text-fg">{brl(repairPrice(painel, device.name, device.tier, r.id))}</span>
                             </span>
                             <span className="mt-1 block text-xs text-fg/45">{r.desc}</span>
                           </span>
