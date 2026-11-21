@@ -7,7 +7,8 @@ import { Clock, Layers, MousePointerClick, Plus, RotateCcw, ShieldCheck, X } fro
 import { REPAIR_ICONS, addRepairToQuote } from './repairUi'
 import { Stage3D } from '../three/Stage'
 import { Phone } from '../three/Phone'
-import { PRODUCTS, REPAIRS, SPECS, brl, priceFor, type PartId } from '../data'
+import { PRODUCTS, REPAIRS, SPECS, brl, priceFor, repairPrice, type PartId } from '../data'
+import { usePainel } from '../usePainel'
 
 const LAB_MODELS = {
   iphone: { label: 'iPhone 17 Pro', product: PRODUCTS.find((p) => p.id === 'ip17pro')!, tier: 10 },
@@ -34,6 +35,7 @@ export function RepairLab() {
   const [active, setActive] = useState<PartId | null>(null)
   const [explode, setExplode] = useState(0)
   const m = LAB_MODELS[model]
+  const painel = usePainel()
   const repair = REPAIRS.find((r) => r.id === active)
 
   const select = (id: PartId) => {
@@ -185,7 +187,7 @@ export function RepairLab() {
                   <div className="mt-4 flex items-center justify-between gap-3">
                     <div>
                       <p className="text-[11px] text-fg/40">neste modelo</p>
-                      <p className="font-display text-2xl font-semibold text-fg">{brl(priceFor(m.tier, repair.base))}</p>
+                      <p className="font-display text-2xl font-semibold text-fg">{brl(repairPrice(painel, m.label, m.tier, repair.id))}</p>
                     </div>
                     <button onClick={() => addRepairToQuote(repair.id)} className="btn-primary px-4 py-2.5">
                       <Plus size={14} /> Orçar

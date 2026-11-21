@@ -99,10 +99,12 @@ export function Projetos() {
           <h3>Support Cell Lab</h3>
           <p>
             Assistência premium para iPhone e Galaxy com showroom 360° dos aparelhos, laboratório 3D em que o cliente
-            clica em cada peça para ver o reparo, o tempo e o preço, e orçamento em 3 passos direto no WhatsApp.
+            clica em cada peça para ver o reparo, o tempo e o preço, e orçamento em 3 passos direto no WhatsApp. Vem com
+            painel da loja para o dono mudar os preços sozinho.
           </p>
-          <ul className="chips"><li>Modelos 3D</li><li>Vista explodida</li><li>Orçamento</li><li>WhatsApp</li></ul>
-          <a href={SUPPORT_CELL_LAB} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
+          <ul className="chips"><li>Modelos 3D</li><li>Vista explodida</li><li>Orçamento</li><li>WhatsApp</li><li>Painel da loja</li></ul>
+          <a href={SUPPORT_CELL_LAB} className="btn btn-cor">Abrir site <SetaDiagonal /></a>{" "}
+          <a href={`${SUPPORT_CELL_LAB}painel/`} className="btn btn-fantasma">Ver painel <SetaDiagonal /></a>
         </div>
       </article>
     </section>
