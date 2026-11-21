@@ -4,6 +4,7 @@ import { SetaDiagonal } from "../components/Icones";
 /** Página estática (public/casa-beulah-park/): fica fora do app React, então é um link normal. */
 const CASA_BEULAH_PARK = `${import.meta.env.BASE_URL}casa-beulah-park/`;
 const SUPPORT_CELL_LAB = `${import.meta.env.BASE_URL}support-cell-lab/`;
+const CAETE = `${import.meta.env.BASE_URL}caete/`;
 
 export function Projetos() {
   return (
@@ -105,6 +106,26 @@ export function Projetos() {
           <ul className="chips"><li>Modelos 3D</li><li>Vista explodida</li><li>Orçamento</li><li>WhatsApp</li><li>Painel da loja</li></ul>
           <a href={SUPPORT_CELL_LAB} className="btn btn-cor">Abrir site <SetaDiagonal /></a>{" "}
           <a href={`${SUPPORT_CELL_LAB}painel/`} className="btn btn-fantasma">Ver painel <SetaDiagonal /></a>
+        </div>
+      </article>
+      <article className="projeto" style={{ ["--c" as string]: "#b6c98a" }}>
+        <a href={CAETE} className="projeto-midia" aria-label="Abrir o site Caeté Engenharia Ambiental">
+          <div className="mock mock-site">
+            <div className="mock-barra"><i /><i /><i /><span>caeteambiental.com.br</span></div>
+            <div className="mock-hero"><span /><span /><em /></div>
+            <div className="mock-cards"><span /><span /><span /></div>
+          </div>
+        </a>
+        <div className="projeto-info">
+          <p className="eyebrow">Site · Consultoria ambiental</p>
+          <h3>Caeté Engenharia Ambiental</h3>
+          <p>
+            Portfólio de uma consultoria de licenciamento ambiental (empresa fictícia) com vídeo de fundo, visual de papel
+            reciclado, linha do tempo horizontal do caminho da licença, cases em cartões empilhados, logos de clientes em
+            carrossel e um simulador de prazo.
+          </p>
+          <ul className="chips"><li>Vídeo de fundo</li><li>GSAP + Motion</li><li>Rolagem imersiva</li><li>Simulador</li></ul>
+          <a href={CAETE} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
         </div>
       </article>
     </section>

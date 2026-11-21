@@ -11,7 +11,9 @@ console.log("404.html criado para as rotas do app");
 const base = (process.env.BASE_PATH ?? "/").replace(/\/?$/, "/");
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
 
-const MICROSITES = [{ pasta: "apps/support-cell-lab", rota: "support-cell-lab" }];
+const MICROSITES = [{ pasta: "apps/support-cell-lab", rota: "support-cell-lab" },
+  { pasta: "apps/caete", rota: "caete" },
+];
 
 for (const { pasta, rota } of MICROSITES) {
   if (!existsSync(pasta)) continue;
