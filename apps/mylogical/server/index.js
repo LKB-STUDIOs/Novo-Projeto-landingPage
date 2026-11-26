@@ -3,6 +3,7 @@
 import http from 'node:http';
 import https from 'node:https';
 import os from 'node:os';
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { createReadStream, existsSync, mkdirSync, readFileSync, appendFileSync, statSync } from 'node:fs';
@@ -318,6 +319,9 @@ http.createServer(tratar).listen(config.port, '0.0.0.0', () => {
   console.log(`\n   Banco:         ${config.fb.host}:${config.fb.port} / ${config.fb.database}`);
   console.log(`   Gravação:      ${config.allowWrite ? 'LIGADA (alterações vão para o banco do MyLogical)' : 'desligada (só consulta)'}`);
   console.log(`   Histórico:     ${path.join(config.dataDir, 'alteracoes.log')}`);
+  if (process.env.ABRIR_NAVEGADOR && process.platform === 'win32') {
+    spawn('cmd', ['/c', 'start', '', `http://localhost:${config.port}`], { detached: true, stdio: 'ignore' }).unref();
+  }
 });
 
 const cert = path.join(config.certDir, 'cert.pem');

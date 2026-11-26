@@ -22,28 +22,27 @@ O que ele faz:
 
 ## 1. Instalar (uma vez)
 
-1. Instale o **Node.js LTS** em https://nodejs.org (versão 22 ou mais nova). Pode clicar em "Avançar" em tudo.
-2. Copie a pasta `apps/mylogical` para o PC, por exemplo em `C:\MyLogicalApp`.
-3. Dê dois cliques em **`iniciar.cmd`**. Na primeira vez ele cria o arquivo `.env` e abre no Bloco de Notas.
-4. Preencha o `.env`:
-
-| Campo | O que colocar |
-|---|---|
-| `FB_HOST` | o IP do campo "IP / Porta" da tela "Bancos de Dados" do MyLogical |
-| `FB_PORT` | `3050` |
-| `FB_DATABASE` | `MyLogical`. Se der erro de banco não encontrado, use o caminho completo do arquivo `.FDB` **no servidor** (ex.: `C:\MyLogical\Dados\MYLOGICAL.FDB`) |
-| `FB_USER` | `SYSDBA` (ou um usuário próprio, veja abaixo) |
-| `FB_PASSWORD` | a senha do Firebird, a mesma que aparece com bolinhas na tela do MyLogical. Se ninguém souber, a senha padrão do Firebird é `masterkey` |
-| `APP_PIN` | uma senha sua para entrar no app (mínimo 4 caracteres) |
-| `ALLOW_WRITE` | `nao` para começar. Mude para `sim` quando quiser gravar |
-
-5. Salve e dê dois cliques em `iniciar.cmd` de novo. A janela mostra:
+1. Copie a pasta `apps/mylogical` para o PC, por exemplo em `C:\MyLogicalApp`.
+2. Dê dois cliques em **`iniciar.cmd`**.
+   - Se o Node.js não estiver instalado, ele instala sozinho (o Windows pode pedir permissão). Depois feche a janela e dê dois cliques de novo.
+   - Na primeira vez, ele pergunta o **IP do servidor** (campo "IP / Porta" da tela do MyLogical), a **senha do Firebird** (Enter usa a padrão, `masterkey`) e um **PIN** seu para entrar no app. As respostas ficam salvas no arquivo `.env`.
+3. A janela mostra os endereços e o navegador abre sozinho:
 
 ```
    Neste PC:      http://localhost:8080
    No celular:    http://192.168.0.15:8080
    Conexão:       OK (Firebird 3.0.x)
 ```
+
+Para mudar alguma configuração depois, abra o `.env` no Bloco de Notas:
+
+| Campo | O que é |
+|---|---|
+| `FB_HOST` | IP do servidor do banco |
+| `FB_DATABASE` | `MyLogical`. Se der erro de banco não encontrado, use o caminho completo do arquivo `.FDB` **no servidor** (ex.: `C:\MyLogical\Dados\MYLOGICAL.FDB`) |
+| `FB_USER` / `FB_PASSWORD` | usuário e senha do Firebird |
+| `APP_PIN` | o PIN para entrar no app |
+| `ALLOW_WRITE` | `nao` (só consulta). Mude para `sim` quando quiser gravar |
 
 Abra o primeiro endereço no navegador do PC. **Deixe a janela preta aberta** enquanto usar o app.
 
