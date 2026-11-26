@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Proposta Comercial — MaxCoreSystem</title>
+<style>
+@font-face{font-family:"Inter Tight";src:url("../public/casa-beulah-park/fonts/inter-tight-latin-wght-normal.woff2") format("woff2");font-weight:100 900}
+@font-face{font-family:"Fraunces";src:url("../public/casa-beulah-park/fonts/fraunces-latin-wght-normal.woff2") format("woff2");font-weight:100 900}
+@font-face{font-family:"Fraunces";src:url("../public/casa-beulah-park/fonts/fraunces-latin-ext-wght-normal.woff2") format("woff2");font-weight:100 900;unicode-range:U+0100-024F,U+1E00-1EFF}
+:root{
+  --navy-950:#060a1a; --navy-900:#0b1633; --navy-800:#12224a; --navy-700:#1b3270;
+  --blue:#2f5fe8; --blue-500:#3d6dff; --blue-300:#8fb0ff; --blue-100:#e6edff; --blue-50:#f3f6fd;
+  --ink:#0d1630; --muted:#5b6785; --line:#dbe3f3; --paper:#f7f9fd;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#c9d0de}
+body{font-family:"Inter Tight",system-ui,sans-serif;color:var(--ink);font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;margin:0 auto 12px;background:var(--paper);position:relative;overflow:hidden;padding:20mm 18mm 18mm;page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto;break-after:auto;margin-bottom:0}
+@media print{html,body{background:none}.page{margin:0}}
+a{color:inherit;text-decoration:none}
+b,strong{font-weight:650}
+
+/* header/footer on inner pages */
+.runner{position:absolute;left:18mm;right:18mm;bottom:10mm;display:flex;justify-content:space-between;font-size:8pt;color:var(--muted);border-top:1px solid var(--line);padding-top:3mm}
+.brandline{position:absolute;top:9mm;left:18mm;right:18mm;display:flex;align-items:center;gap:8px;font-size:8pt;color:var(--muted);letter-spacing:.04em}
+.brandline img{width:16px;height:16px;border-radius:4px}
+
+.kicker{font-size:8pt;font-weight:650;letter-spacing:.18em;text-transform:uppercase;color:var(--blue)}
+h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:26pt;line-height:1.1;letter-spacing:-.01em;margin:1.5mm 0 3.5mm;color:var(--navy-900)}
+h3{font-size:12pt;font-weight:650;color:var(--navy-900)}
+.lead{font-size:11pt;color:var(--muted);max-width:155mm;margin-bottom:5mm}
+
+/* COVER */
+.cover{background:radial-gradient(120mm 120mm at 85% 18%,rgba(61,109,255,.55),transparent 70%),radial-gradient(90mm 90mm at 0% 100%,rgba(47,95,232,.35),transparent 70%),linear-gradient(160deg,var(--navy-900),var(--navy-950));color:#fff;padding:22mm 20mm}
+.cover .brand{display:flex;align-items:center;gap:10px;font-weight:650;font-size:11pt;letter-spacing:.02em}
+.cover .brand img{width:34px;height:34px;border-radius:8px;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+.cover .brand span small{display:block;font-weight:400;font-size:8pt;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase}
+.cover .body{position:absolute;left:20mm;right:20mm;top:88mm}
+.cover .kicker{color:var(--blue-300)}
+.cover h1{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:44pt;line-height:1.02;letter-spacing:-.02em;margin:5mm 0 6mm}
+.cover h1 em{font-style:italic;color:var(--blue-300)}
+.cover p{font-size:12.5pt;color:#c9d6f5;max-width:140mm;line-height:1.55}
+.btn{display:inline-flex;align-items:center;gap:10px;margin-top:9mm;background:#fff;color:var(--navy-900);font-weight:650;font-size:10.5pt;padding:12px 22px;border-radius:999px}
+.btn.blue{background:var(--blue);color:#fff}
+.cover .url{font-size:8pt;color:var(--blue-300);margin-top:3mm}
+.cover .meta{position:absolute;left:20mm;right:20mm;bottom:20mm;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.18);padding-top:6mm}
+.cover .meta small{display:block;font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-300);margin-bottom:2mm}
+.cover .meta div{font-size:11pt;font-weight:600}
+
+/* cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:4.5mm 5mm}
+.card .num{font-size:9pt;font-weight:700;color:var(--blue);letter-spacing:.06em}
+.card h3{margin:1mm 0 1.5mm}
+.card p{color:var(--muted);font-size:9.5pt;line-height:1.45}
+.demo{margin-top:5mm;background:linear-gradient(135deg,var(--navy-900),var(--navy-700));color:#fff;border-radius:16px;padding:6mm 7mm;display:grid;grid-template-columns:1.5fr 1fr;gap:8mm;align-items:center}
+.demo .kicker{color:var(--blue-300)}
+.demo h3{color:#fff;font-family:"Fraunces",serif;font-weight:500;font-size:16pt;margin:2mm 0}
+.demo p{color:#c9d6f5;font-size:9.8pt}
+.demo .side{text-align:center}
+.demo .btn{margin-top:0}
+.demo .side small{display:block;font-size:7.5pt;color:var(--blue-300);margin-top:3mm}
+.bul{list-style:none}
+.bul li{position:relative;padding-left:15px;margin:1.2mm 0;font-size:9.8pt}
+.bul li:before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--blue)}
+.cols2{columns:2;column-gap:10mm}
+.cols2 li{break-inside:avoid}
+.note{margin-top:4mm;background:var(--blue-100);border-radius:12px;padding:4.5mm 6mm;font-size:9.3pt;color:var(--navy-800)}
+h4{font-size:11.5pt;font-weight:650;margin:5.5mm 0 1.5mm;color:var(--navy-900)}
+
+/* plans */
+.plans{display:grid;grid-template-columns:1fr 1.06fr 1fr;gap:4mm;align-items:stretch;margin-top:2mm}
+.plan{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6mm 5mm;position:relative}
+.plan h3{font-family:"Fraunces",serif;font-weight:500;font-size:17pt}
+.plan .desc{font-size:8.8pt;color:var(--muted);margin:2mm 0 4mm;min-height:24mm}
+.price{display:flex;align-items:baseline;gap:4px;color:var(--navy-900)}
+.price small{font-size:10pt;font-weight:600}
+.price b{font-size:25pt;font-weight:750;letter-spacing:-.02em}
+.plan .when{font-size:8.5pt;color:var(--muted);padding-bottom:4mm;border-bottom:1px solid var(--line);margin-bottom:3mm}
+.plan .bul li{font-size:8.6pt;margin:1.4mm 0;line-height:1.4}
+.plan.rec{background:linear-gradient(170deg,var(--navy-800),var(--navy-950));border:none;color:#fff;box-shadow:0 12px 30px rgba(11,22,51,.28)}
+.plan.rec h3,.plan.rec .price{color:#fff}
+.plan.rec .desc,.plan.rec .when{color:#b9c8ef}
+.plan.rec .when{border-color:rgba(255,255,255,.15)}
+.plan.rec .bul li:before{background:var(--blue-300)}
+.tag{position:absolute;top:-3.2mm;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:7pt;font-weight:700;letter-spacing:.14em;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.fine{font-size:8.3pt;color:var(--muted);margin-top:5mm}
+
+/* table */
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:9pt}
+th,td{padding:2.3mm 4mm;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--navy-900);color:#fff;font-weight:600;font-size:8.5pt}
+th.c,td.c{text-align:center;width:29mm;white-space:nowrap}
+th.hl{background:var(--blue)}
+td.hl{background:var(--blue-50)}
+tr:last-child td{border-bottom:none}
+.ok{color:var(--blue);font-weight:700}
+.no{color:#b3bdd3}
+tr.total td{font-weight:700;color:var(--navy-900);font-size:10pt;background:var(--blue-100)}
+tr.total td.hl{background:#d6e1ff}
+td.em{color:var(--blue);font-weight:650}
+
+.cost h3{margin-bottom:3mm}
+.row{display:flex;justify-content:space-between;gap:4mm;padding:2mm 0;border-bottom:1px dashed var(--line);font-size:9.3pt}
+.row b{white-space:nowrap}
+.cost p{font-size:8.6pt;color:var(--muted);margin-top:3mm}
+.maint{margin-top:5mm;border:1.5px solid var(--blue);border-radius:16px;background:#fff;padding:6mm;display:grid;grid-template-columns:1fr 1.4fr 1.2fr;gap:6mm}
+.maint .p{font-size:9pt;color:var(--muted)}
+.maint .p b{display:block;font-size:10pt;color:var(--navy-900);margin:1mm 0}
+.maint h5{font-size:9.5pt;margin-bottom:1mm}
+.maint .bul li{font-size:8.6pt;margin:1.2mm 0}
+.maint .no-list li:before{background:#9aa7c4}
+
+/* conditions */
+.steps{display:grid;grid-template-columns:1fr 1fr 1.25fr 1fr 1fr;gap:3mm;margin-top:2mm}
+.step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4mm}
+.step b{display:block;color:var(--blue);font-size:9pt;margin-bottom:1.5mm;white-space:nowrap}
+.step span{font-size:8.2pt;color:var(--muted);line-height:1.4;display:block}
+.pay td:first-child{font-weight:650;color:var(--navy-900);width:30mm}
+.sign{margin-top:6mm;display:grid;grid-template-columns:1fr 1fr;gap:14mm}
+.sign div{border-top:1px solid var(--ink);padding-top:2mm;font-size:9.5pt}
+.sign small{display:block;color:var(--muted);font-size:8.5pt}
+.choose{display:flex;gap:8mm;margin-top:3mm;font-size:9.5pt}
+.choose span:before{content:"";display:inline-block;width:10px;height:10px;border:1.5px solid var(--navy-700);border-radius:3px;margin-right:6px;vertical-align:-1px}
+</style>
+</head>
+<body>
+
+<!-- 1 · CAPA -->
+<section class="page cover">
+  <div class="brand"><img src="logo-mcs.png" alt="MCS"><span>MaxCoreSystem<small>Sites e sistemas</small></span></div>
+  <div class="body">
+    <div class="kicker">Proposta comercial · Site imersivo e reservas</div>
+    <h1>Site da sua casa <em>de temporada</em></h1>
+    <p>Um site em que o hóspede caminha pela sua casa antes de chegar, conhece cada detalhe e reserva direto com você. Feito para encher o calendário com reservas diretas, sem depender só dos aplicativos de hospedagem.</p>
+    <a class="btn" href="https://lbk-studio.onrender.com/casa-beulah-park/">Ver a demonstração do site &nbsp;→</a>
+    <div class="url">lbk-studio.onrender.com/casa-beulah-park</div>
+  </div>
+  <div class="meta">
+    <div><small>Para</small>Clézio Gonçalves</div>
+    <div><small>Emitida em</small>26/11/2026</div>
+    <div><small>Válida até</small>11/12/2026</div>
+  </div>
+</section>
+
+<!-- 2 · O PROJETO -->
+<section class="page">
+  <div class="brandline"><img src="logo-mcs.png" alt="">MaxCoreSystem</div>
+  <div class="kicker">O projeto</div>
+  <h2>O que o site vai fazer pela casa</h2>
+  <p class="lead">Quem escolhe uma casa de temporada decide pelas fotos e pela confiança. Nos aplicativos, a sua casa aparece ao lado de dezenas de outros imóveis, no mesmo formato de anúncio. O site tira a casa dessa vitrine comum: o hóspede passeia por ela antes de chegar e fala direto com você.</p>
+  <div class="grid2">
+    <div class="card"><div class="num">01</div><h3>Uma visita antes da visita</h3><p>Ao rolar a tela, o hóspede entra pela fachada e percorre a sala, a cozinha, as suítes e a área gourmet, como em um filme. Ele chega à reserva já sabendo como é a casa.</p></div>
+    <div class="card"><div class="num">02</div><h3>Cada detalhe à mostra</h3><p>Pontos interativos em cada ambiente mostram o que os anúncios não contam: a madeira do piso, a pedra da bancada, a adega, a churrasqueira.</p></div>
+    <div class="card"><div class="num">03</div><h3>Reservas diretas</h3><p>O hóspede reserva com você, sem intermediário. Cada reserva pelo site é uma reserva sem comissão de aplicativo, e o contato do hóspede fica com você para a próxima temporada.</p></div>
+    <div class="card"><div class="num">04</div><h3>Marca própria</h3><p>A casa ganha um nome, uma identidade e um endereço próprio (ex.: nomedacasa.com.br) para o Instagram, o WhatsApp e anúncios. Site próprio passa mais confiança.</p></div>
+  </div>
+  <div class="demo">
+    <div>
+      <div class="kicker">Demonstração</div>
+      <h3>Veja como o site pode ficar</h3>
+      <p>Montamos um modelo funcionando para você testar no celular: o tour 3D pela casa, os pontos de detalhe e o calendário de reservas. No projeto final, ele sai com <b style="color:#fff">as fotos, os preços e as regras reais da sua casa</b>.</p>
+    </div>
+    <div class="side">
+      <a class="btn blue" href="https://lbk-studio.onrender.com/casa-beulah-park/">Abrir demonstração &nbsp;→</a>
+      <small>O nome “Lume Residence”, os valores e a disponibilidade da demonstração são ilustrativos.</small>
+    </div>
+  </div>
+  <h4>Incluso em todos os planos</h4>
+  <ul class="bul cols2">
+    <li><b>Tour de imersão 3D</b> guiado pela rolagem</li>
+    <li><b>Pontos interativos</b> e cenas de detalhe</li>
+    <li><b>Fotos tratadas</b> e otimizadas (até 30)</li>
+    <li>Comodidades, regras da casa e localização</li>
+    <li>Botão de <b>WhatsApp</b> sempre visível</li>
+    <li>Feito para o <b>celular</b>, com versão leve do tour</li>
+    <li><b>Hospedagem</b> no 1º ano e HTTPS</li>
+    <li><b>SEO básico</b> (explicado abaixo)</li>
+  </ul>
+  <div class="note"><b>O que é SEO?</b> São ajustes que fazem o site aparecer quando alguém pesquisa no Google, por exemplo “casa de temporada para alugar”. Assim o site também traz hóspedes que ainda não conhecem a casa, sem pagar anúncio.</div>
+  <div class="runner"><span>MaxCoreSystem · Proposta comercial</span><span>2 / 6</span></div>
+</section>
+
+<!-- 3 · INVESTIMENTO -->
+<section class="page">
+  <div class="brandline"><img src="logo-mcs.png" alt="">MaxCoreSystem</div>
+  <div class="kicker">Investimento</div>
+  <h2>Três formas de fazer</h2>
+  <p class="lead">Todos os planos entregam o site imersivo da demonstração. A diferença está em quanto do processo de reserva o site assume por você: do primeiro contato ao pagamento, ao check-in e à avaliação final.</p>
+  <div class="plans">
+    <div class="plan">
+      <h3>Essencial</h3>
+      <p class="desc">O site imersivo que apresenta a casa e leva o hóspede direto para o seu WhatsApp, onde você combina datas e valores.</p>
+      <div class="price"><small>R$</small><b>5.000</b></div>
+      <div class="when">entrega em 1 semana</div>
+      <ul class="bul">
+        <li>Tudo do “Incluso em todos os planos”</li>
+        <li>Abertura com os destaques da casa</li>
+        <li>Mensagem de WhatsApp pronta: “Olá, tenho interesse na casa para as datas…”</li>
+        <li>Formulário de interesse com datas e número de hóspedes</li>
+        <li>Prévia ao compartilhar nas redes e Google Analytics</li>
+      </ul>
+    </div>
+    <div class="plan rec">
+      <div class="tag">RECOMENDADO</div>
+      <h3>Profissional</h3>
+      <p class="desc">O site da demonstração completo: o hóspede vê as datas livres, sabe o valor na hora e envia a reserva. Você aprova e combina o pagamento no WhatsApp.</p>
+      <div class="price"><small>R$</small><b>9.000</b></div>
+      <div class="when">entrega em 2 a 4 semanas</div>
+      <ul class="bul">
+        <li><b>Tudo do Essencial</b></li>
+        <li><b>Calendário real</b>, com datas ocupadas bloqueadas</li>
+        <li><b>Valor na hora:</b> temporada, fins de semana, feriados, limpeza e mínimo de noites</li>
+        <li>Pedido de reserva e agendamento de visitas</li>
+        <li><b>Painel do proprietário:</b> aprovar pedidos, bloquear datas, mudar preços</li>
+        <li>Aviso por e-mail a cada pedido</li>
+        <li><b>Sincronização com Airbnb e Booking</b></li>
+        <li>Treinamento online do painel</li>
+        <li>14 dias de ajustes grátis</li>
+      </ul>
+    </div>
+    <div class="plan">
+      <h3>Premium</h3>
+      <p class="desc">A casa no automático: o hóspede reserva, paga, assina o termo, faz check-in e avalia a estadia pelo site. Você acompanha pelo painel.</p>
+      <div class="price"><small>R$</small><b>16.000</b></div>
+      <div class="when">entrega em 4 a 8 semanas</div>
+      <ul class="bul">
+        <li><b>Tudo do Profissional</b></li>
+        <li><b>Pagamento online:</b> Pix e cartão, sinal, caução e reembolso</li>
+        <li><b>Check-in e check-out digital</b> com vistoria por fotos</li>
+        <li><b>Avaliações</b> publicadas após sua aprovação</li>
+        <li><b>Termo de responsabilidade</b> com aceite digital</li>
+        <li><b>Análise do hóspede</b>, visível só para você</li>
+        <li>Relatórios de faturamento e ocupação</li>
+        <li>Adequação à LGPD</li>
+        <li><b>3 meses de manutenção</b> inclusos</li>
+        <li>30 dias de ajustes grátis</li>
+      </ul>
+    </div>
+  </div>
+  <p class="fine">As taxas do meio de pagamento do plano Premium (em geral de 1% a 5% por transação) são cobradas pela operadora direto na sua conta e não estão no valor acima. Quem começar por um plano menor pode subir de nível depois pagando apenas a diferença.</p>
+  <div class="runner"><span>MaxCoreSystem · Proposta comercial</span><span>3 / 6</span></div>
+</section>
+
+<!-- 4 · COMPARATIVO E CUSTOS -->
+<section class="page">
+  <div class="brandline"><img src="logo-mcs.png" alt="">MaxCoreSystem</div>
+  <div class="kicker">Comparativo</div>
+  <h2>Lado a lado</h2>
+  <table>
+    <tr><th>Recurso</th><th class="c">Essencial</th><th class="c hl">Profissional</th><th class="c">Premium</th></tr>
+    <tr><td>Tour de imersão 3D e pontos interativos</td><td class="c ok">✓</td><td class="c hl ok">✓</td><td class="c ok">✓</td></tr>
+    <tr><td>Fotos tratadas, comodidades e regras da casa</td><td class="c ok">✓</td><td class="c hl ok">✓</td><td class="c ok">✓</td></tr>
+    <tr><td>WhatsApp, SEO básico e hospedagem no 1º ano</td><td class="c ok">✓</td><td class="c hl ok">✓</td><td class="c ok">✓</td></tr>
+    <tr><td>Calendário real e valor calculado na hora</td><td class="c no">—</td><td class="c hl ok">✓</td><td class="c ok">✓</td></tr>
+    <tr><td>Painel do proprietário</td><td class="c no">—</td><td class="c hl ok">✓</td><td class="c ok">✓</td></tr>
+    <tr><td>Sincronização com Airbnb e Booking</td><td class="c no">—</td><td class="c hl ok">✓</td><td class="c ok">✓</td></tr>
+    <tr><td>Pagamento online (Pix e cartão)</td><td class="c no">—</td><td class="c hl no">—</td><td class="c ok">✓</td></tr>
+    <tr><td>Check-in e check-out digital</td><td class="c no">—</td><td class="c hl no">—</td><td class="c ok">✓</td></tr>
+    <tr><td>Avaliações da casa</td><td class="c no">—</td><td class="c hl no">—</td><td class="c ok">✓</td></tr>
+    <tr><td>Termo de responsabilidade digital</td><td class="c no">—</td><td class="c hl no">—</td><td class="c ok">✓</td></tr>
+    <tr><td>Análise do hóspede (privada)</td><td class="c no">—</td><td class="c hl no">—</td><td class="c ok">✓</td></tr>
+    <tr><td>Manutenção inclusa</td><td class="c no">—</td><td class="c hl no">—</td><td class="c em">3 meses</td></tr>
+    <tr><td>Ajustes grátis após a entrega</td><td class="c no">—</td><td class="c hl em">14 dias</td><td class="c em">30 dias</td></tr>
+    <tr><td>Prazo de entrega</td><td class="c">1 semana</td><td class="c hl">2–4 semanas</td><td class="c">4–8 semanas</td></tr>
+    <tr class="total"><td>Investimento</td><td class="c">R$ 5.000</td><td class="c hl">R$ 9.000</td><td class="c">R$ 16.000</td></tr>
+  </table>
+
+  <p class="fine">O plano Profissional é o que entrega a experiência completa da demonstração, com o melhor equilíbrio entre investimento e trabalho que o site tira das suas mãos.</p>
+  <div class="runner"><span>MaxCoreSystem · Proposta comercial</span><span>4 / 6</span></div>
+</section>
+
+<!-- 5 · CONDIÇÕES E CUSTOS -->
+<section class="page">
+  <div class="brandline"><img src="logo-mcs.png" alt="">MaxCoreSystem</div>
+  <div class="kicker">Condições</div>
+  <h2>Pagamento e prazo</h2>
+  <table class="pay">
+    <tr><th>Plano</th><th>Forma de pagamento</th><th>Prazo de entrega</th></tr>
+    <tr><td>Essencial</td><td>50% na aprovação + parcelas a negociar</td><td>1 semana</td></tr>
+    <tr><td>Profissional</td><td>50% na aprovação + parcelas a negociar</td><td>2 a 4 semanas</td></tr>
+    <tr><td>Premium</td><td>20% na aprovação + 30% na entrega + parcelas a combinar</td><td>4 a 8 semanas</td></tr>
+  </table>
+  <p class="fine" style="margin-top:3mm">Pagamento por Pix ou transferência bancária. Os prazos contam a partir da aprovação e do recebimento do material da casa. Proposta válida por 15 dias, até 11/12/2026.</p>
+
+  <h4 style="margin-top:7mm">Custos para manter o site no ar</h4>
+  <div class="grid2">
+    <div class="card cost"><h3>1º ano</h3>
+      <div class="row"><span>Hospedagem do site</span><b>Inclusa</b></div>
+      <div class="row"><span>Domínio .com.br</span><b>~R$ 40/ano</b></div>
+      <p>O domínio é registrado no seu nome.</p>
+    </div>
+    <div class="card cost"><h3>A partir do 2º ano</h3>
+      <div class="row"><span>Hospedagem</span><b>~R$ 40 a 100/mês</b></div>
+      <div class="row"><span>Domínio .com.br</span><b>~R$ 40/ano</b></div>
+      <p>Pagos direto aos fornecedores. A hospedagem varia conforme o plano: com reservas e pagamentos, o site precisa de mais estrutura.</p>
+    </div>
+  </div>
+  <div class="maint">
+    <div class="p"><h3>Manutenção</h3><span style="font-size:8.5pt">opcional, cancele quando quiser</span>
+      <b style="margin-top:3mm">R$ 200/mês</b>Essencial
+      <b>R$ 300/mês</b>Profissional
+      <b>R$ 500/mês</b>Premium, após os 3 meses inclusos</div>
+    <div><h5>O que inclui</h5><ul class="bul"><li>Alterar preços, fotos, textos e regras sempre que precisar</li><li>Backups e site sempre no ar</li><li>Atualizações de segurança</li><li>Renovação do domínio e da hospedagem</li><li>Suporte pelo WhatsApp em dias úteis</li></ul></div>
+    <div><h5>O que não inclui</h5><ul class="bul no-list"><li>Funções ou páginas novas (orçadas à parte)</li><li>Novas sessões de foto ou vídeo</li><li>Valores de domínio e hospedagem</li></ul></div>
+  </div>
+  <div class="runner"><span>MaxCoreSystem · Proposta comercial</span><span>5 / 6</span></div>
+</section>
+
+<!-- 6 · PROJETO E ACEITE -->
+<section class="page">
+  <div class="brandline"><img src="logo-mcs.png" alt="">MaxCoreSystem</div>
+  <div class="kicker">Próximos passos</div>
+  <h2>Como vamos trabalhar</h2>
+  <h4 style="margin-top:2mm">Como funciona o projeto</h4>
+  <div class="steps">
+    <div class="step"><b>1 · Aprovação</b><span>Escolha do plano, registro do domínio e envio do material</span></div>
+    <div class="step"><b>2 · Tour 3D</b><span>Produção do tour, tratamento das fotos e textos</span></div>
+    <div class="step"><b>3 · Desenvolvimento</b><span>Site e, conforme o plano, reservas, painel e pagamentos</span></div>
+    <div class="step"><b>4 · Revisão</b><span>Teste no celular e no computador com você</span></div>
+    <div class="step"><b>5 · Publicação</b><span>Site no ar no endereço da casa e treinamento</span></div>
+  </div>
+
+  <div class="grid2" style="margin-top:6mm">
+    <div class="card"><h3>O que precisamos da casa</h3>
+      <ul class="bul" style="margin-top:2mm"><li>Fotos de todos os ambientes (se precisar, indicamos um fotógrafo)</li><li>Regras da casa, comodidades e capacidade</li><li>Preços por temporada, taxa de limpeza e política de cancelamento</li><li>WhatsApp, Instagram e endereço</li></ul>
+    </div>
+    <div class="card"><h3>Para aprovar</h3>
+      <p style="margin-top:2mm">É só responder no WhatsApp com o plano escolhido e assinar o aceite abaixo, por exemplo pelo assinador gratuito do gov.br. Confirmamos o domínio disponível e começamos no mesmo dia.</p>
+    </div>
+  </div>
+
+  <h4>Aceite da proposta</h4>
+  <p style="font-size:9.5pt;color:var(--muted)">Declaro estar de acordo com o escopo, os valores e as condições desta proposta, optando pelo plano indicado.</p>
+  <div class="choose"><span>Essencial</span><span>Profissional</span><span>Premium</span></div>
+  <div class="sign" style="margin-top:16mm">
+    <div><b>Clézio Gonçalves</b><small>Cliente · Data: ___/___/______</small></div>
+    <div><b>MaxCoreSystem</b><small>Desenvolvimento · Data: ___/___/______</small></div>
+  </div>
+  <div class="runner"><span>MaxCoreSystem · Proposta comercial</span><span>6 / 6</span></div>
+</section>
+
+</body>
+</html>
