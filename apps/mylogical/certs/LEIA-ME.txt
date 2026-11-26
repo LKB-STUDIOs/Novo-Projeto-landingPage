@@ -1,0 +1,1 @@
+Coloque aqui cert.pem e key.pem para ligar o HTTPS (veja o README).

@@ -115,6 +115,8 @@ Projetos completos que têm o próprio `package.json` ficam em `apps/` e são ge
 
 Para trabalhar em um deles: `cd apps/support-cell-lab && npm install && npm run dev`.
 
+`apps/mylogical` **não** é publicado: é um app interno que roda no PC da empresa e acessa o banco do MyLogical pela rede local. Veja `apps/mylogical/README.md`.
+
 ### Caeté Engenharia Ambiental (`apps/caete`)
 
 Portfólio de uma consultoria de licenciamento ambiental (empresa, clientes e números **fictícios**). React 19 + Vite + Tailwind 4, GSAP (ScrollTrigger e SplitText), Motion e Lenis. Fontes: Work Sans, Fraunces e IBM Plex Mono.

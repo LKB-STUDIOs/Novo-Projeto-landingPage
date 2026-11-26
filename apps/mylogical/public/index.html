@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MyLogical App</title>
+  <meta name="theme-color" content="#1f6f78">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MyLogical">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topo">
+    <a href="#/" class="marca" aria-label="Início">
+      <img src="/icons/icon.svg" alt="" width="28" height="28">
+      <span>MyLogical</span>
+    </a>
+    <span id="conexao" class="conexao" title="Conexão com o banco"></span>
+    <button id="sair" class="btn-icone" hidden>Sair</button>
+  </header>
+  <main id="app" tabindex="-1"></main>
+  <div id="aviso" class="aviso" role="status" aria-live="polite" hidden></div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
