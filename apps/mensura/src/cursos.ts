@@ -5,12 +5,24 @@
  * (ex.: "https://youtu.be/abc123XYZ00" ou "https://www.youtube.com/watch?v=abc123XYZ00").
  * Enquanto estiver vazio, a aula mostra "vídeo em produção".
  *
+ * OS VÍDEOS ATUAIS SÃO EXEMPLOS: aulas públicas de outros canais do YouTube, usadas só para
+ * demonstrar o player. Troque pelos seus vídeos antes de vender (e apague o campo `canal`).
+ *
  * Dica: publique as aulas pagas como "Não listado" no YouTube e as grátis como "Público".
  * `gratis: true` deixa a aula aberta para qualquer visitante (bom para amostra).
  * `checkout`: link de pagamento (Mercado Pago, Hotmart, Kiwify...). Vazio = compra pelo WhatsApp.
  */
 
-export type Aula = { id: string; titulo: string; duracao: string; youtube: string; gratis?: boolean; resumo: string };
+export type Aula = {
+  id: string;
+  titulo: string;
+  duracao: string;
+  youtube: string;
+  /** Canal dono do vídeo (aparece como crédito abaixo do player). */
+  canal?: string;
+  gratis?: boolean;
+  resumo: string;
+};
 export type Modulo = { titulo: string; aulas: Aula[] };
 export type Curso = {
   slug: string;
@@ -46,24 +58,24 @@ export const CURSOS: Curso[] = [
       {
         titulo: "O que é medir",
         aulas: [
-          { id: "boas-vindas", titulo: "Boas-vindas e como estudar", duracao: "06:00", youtube: "", gratis: true, resumo: "Como o curso funciona e o que você vai conseguir fazer ao final." },
-          { id: "areas", titulo: "Metrologia científica, industrial e legal", duracao: "12:00", youtube: "", resumo: "Quem faz o quê no Brasil: Inmetro, RBC, laboratórios e indústria." },
-          { id: "si", titulo: "Sistema Internacional de Unidades (SI)", duracao: "15:00", youtube: "", resumo: "As sete unidades de base, prefixos e a escrita correta de grandezas." },
+          { id: "boas-vindas", titulo: "Boas-vindas e como estudar", duracao: "02:49", youtube: "https://youtu.be/IFK4Qd8L2hM", canal: "Canal Metrologia", gratis: true, resumo: "Como o curso funciona e o que você vai conseguir fazer ao final." },
+          { id: "areas", titulo: "Metrologia científica, industrial e legal", duracao: "14:20", youtube: "https://youtu.be/HNXyfoGfSdc", canal: "PET Mecânica UFC", resumo: "Quem faz o quê no Brasil: Inmetro, RBC, laboratórios e indústria." },
+          { id: "si", titulo: "Sistema Internacional de Unidades (SI)", duracao: "09:09", youtube: "https://youtu.be/752KWWVH_VU", canal: "Brasil Escola Oficial", resumo: "As sete unidades de base, prefixos e a escrita correta de grandezas." },
         ],
       },
       {
         titulo: "Vocabulário essencial (VIM)",
         aulas: [
-          { id: "erro", titulo: "Mensurando, valor verdadeiro e erro", duracao: "14:00", youtube: "", resumo: "Por que nenhuma medição é perfeita e como o erro se divide." },
-          { id: "exatidao", titulo: "Exatidão x precisão", duracao: "10:00", youtube: "", resumo: "O exemplo do alvo, com dados reais de medição." },
-          { id: "resolucao", titulo: "Resolução, sensibilidade e faixa", duracao: "11:00", youtube: "", resumo: "Como escolher o instrumento certo para a tolerância da peça." },
+          { id: "erro", titulo: "Mensurando, valor verdadeiro e erro", duracao: "03:00", youtube: "https://youtu.be/kutK949WWmA", canal: "Renan Ramalho", resumo: "Por que nenhuma medição é perfeita e como o erro se divide." },
+          { id: "exatidao", titulo: "Exatidão x precisão", duracao: "06:43", youtube: "https://youtu.be/vHR7GQ3cLFw", canal: "Canal Metrologia", resumo: "O exemplo do alvo, com dados reais de medição." },
+          { id: "resolucao", titulo: "Resolução, sensibilidade e faixa", duracao: "03:41", youtube: "https://youtu.be/A44Ae3Hu0Yw", canal: "Cursando Técnico", resumo: "Como escolher o instrumento certo para a tolerância da peça." },
         ],
       },
       {
         titulo: "Rastreabilidade",
         aulas: [
-          { id: "cadeia", titulo: "Cadeia de rastreabilidade", duracao: "13:00", youtube: "", resumo: "Do padrão nacional até o paquímetro da bancada." },
-          { id: "certificado", titulo: "Como ler um certificado de calibração", duracao: "18:00", youtube: "", resumo: "Erro, incerteza, fator k e o que fazer com esses números." },
+          { id: "cadeia", titulo: "Cadeia de rastreabilidade", duracao: "11:53", youtube: "https://youtu.be/QoTDH18etng", canal: "Canal Metrologia", resumo: "Do padrão nacional até o paquímetro da bancada." },
+          { id: "certificado", titulo: "Como ler um certificado de calibração", duracao: "15:52", youtube: "https://youtu.be/faUxtLlvP5E", canal: "CECT Metrologia e Qualidade - O Canal que Ensina.", resumo: "Erro, incerteza, fator k e o que fazer com esses números." },
         ],
       },
     ],
@@ -88,24 +100,24 @@ export const CURSOS: Curso[] = [
       {
         titulo: "Paquímetro",
         aulas: [
-          { id: "anatomia-paquimetro", titulo: "Anatomia do paquímetro", duracao: "09:00", youtube: "", gratis: true, resumo: "Cada parte do instrumento e para que serve." },
-          { id: "nonio", titulo: "Leitura do nônio: 0,05 e 0,02 mm", duracao: "16:00", youtube: "", resumo: "Método passo a passo com exercícios para praticar." },
-          { id: "erros-paquimetro", titulo: "Erros comuns de medição", duracao: "12:00", youtube: "", resumo: "Paralaxe, força excessiva e peça mal apoiada." },
+          { id: "anatomia-paquimetro", titulo: "Anatomia do paquímetro", duracao: "08:41", youtube: "https://youtu.be/GY-O-Qxt_zU", canal: "CEGTEC - Educação Profissional", gratis: true, resumo: "Cada parte do instrumento e para que serve." },
+          { id: "nonio", titulo: "Leitura do nônio: 0,05 e 0,02 mm", duracao: "08:26", youtube: "https://youtu.be/CN2yOBgT7m4", canal: "Prof. Luiz Brito", resumo: "Método passo a passo com exercícios para praticar." },
+          { id: "erros-paquimetro", titulo: "Erros comuns de medição", duracao: "07:41", youtube: "https://youtu.be/KzlgvV8NBVU", canal: "CEGTEC - Educação Profissional", resumo: "Paralaxe, força excessiva e peça mal apoiada." },
         ],
       },
       {
         titulo: "Micrômetro",
         aulas: [
-          { id: "micrometro-externo", titulo: "Micrômetro externo: leitura em 0,01 mm", duracao: "15:00", youtube: "", resumo: "Bainha, tambor e catraca: leitura e zeragem." },
-          { id: "micrometro-interno", titulo: "Micrômetro interno e de profundidade", duracao: "13:00", youtube: "", resumo: "Quando usar e como ler cada um." },
+          { id: "micrometro-externo", titulo: "Micrômetro externo: leitura em 0,01 mm", duracao: "09:40", youtube: "https://youtu.be/NgqksHVD4P4", canal: "Prof. Luiz Brito", resumo: "Bainha, tambor e catraca: leitura e zeragem." },
+          { id: "micrometro-interno", titulo: "Micrômetro interno e de profundidade", duracao: "08:05", youtube: "https://youtu.be/OfqnNai6MP4", canal: "Conhecimento 3.0", resumo: "Quando usar e como ler cada um." },
         ],
       },
       {
         titulo: "Medição por comparação",
         aulas: [
-          { id: "relogio", titulo: "Relógio comparador e apalpador", duracao: "14:00", youtube: "", resumo: "Montagem na base, zeragem com bloco-padrão e leitura." },
-          { id: "blocos", titulo: "Blocos-padrão e calibradores passa/não passa", duracao: "12:00", youtube: "", resumo: "Classes de blocos, aderência e uso de calibradores." },
-          { id: "cuidados", titulo: "Cuidados, limpeza e temperatura", duracao: "08:00", youtube: "", resumo: "Por que 20 °C importa e como guardar cada instrumento." },
+          { id: "relogio", titulo: "Relógio comparador e apalpador", duracao: "08:05", youtube: "https://youtu.be/PKzyZnVM18M", canal: "Prof. Luiz Brito", resumo: "Montagem na base, zeragem com bloco-padrão e leitura." },
+          { id: "blocos", titulo: "Blocos-padrão e calibradores passa/não passa", duracao: "09:54", youtube: "https://youtu.be/k9LzzU-2oqo", canal: "Conhecimento 3.0", resumo: "Classes de blocos, aderência e uso de calibradores." },
+          { id: "cuidados", titulo: "Cuidados, limpeza e temperatura", duracao: "03:04", youtube: "https://youtu.be/KKlbfRvPw9o", canal: "Focus Metrologia", resumo: "Por que 20 °C importa e como guardar cada instrumento." },
         ],
       },
     ],
@@ -130,25 +142,25 @@ export const CURSOS: Curso[] = [
       {
         titulo: "Calibração na prática",
         aulas: [
-          { id: "calibracao-ajuste", titulo: "Calibração, verificação e ajuste", duracao: "11:00", youtube: "", gratis: true, resumo: "Três palavras que vivem sendo confundidas, e por que isso dá problema em auditoria." },
-          { id: "periodicidade", titulo: "Plano e periodicidade de calibração", duracao: "14:00", youtube: "", resumo: "Como definir o intervalo com base em histórico e risco." },
-          { id: "aceitacao", titulo: "Critérios de aceitação do instrumento", duracao: "13:00", youtube: "", resumo: "Erro + incerteza x tolerância: como decidir." },
+          { id: "calibracao-ajuste", titulo: "Calibração, verificação e ajuste", duracao: "07:09", youtube: "https://youtu.be/a393ODlzr5U", canal: "Eng de Sucesso - Projetando", gratis: true, resumo: "Três palavras que vivem sendo confundidas, e por que isso dá problema em auditoria." },
+          { id: "periodicidade", titulo: "Plano e periodicidade de calibração", duracao: "03:57", youtube: "https://youtu.be/-4tEQP2yXjY", canal: "Silvani Castanha - ACC Metrologia", resumo: "Como definir o intervalo com base em histórico e risco." },
+          { id: "aceitacao", titulo: "Critérios de aceitação do instrumento", duracao: "15:01", youtube: "https://youtu.be/vI20xOwKNXo", canal: "APRENDER MECÂNICA, PRODUÇÃO, INDUSTRIAL, QUALIDADE", resumo: "Erro + incerteza x tolerância: como decidir." },
         ],
       },
       {
         titulo: "Incerteza de medição (GUM)",
         aulas: [
-          { id: "tipo-a-b", titulo: "Incertezas tipo A e tipo B", duracao: "17:00", youtube: "", resumo: "Estatística das repetições e informações de certificados e manuais." },
-          { id: "orcamento", titulo: "Orçamento de incerteza passo a passo", duracao: "22:00", youtube: "", resumo: "Planilha montada junto com você, fonte por fonte." },
-          { id: "fator-k", titulo: "Graus de liberdade e fator k", duracao: "15:00", youtube: "", resumo: "Welch-Satterthwaite sem medo." },
-          { id: "exemplo-paquimetro", titulo: "Exemplo completo: calibração de paquímetro", duracao: "25:00", youtube: "", resumo: "Do ensaio ao certificado." },
+          { id: "tipo-a-b", titulo: "Incertezas tipo A e tipo B", duracao: "08:19", youtube: "https://youtu.be/nIpj12iYb1s", canal: "Canal Metrologia", resumo: "Estatística das repetições e informações de certificados e manuais." },
+          { id: "orcamento", titulo: "Orçamento de incerteza passo a passo", duracao: "16:57", youtube: "https://youtu.be/8uRdakeunTI", canal: "CECT Metrologia e Qualidade - O Canal que Ensina.", resumo: "Planilha montada junto com você, fonte por fonte." },
+          { id: "fator-k", titulo: "Graus de liberdade e fator k", duracao: "15:23", youtube: "https://youtu.be/PFbb61lz4Zg", canal: "Isaque Brandao", resumo: "Welch-Satterthwaite sem medo." },
+          { id: "exemplo-paquimetro", titulo: "Exemplo completo: calibração de paquímetro", duracao: "04:57", youtube: "https://youtu.be/CY_iP5TkUQs", canal: "João pedro Pucinelli", resumo: "Do ensaio ao certificado." },
         ],
       },
       {
         titulo: "ISO/IEC 17025",
         aulas: [
-          { id: "requisitos", titulo: "Requisitos para laboratórios", duracao: "16:00", youtube: "", resumo: "O que a norma pede, em linguagem direta." },
-          { id: "auditoria", titulo: "Preparação para auditoria", duracao: "12:00", youtube: "", resumo: "Registros, evidências e as perguntas que o auditor faz." },
+          { id: "requisitos", titulo: "Requisitos para laboratórios", duracao: "04:25", youtube: "https://youtu.be/uaauqgcLyNw", canal: "Setton Gestão", resumo: "O que a norma pede, em linguagem direta." },
+          { id: "auditoria", titulo: "Preparação para auditoria", duracao: "03:29", youtube: "https://youtu.be/_RYHWXtSnfo", canal: "Allevant", resumo: "Registros, evidências e as perguntas que o auditor faz." },
         ],
       },
     ],
@@ -173,17 +185,17 @@ export const CURSOS: Curso[] = [
       {
         titulo: "Análise do sistema de medição (MSA)",
         aulas: [
-          { id: "por-que-msa", titulo: "Por que avaliar o sistema de medição", duracao: "10:00", youtube: "", gratis: true, resumo: "Quando a variação da medição engole a variação da peça." },
-          { id: "rr-medias", titulo: "R&R por médias e amplitudes", duracao: "20:00", youtube: "", resumo: "Planejamento, coleta e cálculo." },
-          { id: "rr-anova", titulo: "R&R por ANOVA e interpretação", duracao: "18:00", youtube: "", resumo: "Interação operador × peça e critérios de aceitação." },
-          { id: "atributos", titulo: "Estudos por atributos", duracao: "14:00", youtube: "", resumo: "Kappa e concordância entre avaliadores." },
+          { id: "por-que-msa", titulo: "Por que avaliar o sistema de medição", duracao: "05:20", youtube: "https://youtu.be/rjBAfPRd3Bk", canal: "Play Industrial", gratis: true, resumo: "Quando a variação da medição engole a variação da peça." },
+          { id: "rr-medias", titulo: "R&R por médias e amplitudes", duracao: "13:31", youtube: "https://youtu.be/FEZz3Byn52A", canal: "Frons Educação", resumo: "Planejamento, coleta e cálculo." },
+          { id: "rr-anova", titulo: "R&R por ANOVA e interpretação", duracao: "08:47", youtube: "https://youtu.be/6sRN1lCTqSM", canal: "LEARN & APPLY : Lean and Six Sigma", resumo: "Interação operador × peça e critérios de aceitação." },
+          { id: "atributos", titulo: "Estudos por atributos", duracao: "13:57", youtube: "https://youtu.be/76XYhZsqeig", canal: "Luiz Cesar Carpinetti", resumo: "Kappa e concordância entre avaliadores." },
         ],
       },
       {
         titulo: "Controle estatístico do processo",
         aulas: [
-          { id: "cartas", titulo: "Cartas de controle X̄-R", duracao: "17:00", youtube: "", resumo: "Limites de controle e regras de instabilidade." },
-          { id: "capacidade", titulo: "Capacidade: Cp, Cpk, Pp e Ppk", duracao: "19:00", youtube: "", resumo: "O que cada índice mostra e quando usar." },
+          { id: "cartas", titulo: "Cartas de controle X̄-R", duracao: "20:22", youtube: "https://youtu.be/8vxJALkNo_o", canal: "Aprendendo Gestão", resumo: "Limites de controle e regras de instabilidade." },
+          { id: "capacidade", titulo: "Capacidade: Cp, Cpk, Pp e Ppk", duracao: "05:30", youtube: "https://youtu.be/3DNfU_Jc0Sg", canal: "Frons Educação", resumo: "O que cada índice mostra e quando usar." },
         ],
       },
     ],

@@ -130,7 +130,7 @@ Plataforma de cursos de metrologia com aulas do YouTube tocando dentro do site, 
 
 | Arquivo | O que trocar |
 | --- | --- |
-| `src/config.ts` | nome da escola, WhatsApp, dados do professor e códigos de acesso |
+| `src/config.ts` | nome da escola, WhatsApp, dados do professor, depoimentos e códigos de acesso. `DEMONSTRACAO = true` mostra os avisos de dados fictícios |
 | `src/cursos.ts` | cursos, preços, link de pagamento (`checkout`), módulos, aulas e o link do YouTube de cada aula |
 | `src/estilo.css` | cores e fontes (variáveis no começo do arquivo) |
 
@@ -138,4 +138,6 @@ Plataforma de cursos de metrologia com aulas do YouTube tocando dentro do site, 
 - **Compra:** o botão abre o `checkout` do curso (Mercado Pago, Hotmart, Kiwify…) ou, se estiver vazio, o WhatsApp com a mensagem pronta.
 - **Área do aluno:** o aluno digita nome e código de acesso; o progresso fica salvo no navegador dele. Para criar um código: `npm run codigo -- TURMA-MARCO-26` e cole a linha em `CODIGOS_ACESSO`. **Apague o código de teste `DEMO-METRO` antes de vender.**
 - **Limite importante:** sem servidor, o bloqueio das aulas pagas é só de interface. Quem souber mexer no código do site encontra os links dos vídeos. Publique as aulas pagas como "Não listado" no YouTube e, quando precisar de proteção real (login por aluno, acesso com prazo), use um back-end (Supabase, Firebase) ou a área de membros de uma plataforma como Hotmart ou Kiwify.
+- **Dados de demonstração:** professor (Prof. Rafael Monteiro), números e depoimentos são fictícios, e as 31 aulas usam vídeos públicos de outros canais do YouTube como exemplo (o canal aparece como crédito abaixo do player). Troque tudo antes de vender e mude `DEMONSTRACAO` para `false`.
+- **Professor 3D** (`src/components/professor3d.ts`): boneco feito só com formas do three.js, de jaleco, óculos e crachá, segurando um paquímetro que abre e fecha; a cabeça segue o mouse. O three.js só é baixado quando a seção chega perto da tela.
 - **Página do paquímetro interativo** (`src/components/Paquimetro.tsx`): nônio de 0,05 mm, com modo explorar e modo desafio.

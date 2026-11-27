@@ -148,6 +148,7 @@ export function PaginaAula({ curso, aulaId }: { curso: Curso; aulaId: string }) 
           <p className="mono aula-modulo">{modulo?.titulo} · aula {i + 1} de {aulas.length} · {aula.duracao}</p>
           <h1 className="aula-h1">{aula.titulo}</h1>
           <p className="aula-resumo">{aula.resumo}</p>
+          {aula.canal && aberta && <p className="credito mono">Vídeo de exemplo do YouTube · {aula.canal}</p>}
           <div className="aula-acoes">
             {liberado && (
               <button type="button" className={`btn ${feita ? "btn-feito" : "btn-escuro"}`} onClick={() => alternarConcluida(curso.slug, aula.id)} aria-pressed={feita}>

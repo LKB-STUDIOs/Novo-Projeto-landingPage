@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { MARCA, WHATSAPP } from "../config";
+import { DEMONSTRACAO, MARCA, WHATSAPP } from "../config";
 import { CURSOS } from "../cursos";
 import { useAluno } from "../lib/aluno";
 import { href } from "../lib/rota";
@@ -76,7 +76,10 @@ function Rodape() {
         </div>
       </div>
       <div className="conteudo rodape-fim">
-        <span>© {new Date().getFullYear()} {MARCA.nome}. Todos os direitos reservados.</span>
+        <span>
+          © {new Date().getFullYear()} {MARCA.nome}. Todos os direitos reservados.
+          {DEMONSTRACAO && <><br />Site de demonstração: professor, números e depoimentos são fictícios. Vídeos de exemplo de outros canais do YouTube.</>}
+        </span>
         <dl className="carimbo mono" aria-label="Carimbo do desenho">
           <div><dt>Projeto</dt><dd>{MARCA.nome}</dd></div>
           <div><dt>Escala</dt><dd>1:1</dd></div>

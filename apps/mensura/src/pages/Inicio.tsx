@@ -2,7 +2,8 @@ import { CartaoCurso } from "../components/CartaoCurso";
 import { Check, IconeWhats, Seta } from "../components/Icones";
 import { Paquimetro } from "../components/Paquimetro";
 import { VideoYoutube } from "../components/VideoYoutube";
-import { PROFESSOR } from "../config";
+import { Professor3D } from "../components/Professor3D";
+import { DEMONSTRACAO, DEPOIMENTOS, PROFESSOR } from "../config";
 import { aulaAmostra, aulasDe, CURSOS, duracaoCurso } from "../cursos";
 import { href } from "../lib/rota";
 import { linkWhatsApp } from "../lib/whatsapp";
@@ -82,7 +83,10 @@ export function Inicio() {
               </p>
               <a href={href.curso(amostra.curso.slug)} className="btn btn-claro">Ver o curso completo <Seta /></a>
             </div>
-            <VideoYoutube video={amostra.aula.youtube} titulo={amostra.aula.titulo} />
+            <div>
+              <VideoYoutube video={amostra.aula.youtube} titulo={amostra.aula.titulo} />
+              {amostra.aula.canal && <p className="credito mono">Vídeo de exemplo do YouTube · {amostra.aula.canal}</p>}
+            </div>
           </div>
         </section>
       )}
@@ -135,20 +139,47 @@ export function Inicio() {
         </div>
       </section>
 
-      <section className="secao secao-papel">
+      <section id="professor" className="secao secao-papel">
         <div className="conteudo professor">
-          <div className="professor-foto">
-            {PROFESSOR.foto ? (
-              <img src={`${import.meta.env.BASE_URL}${PROFESSOR.foto}`} alt={PROFESSOR.nome} />
-            ) : (
-              <span aria-hidden="true">{PROFESSOR.nome.split(/\s+/).filter((p) => /^[A-ZÀ-Ú]/.test(p)).slice(0, 2).map((p) => p[0]).join("") || "M"}</span>
-            )}
-          </div>
+          <Professor3D nome={PROFESSOR.nome} />
           <div>
             <p className="sobretitulo mono">Quem ensina</p>
             <h2>{PROFESSOR.nome}</h2>
             <p className="professor-cargo">{PROFESSOR.cargo}</p>
             {PROFESSOR.bio.map((b) => <p key={b}>{b}</p>)}
+            <dl className="fatos">
+              {PROFESSOR.fatos.map((f) => (
+                <div key={f.rotulo}>
+                  <dd className="lcd">{f.valor}{f.unidade && <small>{f.unidade}</small>}</dd>
+                  <dt>{f.rotulo}</dt>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section className="secao">
+        <div className="conteudo">
+          <div className="cabeca">
+            <p className="sobretitulo mono">Depoimentos</p>
+            <h2>Quem já estudou com a gente</h2>
+            {DEMONSTRACAO && <p className="aviso-demo mono">Depoimentos fictícios de demonstração</p>}
+          </div>
+          <div className="depoimentos">
+            {DEPOIMENTOS.map((d) => (
+              <figure key={d.nome} className="depoimento">
+                <blockquote>{d.texto}</blockquote>
+                <figcaption>
+                  <span className="depoimento-avatar" aria-hidden="true">{d.nome.split(" ").map((p) => p[0]).join("")}</span>
+                  <span>
+                    <strong>{d.nome}</strong>
+                    <small>{d.cargo}</small>
+                  </span>
+                </figcaption>
+                <p className="depoimento-curso mono">Curso: {d.curso}</p>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
