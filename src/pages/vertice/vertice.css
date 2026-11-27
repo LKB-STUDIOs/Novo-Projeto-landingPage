@@ -156,7 +156,7 @@
 /* cards */
 .vt-card { position: relative; background: var(--surface); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); height: 100%; display: flex; flex-direction: column; transition: transform .35s var(--ease), box-shadow .35s; }
 .vt-card:hover { transform: translateY(-4px); box-shadow: 0 28px 50px -30px rgba(15,58,71,.5); }
-.vt-card-img { all: unset; display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; cursor: pointer; background: linear-gradient(135deg, var(--brand), var(--brand-2)); }
+.vt-card-img { all: unset; display: block; width: 100%; position: relative; aspect-ratio: 4 / 3; overflow: hidden; cursor: pointer; background: linear-gradient(135deg, var(--brand), var(--brand-2)); }
 .vt-card-img:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
 .vt-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
 .vt-card:hover .vt-card-img img { transform: scale(1.06); }
@@ -201,11 +201,11 @@
 .vt-lanc li { display: flex; gap: 10px; align-items: center; }
 .vt-lanc li svg { color: var(--gold-2); }
 .vt-lanc-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.vt-lanc-card { all: unset; cursor: pointer; position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 18px; overflow: hidden; background: rgba(255,255,255,.08); }
+.vt-lanc-card { all: unset; cursor: pointer; position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; border-radius: 18px; overflow: hidden; background: rgba(255,255,255,.08); }
 .vt-lanc-card:focus-visible { outline: 3px solid var(--gold); }
 .vt-lanc-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
 .vt-lanc-card:hover img { transform: scale(1.06); }
-.vt-lanc-card span { position: absolute; inset: auto 0 0 0; padding: 50px 18px 18px; background: linear-gradient(transparent, rgba(5, 20, 26, .9)); font-size: .86rem; display: flex; flex-direction: column; gap: 2px; }
+.vt-lanc-card > span:last-child { position: absolute; inset: auto 0 0 0; padding: 50px 18px 18px; background: linear-gradient(transparent, rgba(5, 20, 26, .9)); font-size: .86rem; display: flex; flex-direction: column; gap: 2px; }
 .vt-lanc-card b { font-family: var(--serif); font-size: 1.15rem; font-weight: 560; }
 @media (max-width: 900px) { .vt-lanc { grid-template-columns: 1fr; } }
 
@@ -215,7 +215,7 @@
 .vt-bairro:focus-visible { outline: 3px solid var(--gold); }
 .vt-bairro img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
 .vt-bairro:hover img { transform: scale(1.07); }
-.vt-bairro span { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; background: linear-gradient(transparent 40%, rgba(8, 28, 35, .85)); }
+.vt-bairro > span:last-child { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; background: linear-gradient(transparent 40%, rgba(8, 28, 35, .85)); }
 .vt-bairro b { font-family: var(--serif); font-size: 1.5rem; font-weight: 560; }
 .vt-bairro small { opacity: .85; }
 .vt-bairro em { font-style: normal; margin-top: 10px; font-size: .84rem; color: var(--gold-2); font-weight: 600; }
@@ -370,3 +370,85 @@
   .vt-itens { grid-template-columns: 1fr; }
   .vt-caixa { position: static; }
 }
+
+/* ===================== Efeito vidro (glass) =====================
+   Bloco separado: apague daqui para baixo para voltar ao visual sólido. */
+.vt {
+  --vidro-claro: rgba(255, 255, 255, .58);
+  --vidro-escuro: rgba(255, 255, 255, .12);
+  --vidro-borda: rgba(255, 255, 255, .32);
+  --vidro-blur: blur(18px) saturate(170%);
+}
+/* cabeçalho de vidro passando por cima do hero */
+.vt-header {
+  background: rgba(246, 243, 237, .42);
+  backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur);
+  border-bottom: 1px solid var(--vidro-borda);
+}
+.vt-header:not(.solido) { background: rgba(10, 34, 42, .22); color: #fff; border-bottom-color: rgba(255, 255, 255, .14); }
+.vt-header:not(.solido) .vt-logo { color: #fff; }
+.vt-header:not(.solido) .vt-logo em { color: rgba(255, 255, 255, .7); }
+.vt-header:not(.solido) .vt-logo-marca { background: rgba(255, 255, 255, .14); }
+.vt-header:not(.solido) .vt-fav-topo, .vt-header:not(.solido) .vt-menu-btn { background: rgba(255, 255, 255, .14); color: #fff; }
+.vt-header.solido { background: rgba(246, 243, 237, .66); }
+@media (max-width: 1080px) { .vt-header:not(.solido) .vt-nav { color: var(--ink); } }
+.vt-hero { margin-top: -72px; padding-top: 150px; }
+.vt-fav-topo, .vt-menu-btn { background: var(--vidro-claro); border-color: var(--vidro-borda); backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+@media (max-width: 1080px) {
+  .vt-nav { background: rgba(246, 243, 237, .78); backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+}
+
+/* caixa de busca de vidro fosco */
+.vt-abas:not(.mini) { background: var(--vidro-escuro); border: 1px solid var(--vidro-borda); border-bottom: 0; backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+.vt-busca-campos {
+  background: var(--vidro-escuro); color: #fff; border: 1px solid var(--vidro-borda);
+  backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur);
+  box-shadow: 0 40px 70px -30px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .25);
+}
+.vt-busca-campos label { color: rgba(255, 255, 255, .7); }
+.vt-busca-campos label:hover { background: rgba(255, 255, 255, .1); }
+.vt-busca-campos label + label { border-left-color: rgba(255, 255, 255, .18); }
+.vt-busca-campos select { color: #fff; }
+.vt-busca-campos select option { color: var(--ink); }
+.vt-busca-campos .vt-btn { background: var(--gold); color: var(--ink) !important; }
+.vt-busca-campos .vt-btn:hover { background: var(--gold-2); }
+.vt-codigo input { backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+@media (max-width: 860px) {
+  .vt-busca-campos label { background: rgba(255, 255, 255, .08); }
+}
+
+/* atalhos de tipo: vidro claro sobre a borda do hero */
+.vt-tipo { background: var(--vidro-claro); border-color: var(--vidro-borda); backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); box-shadow: 0 20px 40px -26px rgba(15, 58, 71, .5), inset 0 1px 0 rgba(255, 255, 255, .6); }
+.vt-tipo-icone { background: rgba(255, 255, 255, .55); }
+
+/* selos, favoritos e setas sobre as fotos */
+.vt-selo, .vt-fav, .vt-gal-seta, .vt-fechar, .vt-setas button {
+  background: rgba(255, 255, 255, .55); border: 1px solid var(--vidro-borda);
+  backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur);
+}
+.vt-selo.aluguel { background: rgba(15, 58, 71, .6); }
+.vt-selo.lanc { background: rgba(217, 164, 65, .75); }
+.vt-gal-cont { background: rgba(0, 0, 0, .3); backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+
+/* legendas de lançamentos e bairros em placas de vidro */
+.vt-lanc-card > span:last-child, .vt-bairro > span:last-child {
+  inset: auto 10px 10px 10px; padding: 14px 16px; border-radius: 14px;
+  background: rgba(10, 34, 42, .28); border: 1px solid rgba(255, 255, 255, .22);
+  backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur);
+}
+.vt-bairro > span:last-child { justify-content: flex-start; }
+
+/* painéis do simulador e números */
+.vt-sim-destaque div { background: var(--vidro-escuro); border: 1px solid rgba(255, 255, 255, .16); backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+.vt-lanc { position: relative; overflow: hidden; isolation: isolate; }
+.vt-lanc::before, .vt-sim-res::before {
+  content: ""; position: absolute; z-index: -1; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 199, 110, .45), transparent 65%); right: -120px; top: -140px; pointer-events: none;
+}
+.vt-sim-res { position: relative; overflow: hidden; isolation: isolate; }
+
+/* WhatsApp: dica em vidro */
+.vt-whats-dica { background: var(--vidro-claro); border: 1px solid var(--vidro-borda); backdrop-filter: var(--vidro-blur); -webkit-backdrop-filter: var(--vidro-blur); }
+
+/* fundo da janela do imóvel mais fosco */
+.vt-dialog::backdrop { background: rgba(8, 24, 30, .4); backdrop-filter: blur(10px) saturate(140%); }
