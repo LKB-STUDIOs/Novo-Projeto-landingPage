@@ -291,7 +291,6 @@ export default function Vertice() {
           <button className="vt-fav-topo" onClick={() => { setFiltros(new Set(["favoritos"])); irParaLista(); }} aria-label={`Favoritos: ${favs.size}`}>
             <Coracao cheio={favs.size > 0} />{favs.size > 0 && <b>{favs.size}</b>}
           </button>
-          <a className="vt-btn vt-btn-sm vt-some-m" href={whats()} {...externo}><IconeWhats size={18} />Fale conosco</a>
           <button className="vt-menu-btn" onClick={() => setMenu((m) => !m)} aria-expanded={menu} aria-label="Abrir menu">{menu ? <I.Fechar /> : <I.Menu />}</button>
         </div>
       </header>
