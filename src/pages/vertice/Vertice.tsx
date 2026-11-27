@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
 import { Link } from "react-router";
-import "@fontsource-variable/fraunces";
-import "@fontsource-variable/inter-tight";
+import "@fontsource-variable/nunito";
+import "@fontsource-variable/nunito/wght-italic.css";
 import "./vertice.css";
+import videoHero from "./midia/hero.mp4";
+import posterHero from "./midia/hero-poster.jpg";
 import { limparTexto } from "../../lib/contato";
-import { BAIRROS, CORRETORES, DEPOIMENTOS, IMOBILIARIA, IMOVEIS, UNIDADES, foto, type Imovel, type Negocio, type Tipo } from "./imoveis";
+import { BAIRROS, CORRETORES, DEPOIMENTOS, IMOBILIARIA, IMOVEIS, UNIDADES, type Imovel, type Negocio, type Tipo } from "./imoveis";
 
 /* ---------- utilidades ---------- */
 
@@ -80,6 +82,88 @@ const IconeWhats = ({ size = 26 }: { size?: number }) => (
 );
 
 /* ---------- peças ---------- */
+
+const Chevron = () => <Svg size={16}><path d="m6 9 6 6 6-6" /></Svg>;
+
+/** Abas Comprar/Alugar: a tarja branca desliza até a aba escolhida. */
+function Abas({ valor, onChange, grupo, mini = false }: { valor: Negocio; onChange: (n: Negocio) => void; grupo: string; mini?: boolean }) {
+  return (
+    <div className={`vt-abas ${mini ? "mini" : ""}`} role="tablist" aria-label="Tipo de negócio">
+      {(["venda", "aluguel"] as Negocio[]).map((n) => (
+        <button key={n} type="button" role="tab" aria-selected={valor === n} className={valor === n ? "on" : ""} onClick={() => onChange(n)}>
+          {valor === n && <motion.span layoutId={`vt-aba-${grupo}`} className="vt-aba-pilula" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+          <span className="vt-aba-txt">{n === "venda" ? "Comprar" : "Alugar"}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+type Opcao<T> = { valor: T; rotulo: string };
+/** Lista suspensa própria (no lugar do <select> do navegador), com teclado: setas, Enter, Esc, Home e End. */
+function Seletor<T extends string | number>({ rotulo, valor, opcoes, onChange, className = "" }: { rotulo?: string; valor: T; opcoes: Opcao<T>[]; onChange: (v: T) => void; className?: string }) {
+  const [aberto, setAberto] = useState(false);
+  const [ativo, setAtivo] = useState(0);
+  const raiz = useRef<HTMLDivElement>(null);
+  const botao = useRef<HTMLButtonElement>(null);
+  const id = useId();
+  const atual = opcoes.find((o) => o.valor === valor) ?? opcoes[0]!;
+
+  useEffect(() => {
+    if (!aberto) return;
+    const fora = (e: PointerEvent) => { if (!raiz.current?.contains(e.target as Node)) setAberto(false); };
+    document.addEventListener("pointerdown", fora);
+    return () => document.removeEventListener("pointerdown", fora);
+  }, [aberto]);
+  useEffect(() => { if (aberto) document.getElementById(`${id}-${ativo}`)?.scrollIntoView({ block: "nearest" }); }, [aberto, ativo, id]);
+
+  const abrir = () => { setAtivo(Math.max(0, opcoes.findIndex((o) => o.valor === valor))); setAberto(true); };
+  const escolher = (o: Opcao<T>) => { onChange(o.valor); setAberto(false); botao.current?.focus(); };
+  const tecla = (e: KeyboardEvent) => {
+    if (!aberto) {
+      if (["ArrowDown", "ArrowUp", "Enter", " "].includes(e.key)) { e.preventDefault(); abrir(); }
+      return;
+    }
+    const ultimo = opcoes.length - 1;
+    const mover: Record<string, (a: number) => number> = { ArrowDown: (a) => Math.min(ultimo, a + 1), ArrowUp: (a) => Math.max(0, a - 1), Home: () => 0, End: () => ultimo };
+    if (e.key in mover) { e.preventDefault(); setAtivo(mover[e.key]!); }
+    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); escolher(opcoes[ativo]!); }
+    else if (e.key === "Escape") { e.preventDefault(); setAberto(false); }
+    else if (e.key === "Tab") setAberto(false);
+  };
+
+  return (
+    <div className={`vt-sel ${aberto ? "aberto" : ""} ${className}`} ref={raiz}>
+      <button
+        ref={botao} type="button" className="vt-sel-btn" onClick={() => (aberto ? setAberto(false) : abrir())} onKeyDown={tecla}
+        aria-haspopup="listbox" aria-expanded={aberto} aria-controls={id} aria-activedescendant={aberto ? `${id}-${ativo}` : undefined}
+      >
+        {rotulo && <span className="vt-sel-rot">{rotulo}</span>}
+        <span className="vt-sel-val">{atual.rotulo}</span>
+        <span className="vt-sel-seta"><Chevron /></span>
+      </button>
+      <AnimatePresence>
+        {aberto && (
+          <motion.ul
+            id={id} role="listbox" aria-label={rotulo} className="vt-sel-lista"
+            initial={{ opacity: 0, y: -8, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.97 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {opcoes.map((o, n) => (
+              <li
+                key={String(o.valor)} id={`${id}-${n}`} role="option" aria-selected={o.valor === valor}
+                className={`${n === ativo ? "ativo" : ""} ${o.valor === valor ? "sel" : ""}`}
+                onMouseEnter={() => setAtivo(n)} onClick={() => escolher(o)}
+              >
+                <span>{o.rotulo}</span>{o.valor === valor && <I.Check />}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function Foto({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
   const [erro, setErro] = useState(false);
@@ -195,6 +279,7 @@ export default function Vertice() {
   const [rolou, setRolou] = useState(false);
   const [valorSim, setValorSim] = useState(600000);
   const [contato, setContato] = useState({ nome: "", interesse: "Comprar um imóvel", mensagem: "" });
+  const [navHover, setNavHover] = useState<string | null>(null);
   const dlg = useRef<HTMLDialogElement>(null);
   const lista = useRef<HTMLElement>(null);
   const trilho = useRef<HTMLDivElement>(null);
@@ -281,11 +366,18 @@ export default function Vertice() {
           <span className="vt-logo-marca" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 26 16 5l12 21H20l-4-7-4 7Z" fill="currentColor" /></svg></span>
           <span>Vértice<em>imóveis</em></span>
         </a>
-        <nav className={`vt-nav ${menu ? "aberto" : ""}`} aria-label="Principal">
-          {NAV.map(([href, rotulo, acao]) => (
-            <a key={rotulo} href={href} onClick={(e) => { setMenu(false); if (acao) { e.preventDefault(); acao(); } }}>{rotulo}</a>
+        <nav className={`vt-nav ${menu ? "aberto" : ""}`} aria-label="Principal" onMouseLeave={() => setNavHover(null)}>
+          {NAV.map(([href, rotulo, acao], n) => (
+            <a
+              key={rotulo} href={href} style={{ ["--i" as string]: n }}
+              onMouseEnter={() => setNavHover(rotulo)} onFocus={() => setNavHover(rotulo)} onBlur={() => setNavHover(null)}
+              onClick={(e) => { setMenu(false); if (acao) { e.preventDefault(); acao(); } }}
+            >
+              {navHover === rotulo && <motion.span layoutId="vt-nav-pilula" className="vt-nav-pilula" transition={{ type: "spring", stiffness: 500, damping: 38 }} />}
+              <span className="vt-nav-txt">{rotulo}</span>
+            </a>
           ))}
-          <Link to="/" className="vt-voltar">← LBK Studio</Link>
+          <Link to="/" className="vt-voltar" style={{ ["--i" as string]: NAV.length }}><span className="vt-nav-txt">← LBK Studio</span></Link>
         </nav>
         <div className="vt-header-acoes">
           <button className="vt-fav-topo" onClick={() => { setFiltros(new Set(["favoritos"])); irParaLista(); }} aria-label={`Favoritos: ${favs.size}`}>
@@ -296,7 +388,9 @@ export default function Vertice() {
       </header>
 
       <section className="vt-hero" id="inicio">
-        <div className="vt-hero-bg" aria-hidden="true"><Foto src={foto("photo-1600585154340-be6161a56a0c", 1900)} alt="" /></div>
+        <div className="vt-hero-bg" aria-hidden="true">
+          <video src={videoHero} poster={posterHero} autoPlay muted loop playsInline preload="auto" disablePictureInPicture />
+        </div>
         <div className="vt-hero-conteudo">
           <motion.p className="vt-kicker claro" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>Imobiliária em {IMOBILIARIA.cidade}</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
@@ -307,34 +401,16 @@ export default function Vertice() {
           </motion.p>
 
           <motion.div className="vt-busca" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.8 }}>
-            <div className="vt-abas" role="tablist" aria-label="Tipo de negócio">
-              {(["venda", "aluguel"] as Negocio[]).map((n) => (
-                <button key={n} role="tab" aria-selected={rascunho.negocio === n} className={rascunho.negocio === n ? "on" : ""} onClick={() => trocarNegocio(n)}>
-                  {n === "venda" ? "Comprar" : "Alugar"}
-                </button>
-              ))}
-            </div>
+            <Abas grupo="hero" valor={rascunho.negocio} onChange={trocarNegocio} />
             <form className="vt-busca-campos" onSubmit={buscar}>
-              <label>Tipo
-                <select value={rascunho.tipo} onChange={(e) => setRascunho({ ...rascunho, tipo: e.target.value as Busca["tipo"] })}>
-                  <option value="">Todos os tipos</option>{TIPOS.map((t) => <option key={t}>{t}</option>)}
-                </select>
-              </label>
-              <label>Bairro
-                <select value={rascunho.bairro} onChange={(e) => setRascunho({ ...rascunho, bairro: e.target.value })}>
-                  <option value="">Todos os bairros</option>{bairros.map((b) => <option key={b}>{b}</option>)}
-                </select>
-              </label>
-              <label>Quartos
-                <select value={rascunho.quartos} onChange={(e) => setRascunho({ ...rascunho, quartos: Number(e.target.value) })}>
-                  <option value={0}>Qualquer</option>{[1, 2, 3, 4].map((q) => <option key={q} value={q}>{q}+</option>)}
-                </select>
-              </label>
-              <label>Valor até
-                <select value={rascunho.precoMax} onChange={(e) => setRascunho({ ...rascunho, precoMax: Number(e.target.value) })}>
-                  <option value={0}>Sem limite</option>{FAIXAS[rascunho.negocio].map((v) => <option key={v} value={v}>{brl(v)}</option>)}
-                </select>
-              </label>
+              <Seletor rotulo="Tipo" valor={rascunho.tipo} onChange={(v) => setRascunho({ ...rascunho, tipo: v })}
+                opcoes={[{ valor: "" as Busca["tipo"], rotulo: "Todos os tipos" }, ...TIPOS.map((t) => ({ valor: t as Busca["tipo"], rotulo: t }))]} />
+              <Seletor rotulo="Bairro" valor={rascunho.bairro} onChange={(v) => setRascunho({ ...rascunho, bairro: v })}
+                opcoes={[{ valor: "", rotulo: "Todos" }, ...bairros.map((b) => ({ valor: b, rotulo: b }))]} />
+              <Seletor rotulo="Quartos" valor={rascunho.quartos} onChange={(v) => setRascunho({ ...rascunho, quartos: v })}
+                opcoes={[{ valor: 0, rotulo: "Qualquer" }, ...[1, 2, 3, 4].map((q) => ({ valor: q, rotulo: `${q} ou mais` }))]} />
+              <Seletor rotulo="Valor até" valor={rascunho.precoMax} onChange={(v) => setRascunho({ ...rascunho, precoMax: v })}
+                opcoes={[{ valor: 0, rotulo: "Sem limite" }, ...FAIXAS[rascunho.negocio].map((v) => ({ valor: v, rotulo: brl(v) }))]} />
               <button className="vt-btn" type="submit"><I.Busca />Buscar</button>
             </form>
             <form className="vt-codigo" onSubmit={buscarCodigo}>
@@ -382,18 +458,9 @@ export default function Vertice() {
             <h2 id="vt-res">{resultados.length} {resultados.length === 1 ? "imóvel encontrado" : "imóveis encontrados"}</h2>
           </div>
           <div className="vt-lista-ctrl">
-            <div className="vt-abas mini" role="group" aria-label="Negócio">
-              {(["venda", "aluguel"] as Negocio[]).map((n) => (
-                <button key={n} className={busca.negocio === n ? "on" : ""} aria-pressed={busca.negocio === n} onClick={() => { const b = { ...busca, negocio: n, precoMax: 0 }; setBusca(b); setRascunho(b); }}>
-                  {n === "venda" ? "Comprar" : "Alugar"}
-                </button>
-              ))}
-            </div>
-            <label className="vt-ordem">Ordenar
-              <select value={ordem} onChange={(e) => setOrdem(e.target.value as Ordem)}>
-                <option value="relevancia">Relevância</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option><option value="area">Maior área</option>
-              </select>
-            </label>
+            <Abas grupo="lista" mini valor={busca.negocio} onChange={(n) => { const b = { ...busca, negocio: n, precoMax: 0 }; setBusca(b); setRascunho(b); }} />
+            <Seletor className="vt-ordem" rotulo="Ordenar" valor={ordem} onChange={setOrdem}
+              opcoes={[{ valor: "relevancia", rotulo: "Relevância" }, { valor: "menor", rotulo: "Menor preço" }, { valor: "maior", rotulo: "Maior preço" }, { valor: "area", rotulo: "Maior área" }] as Opcao<Ordem>[]} />
           </div>
         </div>
         <div className="vt-chips" role="group" aria-label="Filtros rápidos">
@@ -539,11 +606,11 @@ export default function Vertice() {
           <h3>Envie uma mensagem</h3>
           <p className="vt-mini">A conversa abre no WhatsApp. Nada é guardado neste site.</p>
           <label>Seu nome<input required maxLength={80} value={contato.nome} onChange={(e) => setContato({ ...contato, nome: e.target.value })} autoComplete="name" /></label>
-          <label>Quero
-            <select value={contato.interesse} onChange={(e) => setContato({ ...contato, interesse: e.target.value })}>
-              {["Comprar um imóvel", "Alugar um imóvel", "Financiamento", "Avaliação de imóvel", "Outro assunto"].map((o) => <option key={o}>{o}</option>)}
-            </select>
-          </label>
+          <div className="vt-form-campo">
+            <span>Quero</span>
+            <Seletor className="vt-sel-form" valor={contato.interesse} onChange={(v) => setContato({ ...contato, interesse: v })}
+              opcoes={["Comprar um imóvel", "Alugar um imóvel", "Financiamento", "Avaliação de imóvel", "Outro assunto"].map((o) => ({ valor: o, rotulo: o }))} />
+          </div>
           <label>Mensagem<textarea rows={4} maxLength={400} value={contato.mensagem} onChange={(e) => setContato({ ...contato, mensagem: e.target.value })} placeholder="Conte o que você procura: bairro, número de quartos, faixa de valor…" /></label>
           <button className="vt-btn" type="submit"><IconeWhats size={18} />Enviar pelo WhatsApp</button>
         </form>
