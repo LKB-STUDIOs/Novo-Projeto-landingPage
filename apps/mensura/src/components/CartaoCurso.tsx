@@ -11,10 +11,13 @@ export function CartaoCurso({ curso, indice }: { curso: Curso; indice: number })
   const feitas = aulas.filter((a) => concluida(aluno, curso.slug, a.id)).length;
   return (
     <a href={href.curso(curso.slug)} className="cartao">
+      <div className="etiqueta mono">
+        <span className="etiqueta-furo" aria-hidden="true" />
+        <span>Curso MS-{String(indice + 1).padStart(2, "0")}</span>
+        <span className="etiqueta-nivel">{curso.nivel}</span>
+      </div>
       <div className="cartao-capa">
         <Capa tipo={curso.capa} />
-        <span className="cartao-n mono">{String(indice + 1).padStart(2, "0")}</span>
-        <span className="selo">{curso.nivel}</span>
       </div>
       <div className="cartao-corpo">
         <h3>{curso.titulo}</h3>

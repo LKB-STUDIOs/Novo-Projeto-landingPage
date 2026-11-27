@@ -33,11 +33,18 @@ function Nav() {
           <a href={href.inicio("como-funciona")}>Como funciona</a>
           <a href={href.inicio("duvidas")}>Dúvidas</a>
         </nav>
-        <a href={href.aluno()} className="btn btn-escuro btn-pequeno">
-          <Usuario size={16} />
-          <span>{aluno.nome ? `Olá, ${aluno.nome.split(" ")[0]}` : "Área do aluno"}</span>
-        </a>
+        <div className="nav-acoes">
+          <a href={linkWhatsApp()} target="_blank" rel="noopener noreferrer" className="btn btn-whats btn-pequeno nav-whats" aria-label="Fale com a gente no WhatsApp">
+            <IconeWhats size={18} />
+            <span className="nav-rotulo">Fale com a gente</span>
+          </a>
+          <a href={href.aluno()} className="btn btn-escuro btn-pequeno" aria-label={aluno.nome ? `Área do aluno de ${aluno.nome}` : "Área do aluno"}>
+            <Usuario size={16} />
+            <span className="nav-rotulo">{aluno.nome ? `Olá, ${aluno.nome.split(" ")[0]}` : "Área do aluno"}</span>
+          </a>
+        </div>
       </div>
+      <div className="regua-faixa" aria-hidden="true" />
     </header>
   );
 }
@@ -70,7 +77,13 @@ function Rodape() {
       </div>
       <div className="conteudo rodape-fim">
         <span>© {new Date().getFullYear()} {MARCA.nome}. Todos os direitos reservados.</span>
-        <span className="mono">±0,05 mm de cuidado em cada aula</span>
+        <dl className="carimbo mono" aria-label="Carimbo do desenho">
+          <div><dt>Projeto</dt><dd>{MARCA.nome}</dd></div>
+          <div><dt>Escala</dt><dd>1:1</dd></div>
+          <div><dt>Unidade</dt><dd>mm</dd></div>
+          <div><dt>Ref.</dt><dd>20 °C</dd></div>
+          <div><dt>Tol. geral</dt><dd>±0,05</dd></div>
+        </dl>
       </div>
     </footer>
   );
@@ -80,7 +93,6 @@ function WhatsFlutuante() {
   return (
     <a className="whats" href={linkWhatsApp()} target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
       <IconeWhats size={30} />
-      <span className="whats-rotulo">Fale com a gente</span>
     </a>
   );
 }

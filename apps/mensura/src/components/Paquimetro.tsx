@@ -140,7 +140,7 @@ export function Paquimetro() {
 
       {modo === "livre" ? (
         <div className="paq-leitura" aria-live="polite">
-          <strong className="paq-valor">{fmt(x)} <small>mm</small></strong>
+          <strong className="paq-valor lcd">{fmt(x)} <small>mm</small></strong>
           <p>
             Escala fixa antes do zero do nônio: <b>{inteiro} mm</b>. Traço do nônio que coincide: <b>{traco}</b> × 0,05 ={" "}
             <b>{fmt(traco * 0.05)} mm</b>.

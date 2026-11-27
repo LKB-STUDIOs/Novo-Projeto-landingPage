@@ -3,7 +3,7 @@ import { Check, IconeWhats, Seta } from "../components/Icones";
 import { Paquimetro } from "../components/Paquimetro";
 import { VideoYoutube } from "../components/VideoYoutube";
 import { PROFESSOR } from "../config";
-import { aulaAmostra, aulasDe, CURSOS, duracaoCurso, formatarDuracao } from "../cursos";
+import { aulaAmostra, aulasDe, CURSOS, duracaoCurso } from "../cursos";
 import { href } from "../lib/rota";
 import { linkWhatsApp } from "../lib/whatsapp";
 
@@ -42,6 +42,7 @@ export function Inicio() {
         <div className="conteudo hero-grade">
           <div className="hero-texto">
             <p className="sobretitulo mono">Escola de metrologia · cursos em vídeo</p>
+            <div className="cota" aria-hidden="true"><i /><span>tolerância ±0,05 mm</span><i /></div>
             <h1>
               Meça certo.
               <br />
@@ -62,10 +63,10 @@ export function Inicio() {
           </div>
         </div>
         <dl className="conteudo numeros">
-          <div><dt>Cursos</dt><dd>{CURSOS.length}</dd></div>
-          <div><dt>Aulas em vídeo</dt><dd>{totalAulas}</dd></div>
-          <div><dt>De conteúdo</dt><dd>{formatarDuracao(totalMin)}</dd></div>
-          <div><dt>Aulas grátis</dt><dd>{gratis}</dd></div>
+          <div><dt>Cursos</dt><dd className="lcd">{CURSOS.length}</dd></div>
+          <div><dt>Aulas em vídeo</dt><dd className="lcd">{totalAulas}</dd></div>
+          <div><dt>Horas de conteúdo</dt><dd className="lcd">{(totalMin / 60).toLocaleString("pt-BR", { maximumFractionDigits: 1 })}<small>h</small></dd></div>
+          <div><dt>Aulas grátis</dt><dd className="lcd">{gratis}</dd></div>
         </dl>
       </section>
 
