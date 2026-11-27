@@ -10,6 +10,7 @@ export function Rodape() {
         <nav aria-label="Rodapé">
           <Link to="/projetos/ferrus">Ferrus OS</Link>
           <Link to="/projetos/brisa">Brisa Temporadas</Link>
+          <Link to="/projetos/vertice">Vértice Imóveis</Link>
           <a href={`${import.meta.env.BASE_URL}casa-beulah-park/`}>Lume Residence</a>
           <a href={linkWhatsApp()} target="_blank" rel="noopener noreferrer">WhatsApp {WHATSAPP_EXIBICAO}</a>
         </nav>

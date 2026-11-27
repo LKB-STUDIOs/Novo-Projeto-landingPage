@@ -40,6 +40,7 @@ function Erro() {
 const Home = lazy(() => import("./pages/Home"));
 const Ferrus = lazy(() => import("./pages/ferrus/Ferrus"));
 const Brisa = lazy(() => import("./pages/brisa/Brisa"));
+const Vertice = lazy(() => import("./pages/vertice/Vertice"));
 const NaoEncontrada = lazy(() => import("./pages/NaoEncontrada"));
 
 function Layout() {
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
         { index: true, element: <Home /> },
         { path: "projetos/ferrus/:modulo?/:aba?", element: <Ferrus /> },
         { path: "projetos/brisa", element: <Brisa /> },
+        { path: "projetos/vertice", element: <Vertice /> },
         { path: "*", element: <NaoEncontrada /> },
       ],
     },

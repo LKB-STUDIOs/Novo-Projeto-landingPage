@@ -128,6 +128,26 @@ export function Projetos() {
           <a href={CAETE} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
         </div>
       </article>
+      <article className="projeto reverso" style={{ ["--c" as string]: "#d9a441" }}>
+        <Link to="/projetos/vertice" className="projeto-midia" aria-label="Abrir o site Vértice Imóveis">
+          <div className="mock mock-site">
+            <div className="mock-barra"><i /><i /><i /><span>verticeimoveis.com.br</span></div>
+            <div className="mock-hero"><span /><span /><em /></div>
+            <div className="mock-cards"><span /><span /><span /></div>
+          </div>
+        </Link>
+        <div className="projeto-info">
+          <p className="eyebrow">Site · Imobiliária</p>
+          <h3>Vértice Imóveis</h3>
+          <p>
+            Site de imobiliária (empresa fictícia) para compra e aluguel: busca por tipo, bairro, quartos e valor, busca
+            por código, favoritos, galeria de fotos, simulador de financiamento SAC e Price e atendimento pelo WhatsApp
+            sempre à mão.
+          </p>
+          <ul className="chips"><li>Busca e filtros</li><li>Favoritos</li><li>Financiamento</li><li>WhatsApp</li></ul>
+          <Link to="/projetos/vertice" className="btn btn-cor">Abrir site <SetaDiagonal /></Link>
+        </div>
+      </article>
     </section>
   );
 }

@@ -21,6 +21,7 @@ Requer Node 20.19 ou mais recente.
 | `/` | Portfólio: cena 3D guiada pela rolagem, serviços, processo, nichos, projetos, segurança, equipe e contato |
 | `/projetos/ferrus` | **Ferrus OS**: demonstração do sistema de gestão industrial com 13 módulos (dados fictícios, salvos só no navegador) |
 | `/projetos/brisa` | **Brisa Temporadas**: vitrine de imóveis com reserva no Airbnb |
+| `/projetos/vertice` | **Vértice Imóveis**: imobiliária fictícia (compra e aluguel) com busca, favoritos, simulador de financiamento e WhatsApp flutuante. Dados e número do WhatsApp em `src/pages/vertice/imoveis.ts` |
 | `/casa-beulah-park/` | **Lume Residence**: página estática de um imóvel, com tour em vídeo que acompanha a rolagem e detalhes de cada ambiente (arquivos em `public/casa-beulah-park/`) |
 
 Cada página é baixada só quando o visitante abre. O Three.js (a parte mais pesada) carrega depois que a página já apareceu.
