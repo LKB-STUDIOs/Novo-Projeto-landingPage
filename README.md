@@ -112,6 +112,7 @@ Projetos completos que têm o próprio `package.json` ficam em `apps/` e são ge
 | --- | --- |
 | `apps/support-cell-lab` | `/support-cell-lab/` |
 | `apps/caete` | `/caete/` |
+| `apps/mensura` | `/mensura/` |
 
 Para trabalhar em um deles: `cd apps/support-cell-lab && npm install && npm run dev`.
 
@@ -122,3 +123,19 @@ Portfólio de uma consultoria de licenciamento ambiental (empresa, clientes e n�
 - **Vídeo de fundo do hero:** `public/media/hero.mp4` (18 s, 1280×720, sem áudio, ~4 MB) e `hero-poster.jpg`. Imagem de mata em vale do Pixabay (Pixabay Content License, uso livre), cortada com *crossfade* de 2 s para o loop não dar salto. Para trocar, substitua os dois arquivos mantendo os nomes.
 - **Textos, clientes e cases:** `src/lib/data.ts`.
 - **WhatsApp do formulário:** constante `WHATSAPP` em `src/components/Contato.tsx` (hoje é um número fictício).
+
+### Mensura · Escola de Metrologia (`apps/mensura`)
+
+Plataforma de cursos de metrologia com aulas do YouTube tocando dentro do site, área do aluno e botão do WhatsApp. React 19 + Vite, sem back-end. Rotas pelo `#` (`#/curso/<slug>`, `#/curso/<slug>/aula/<id>`, `#/aluno`), então funciona em qualquer hospedagem estática.
+
+| Arquivo | O que trocar |
+| --- | --- |
+| `src/config.ts` | nome da escola, WhatsApp, dados do professor e códigos de acesso |
+| `src/cursos.ts` | cursos, preços, link de pagamento (`checkout`), módulos, aulas e o link do YouTube de cada aula |
+| `src/estilo.css` | cores e fontes (variáveis no começo do arquivo) |
+
+- **Vídeos:** cole o link do YouTube no campo `youtube` da aula. O player só carrega quando o aluno clica e usa `youtube-nocookie.com`. Aulas com `gratis: true` ficam abertas para qualquer visitante.
+- **Compra:** o botão abre o `checkout` do curso (Mercado Pago, Hotmart, Kiwify…) ou, se estiver vazio, o WhatsApp com a mensagem pronta.
+- **Área do aluno:** o aluno digita nome e código de acesso; o progresso fica salvo no navegador dele. Para criar um código: `npm run codigo -- TURMA-MARCO-26` e cole a linha em `CODIGOS_ACESSO`. **Apague o código de teste `DEMO-METRO` antes de vender.**
+- **Limite importante:** sem servidor, o bloqueio das aulas pagas é só de interface. Quem souber mexer no código do site encontra os links dos vídeos. Publique as aulas pagas como "Não listado" no YouTube e, quando precisar de proteção real (login por aluno, acesso com prazo), use um back-end (Supabase, Firebase) ou a área de membros de uma plataforma como Hotmart ou Kiwify.
+- **Página do paquímetro interativo** (`src/components/Paquimetro.tsx`): nônio de 0,05 mm, com modo explorar e modo desafio.

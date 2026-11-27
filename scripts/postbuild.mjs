@@ -13,6 +13,7 @@ const npm = process.platform === "win32" ? "npm.cmd" : "npm";
 
 const MICROSITES = [{ pasta: "apps/support-cell-lab", rota: "support-cell-lab" },
   { pasta: "apps/caete", rota: "caete" },
+  { pasta: "apps/mensura", rota: "mensura" },
 ];
 
 for (const { pasta, rota } of MICROSITES) {
