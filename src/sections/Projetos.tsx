@@ -5,6 +5,7 @@ import { SetaDiagonal } from "../components/Icones";
 const CASA_BEULAH_PARK = `${import.meta.env.BASE_URL}casa-beulah-park/`;
 const SUPPORT_CELL_LAB = `${import.meta.env.BASE_URL}support-cell-lab/`;
 const CAETE = `${import.meta.env.BASE_URL}caete/`;
+const MENSURA = `${import.meta.env.BASE_URL}mensura/`;
 
 export function Projetos() {
   return (
@@ -126,6 +127,26 @@ export function Projetos() {
           </p>
           <ul className="chips"><li>Vídeo de fundo</li><li>GSAP + Motion</li><li>Rolagem imersiva</li><li>Simulador</li></ul>
           <a href={CAETE} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
+        </div>
+      </article>
+      <article className="projeto reverso" style={{ ["--c" as string]: "#ff8a65" }}>
+        <a href={MENSURA} className="projeto-midia" aria-label="Abrir o site Mensura, escola de metrologia">
+          <div className="mock mock-site">
+            <div className="mock-barra"><i /><i /><i /><span>mensura.com.br</span></div>
+            <div className="mock-hero"><span /><span /><em /></div>
+            <div className="mock-cards"><span /><span /><span /></div>
+          </div>
+        </a>
+        <div className="projeto-info">
+          <p className="eyebrow">Plataforma de cursos · Metrologia</p>
+          <h3>Mensura</h3>
+          <p>
+            Escola online de metrologia com aulas do YouTube tocando dentro do site, área do aluno com código de acesso
+            e progresso salvo, compra pelo WhatsApp ou link de pagamento e um paquímetro interativo para treinar a
+            leitura do nônio.
+          </p>
+          <ul className="chips"><li>Aulas em vídeo</li><li>Área do aluno</li><li>Paquímetro interativo</li><li>WhatsApp</li></ul>
+          <a href={MENSURA} className="btn btn-cor">Abrir site <SetaDiagonal /></a>
         </div>
       </article>
     </section>
