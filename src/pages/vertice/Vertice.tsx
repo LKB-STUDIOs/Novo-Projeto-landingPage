@@ -165,9 +165,9 @@ function Seletor<T extends string | number>({ rotulo, valor, opcoes, onChange, c
   );
 }
 
-function Foto({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
-  const [erro, setErro] = useState(false);
-  if (erro) return <span className={`vt-foto-vazia ${className}`} role="img" aria-label={alt} />;
+function Foto({ src, alt, className = "", iniciais }: { src: string; alt: string; className?: string; iniciais?: string }) {
+  const [erro, setErro] = useState(!src);
+  if (erro) return <span className={`vt-foto-vazia ${iniciais ? "vt-iniciais" : ""} ${className}`} role="img" aria-label={alt}>{iniciais}</span>;
   return <img className={className} src={src} alt={alt} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={() => setErro(true)} />;
 }
 
@@ -344,11 +344,9 @@ export default function Vertice() {
   const contarTipo = (t: Tipo) => IMOVEIS.filter((i) => i.tipo === t).length;
   const NAV = [["#imoveis", "Comprar", () => aplicar({ negocio: "venda" })], ["#imoveis", "Alugar", () => aplicar({ negocio: "aluguel" })], ["#lancamentos", "Lançamentos"], ["#financiamento", "Financiamento"], ["#corretores", "Corretores"], ["#unidades", "Unidades"], ["#contato", "Contato"]] as const;
 
-  const enviarContato = (e: FormEvent) => {
-    e.preventDefault();
-    const txt = [`Olá! Meu nome é ${limparTexto(contato.nome, 80) || "—"}.`, `Interesse: ${contato.interesse}`, contato.mensagem && `\n${limparTexto(contato.mensagem, 400)}`].filter(Boolean).join("\n");
-    window.open(whats(txt), "_blank", "noopener,noreferrer");
-  };
+  // o botão é um link de verdade (abre o WhatsApp em qualquer navegador); sem nome, ele só pede o nome
+  const linkContato = whats([`Olá! Meu nome é ${limparTexto(contato.nome, 80) || "—"}.`, `Interesse: ${contato.interesse}`, contato.mensagem && `\n${limparTexto(contato.mensagem, 400)}`].filter(Boolean).join("\n"));
+  const nomeRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="vt">
@@ -566,7 +564,7 @@ export default function Vertice() {
         <div className="vt-corretores">
           {CORRETORES.map((c, n) => (
             <Revelar key={c.nome} atraso={n * 0.08} className="vt-corretor">
-              <Foto src={c.foto} alt={`Foto de ${c.nome}`} />
+              <Foto src={c.foto} alt={`Foto de ${c.nome}`} iniciais={c.nome.split(" ").map((p) => p[0]).join("")} />
               <h3>{c.nome}</h3>
               <p>{c.area}</p>
               <small>{c.creci}</small>
@@ -602,17 +600,17 @@ export default function Vertice() {
             </div>
           ))}
         </div>
-        <form className="vt-form" onSubmit={enviarContato}>
+        <form className="vt-form" onSubmit={(e) => e.preventDefault()}>
           <h3>Envie uma mensagem</h3>
           <p className="vt-mini">A conversa abre no WhatsApp. Nada é guardado neste site.</p>
-          <label>Seu nome<input required maxLength={80} value={contato.nome} onChange={(e) => setContato({ ...contato, nome: e.target.value })} autoComplete="name" /></label>
+          <label>Seu nome<input id="vt-nome" ref={nomeRef} required maxLength={80} value={contato.nome} onChange={(e) => setContato({ ...contato, nome: e.target.value })} autoComplete="name" /></label>
           <div className="vt-form-campo">
             <span>Quero</span>
             <Seletor className="vt-sel-form" valor={contato.interesse} onChange={(v) => setContato({ ...contato, interesse: v })}
               opcoes={["Comprar um imóvel", "Alugar um imóvel", "Financiamento", "Avaliação de imóvel", "Outro assunto"].map((o) => ({ valor: o, rotulo: o }))} />
           </div>
           <label>Mensagem<textarea rows={4} maxLength={400} value={contato.mensagem} onChange={(e) => setContato({ ...contato, mensagem: e.target.value })} placeholder="Conte o que você procura: bairro, número de quartos, faixa de valor…" /></label>
-          <button className="vt-btn" type="submit"><IconeWhats size={18} />Enviar pelo WhatsApp</button>
+          <a className="vt-btn" href={linkContato} {...externo} onClick={(e) => { if (!contato.nome.trim()) { e.preventDefault(); nomeRef.current?.reportValidity(); nomeRef.current?.focus(); } }}><IconeWhats size={18} />Enviar pelo WhatsApp</a>
         </form>
       </section>
 

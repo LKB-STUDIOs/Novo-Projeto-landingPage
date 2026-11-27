@@ -407,3 +407,4 @@
 .vt-sel-lista li.ativo { background: var(--bg); }
 .vt-sel-lista li.sel { color: var(--brand); font-weight: 800; }
 .vt-sel-lista li.sel svg { color: var(--gold); }
+.vt-iniciais { display: grid !important; place-items: center; color: var(--gold-2); font-weight: 800; font-size: 1.8rem; letter-spacing: .02em; }
